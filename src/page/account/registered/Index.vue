@@ -6,24 +6,15 @@
                     <div>注册帐号</div>
                 </div>
                 <div class="content-wapper">
-                    <el-input v-model="mobile" placeholder="您的手机号"></el-input>
-                    <verification-code ref="verification" :mobile="mobile"></verification-code>
-                    <el-input v-model="userName" placeholder="昵称"></el-input>
-                    <el-button type="primary" class="regist" @click="registerByMobile()">注册</el-button>
-                    <div class="prompt-login">
-                        已有租伴网帐号？
-                        <router-link :to="{path: '/login'}">直接登录</router-link>
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import VerificationCode from '../VerificationCode'
 export default {
     components: {
-        VerificationCode
     },
     data() {
         return {

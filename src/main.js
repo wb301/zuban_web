@@ -6,10 +6,8 @@ import HttpReqDefine from './global-define/HttpReqDefine'
 
 import VueLazyLoad from 'vue-lazyload'
 import EmptyYouFan from './assets/logo.png'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import 'weui/dist/style/weui.min.css'
 
-Vue.use(ElementUI)
 Vue.use(VueLazyLoad, {
     error: EmptyYouFan,
     loading: EmptyYouFan
