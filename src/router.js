@@ -11,18 +11,23 @@ const router = new Router({
         }
     }, {
         path: '/login',
-        component: function(resolve){
-            require(['./page/account/login/Index.vue'],resolve)
+        component: function(resolve) {
+            require(['./page/account/login/Index.vue'], resolve)
         }
-    },{
+    }, {
         path: '/registered',
-        component: function(resolve){
-            require(['./page/account/Registered/Index.vue'],resolve)
+        component: function(resolve) {
+            require(['./page/account/registered/Index.vue'], resolve)
         }
-    },{
-        path: '*',
+    }, {
+        path: '/',
         redirect: {
             path: '/index'
+        }
+    }, {
+        path: '*',
+        redirect: {
+            path: '/registered'
         }
     }]
 })

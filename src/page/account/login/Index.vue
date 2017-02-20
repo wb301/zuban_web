@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="container-body">
-            <div class="title-wapper">租伴网</div>
             <div class="wapper-main">
                 <div class="prompt-wapper">
                     <div>帐号登录</div>
@@ -73,13 +72,10 @@ a {
     width: 358px;
     height: 398px;
     background: #FFFFFF;
-    border: 1px solid #D3DCE6;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
     margin: auto;
     margin-top: 40px;
     .prompt-wapper {
         height: 50px;
-        border-bottom: 1px solid #E0E6ED;
         font-size: 14px;
         color: #1F2D3D;
         text-align: center;
