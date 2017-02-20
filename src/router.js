@@ -10,6 +10,16 @@ const router = new Router({
             require(['./components/Hello.vue'], resolve)
         }
     }, {
+        path: '/login',
+        component: function(resolve){
+            require(['./page/account/login/Index.vue'],resolve)
+        }
+    },{
+        path: '/registered',
+        component: function(resolve){
+            require(['./page/account/Registered/Index.vue'],resolve)
+        }
+    },{
         path: '*',
         redirect: {
             path: '/index'
