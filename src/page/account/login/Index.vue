@@ -13,11 +13,7 @@
                     </div>
                 </div>
                 <div class="weui-cell"></div>
-<<<<<<< HEAD
-                <a href="javascript:;" class="weui-btn weui-btn_primary btn">登录</a>
-=======
                 <a href="javascript:;" class="weui-btn weui-btn_primary" @click="login">登录</a>
->>>>>>> 965a5d986e2a640e2ca88f924b08486ab04b719b
                 <div class="weui-flex">
                     <div class="weui-flex__item flex-item">
                         <router-link :to="{path: '/registered'}">手机快速注册</router-link>
@@ -88,7 +84,6 @@ export default {
         }
     }
     .flex-item{
-        font-family: .PingFangSC-Regular;
         font-size: 14px;
         color: #4990E2;
     }
