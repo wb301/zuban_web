@@ -26,8 +26,8 @@ NormalHelper.isArray = function(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
 };
 
-NormalHelper.alert = function(p_msg){
-  alert(p_msg);
+NormalHelper.alert = function(p_msg) {
+    weui.alert(p_msg);
 };
 
 //获取cookie

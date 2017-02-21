@@ -38,8 +38,6 @@
     </div>
 </template>
 <script>
-import weui from 'src/lib/js/weui.min.js'
-
 export default {
     components: {},
     data() {
@@ -72,20 +70,18 @@ export default {
                 this.regionList = response;
             },
             fail: (response) => {
-                alert(response.msg)
+                weui.alert(response.msg)
             }
         };
         AjaxHelper.GetRequest(p_obj);
     },
     methods: {
         selectRegion() {
+            var _self = this;
             weui.picker(this.regionList, {
                 className: 'custom-classname',
-                onChange: function(result) {
-                    console.log(result)
-                },
                 onConfirm: function(result) {
-                    console.log(result)
+                    _self.region_code = result[2].value;
                 },
                 id: 'doubleLinePicker'
             });
@@ -117,13 +113,12 @@ export default {
                 action: 'c=Zb&m=Register&a=registerByMobile',
                 param: param,
                 success: (response) => {
-                    // NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, response);
-                    // this.$router.push({
-                    //     path: '/dashboard'
-                    // });
+                    this.$router.push({
+                        path: 'login'
+                    });
                 },
                 fail: (response) => {
-                    alert(response.msg)
+                    weui.alert(response.msg)
                 }
             };
             AjaxHelper.PostRequest(p_obj);

@@ -15,7 +15,8 @@ var plugins = [
         'ImageHelper': 'src/lib/common/ImageHelper.js',
         'NormalHelper': 'src/lib/common/NormalHelper.js',
         'SaveDataHelper': 'src/lib/common/SaveDataHelper.js',
-        'EventTrackHelper': 'src/lib/common/EventTrackHelper.js'
+        'EventTrackHelper': 'src/lib/common/EventTrackHelper.js',
+        'weui': 'src/lib/js/weui.min.js'
     })
 ];
 
