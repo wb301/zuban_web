@@ -60,11 +60,11 @@ AjaxHelper.PostRequest = function(p_obj) {
         if (response.data.code == GlobalModel.AJAX_STATUS_SUCCESS) {
             p_obj.success.apply(null, [response.data.data]);
         } else {
-          if (p_obj.fail) {
-              p_obj.fail.apply(null, [response.data]);
-          } else {
-              NormalHelper.alert(response.data.msg);
-          }
+            if (p_obj.fail) {
+                p_obj.fail.apply(null, [response.data]);
+            } else {
+                NormalHelper.alert(response.data.msg);
+            }
         }
     }, (response) => {
         //请求异常
