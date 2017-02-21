@@ -18,10 +18,10 @@ AjaxHelper.GetRequest = function(p_obj) {
         p_obj.action = '';
     }
     var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
-    Vue.http.get(serverUrl + p_obj.action, {
+    Vue.http.get(serverUrl, {
         params: p_obj.param
     }).then((response) => {
-        if (response.data.code == GlobalModel.AJAX_STATUS_SUCCESS) {
+        if (response.data.status == GlobalModel.AJAX_STATUS_SUCCESS) {
             p_obj.success.apply(null, [response.data.data]);
         } else {
             if (p_obj.fail) {
@@ -57,7 +57,7 @@ AjaxHelper.PostRequest = function(p_obj) {
     Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
         emulateJSON: true
     }).then((response) => {
-        if (response.data.code == GlobalModel.AJAX_STATUS_SUCCESS) {
+        if (response.data.status == GlobalModel.AJAX_STATUS_SUCCESS) {
             p_obj.success.apply(null, [response.data.data]);
         } else {
             if (p_obj.fail) {

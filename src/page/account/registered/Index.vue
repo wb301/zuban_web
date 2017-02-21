@@ -14,7 +14,7 @@
                 </div>
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <input class="weui-input" v-model="region" type="text" @click="selectRegion" placeholder="请设置地区" />
+                        <input class="weui-input" id="region" v-model="region" type="text" @click="selectRegion" placeholder="请设置地区" />
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_vcode">
@@ -39,6 +39,7 @@
 </template>
 <script>
 import weui from 'src/lib/js/weui.min.js'
+
 export default {
     components: {},
     data() {
@@ -46,37 +47,47 @@ export default {
             mobile: '',
             password: '',
             code: '',
-            region: ''
+            region: '',
+            regionList: [],
+            region_code: 0
         }
     },
     mounted() {
-        
+        $("#region").focus(function() {
+            document.activeElement.blur();
+        });
+        var param = {
+            c: 'Zb',
+            m: 'Region',
+            a: 'getRegionList',
+            mapping: {
+                name: 'label',
+                code: 'value'
+            }
+        };
+        var p_obj = {
+            action: '',
+            param: param,
+            success: (response) => {
+                this.regionList = response;
+            },
+            fail: (response) => {
+                alert(response.msg)
+            }
+        };
+        AjaxHelper.GetRequest(p_obj);
     },
     methods: {
         selectRegion() {
-            weui.picker([{
-                label: '飞机票',
-                value: 0,
-                disabled: true // 不可用
-            }, {
-                label: '火车票',
-                value: 1
-            }, {
-                label: '汽车票',
-                value: 3
-            }, {
-                label: '公车票',
-                value: 4,
-            }], {
+            weui.picker(this.regionList, {
                 className: 'custom-classname',
-                defaultValue: [3],
                 onChange: function(result) {
                     console.log(result)
                 },
                 onConfirm: function(result) {
                     console.log(result)
                 },
-                id: 'singleLinePicker'
+                id: 'doubleLinePicker'
             });
         },
         getCode() {
@@ -97,11 +108,13 @@ export default {
         },
         registered() {
             var param = {
-                mobile: this.mobile,
-                password: this.password
+                account: this.mobile,
+                password: this.password,
+                code: this.code,
+                region_code: this.region_code
             };
             var p_obj = {
-                action: 'c=Zb&m=Login&a=login',
+                action: 'c=Zb&m=Register&a=registerByMobile',
                 param: param,
                 success: (response) => {
                     // NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, response);
