@@ -79,9 +79,11 @@ export default {
         selectRegion() {
             var _self = this;
             weui.picker(this.regionList, {
+                defaultValue:[2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.region_code = result[2].value;
+                    _self.region = result[0].label + " " + result[1].label + " " + result[2].label
                 },
                 id: 'doubleLinePicker'
             });
