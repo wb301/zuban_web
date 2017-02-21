@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="weui-cell"></div>
-                <a href="javascript:;" class="weui-btn weui-btn_primary">登录</a>
+                <a href="javascript:;" class="weui-btn weui-btn_primary" @click="login">登录</a>
                 <div class="weui-flex">
                     <div class="weui-flex__item">
                         <router-link :to="{path: '/registered'}">手机快速注册</router-link>
@@ -45,7 +45,7 @@ export default {
                 password: this.password
             };
             var p_obj = {
-                action: '/users/Login/Login',
+                action: 'c=Zb&m=Login&a=login',
                 param: param,
                 success: (response) => {
                     // NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, response);
@@ -57,7 +57,7 @@ export default {
                     sweetAlert(response.msg)
                 }
             };
-            AjaxHelper.GetRequest(p_obj);
+            AjaxHelper.PostRequest(p_obj);
         }
     },
     destroyed() {}
