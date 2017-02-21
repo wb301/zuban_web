@@ -27,7 +27,7 @@ NormalHelper.isArray = function(obj) {
 };
 
 NormalHelper.alert = function(p_msg){
-  sweetAlert(p_msg);
+  alert(p_msg);
 };
 
 //获取cookie
