@@ -41,7 +41,7 @@ export default {
     methods: {
         login() {
             var param = {
-                mobile: this.mobile,
+                account: this.mobile,
                 password: this.password
             };
             var p_obj = {
