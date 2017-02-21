@@ -9,19 +9,19 @@
 // 全局错误处理，全局loading
 // import { setLoading, setTip } from './vuex/actions/doc_actions'
 export default function(request, next) {
-    var userToken = NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) : '';
-    userToken = 'b28a3bda7bc7673bfe0747fab27db466';
-    if (userToken) {
-        if (request.method == 'GET') {
+    // var userToken = NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) : '';
+    // userToken = 'b28a3bda7bc7673bfe0747fab27db466';
+    // if (userToken) {
+    //     if (request.method == 'GET') {
 
-            request.params.token = userToken;
+    //         request.params.token = userToken;
 
-        } else if (request.method == 'POST') {
+    //     } else if (request.method == 'POST') {
 
-            request.body.token = userToken;
+    //         request.body.token = userToken;
 
-        }
-    }
+    //     }
+    // }
     //当用到当前组件对象时, 使用 GlobalModel.RootVue
     next((res) => {
         // setLoading(store, false)
