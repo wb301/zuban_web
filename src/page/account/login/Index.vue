@@ -13,9 +13,9 @@
                     </div>
                 </div>
                 <div class="weui-cell"></div>
-                <a href="javascript:;" class="weui-btn weui-btn_primary">登录</a>
+                <a href="javascript:;" class="weui-btn weui-btn_primary btn">登录</a>
                 <div class="weui-flex">
-                    <div class="weui-flex__item">
+                    <div class="weui-flex__item flex-item">
                         <router-link :to="{path: '/registered'}">手机快速注册</router-link>
                     </div>
                     <div class="weui-flex__item">
@@ -67,6 +67,13 @@ export default {
 .container-body {
     margin-top: 20px;
     .weui-btn,
+    .btn{
+        height:45px;
+        width:345px;
+        background: #A877E6;
+        box-shadow: 0 4px 9px 0 rgba(178,125,227,0.80);
+        border-radius: 4px;
+    }
     .weui-flex {
         margin: 0 15px;
         >.weui-flex__item:nth-child(1) {
@@ -75,6 +82,11 @@ export default {
         >.weui-flex__item:nth-child(2) {
             text-align: right;
         }
+    }
+    .flex-item{
+        font-family: .PingFangSC-Regular;
+        font-size: 14px;
+        color: #4990E2;
     }
 }
 </style>
