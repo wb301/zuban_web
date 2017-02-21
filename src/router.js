@@ -27,7 +27,7 @@ const router = new Router({
     }, {
         path: '*',
         redirect: {
-            path: '/registered'
+            path: '/login'
         }
     }]
 })

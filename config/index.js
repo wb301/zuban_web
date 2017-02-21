@@ -23,7 +23,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/zuban': {
-                target: "http://test.guleshop.com",
+                target: "http://localhost",
                 changeOrigin: true
             }
         },
