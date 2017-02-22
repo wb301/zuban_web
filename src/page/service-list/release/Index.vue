@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container-body">
-        11
+        发布
         </div>
     </div>
 </template>
