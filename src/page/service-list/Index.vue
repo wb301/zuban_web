@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="page__bd">
+            <navbar :side-list="navbarList"></navbar>
             <router-view></router-view>
             <tabbar :side-list="tabbarList"></tabbar>
         </div>
@@ -8,6 +9,7 @@
 </template>
 <script>
 import Tabbar from 'components/common/Tabbar'
+import Navbar from 'components/common/Navbar'
 import fabu from 'components/common/images/fabu.png'
 import fuwu from 'components/common/images/fuwu.png'
 import wode from 'components/common/images/wode.png'
@@ -19,6 +21,19 @@ export default {
     },
     data() {
         return {
+            navbarList:[{
+                title: '服务',
+                path: 'list',
+                img: fuwu
+            }, {
+                title: '发布',
+                path: 'list',
+                img: fabu
+            }, {
+                title: '我的',
+                path: 'list',
+                img: wode
+            }],
             tabbarList: [{
                 title: '服务',
                 path: 'list',
