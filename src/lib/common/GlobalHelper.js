@@ -4,10 +4,10 @@ GlobalModel.SERVER_DOMAIN = '';
 GlobalModel.SERVER_PATH = '/zuban';
 if (process.env.NODE_ENV === 'production') {
     GlobalModel.SERVER_DOMAIN = '';
+    GlobalModel.SERVER_PATH = '/youfan/api/index.php?';
 } else {
     GlobalModel.SERVER_DOMAIN = '';
     GlobalModel.WAP_URL = 'http://test.guleshop.com/youfan/web/';
-    GlobalModel.SERVER_PATH = '/youfan/api/index.php?';
 }
 GlobalModel.SERVER_URL = GlobalModel.SERVER_DOMAIN + GlobalModel.SERVER_PATH;
 GlobalModel.WX_JS_SDK_CONFIG = GlobalModel.SERVER_DOMAIN + '/appsdk_wx_js/wx_config.php?callback=?';

@@ -22,7 +22,7 @@
                         <input class="weui-input" type="text" v-model="code" maxlength="6" placeholder="输入验证码">
                     </div>
                     <div class="weui-cell__ft">
-                        <a href="javascript:void(0);" class="weui-vcode-btn" disabled="true" @click="getCode">{{codeBtn.prompt}}</a>
+                        <a href="javascript:void(0);" :class="codeBtn.disabled" class="weui-vcode-btn" @click="getCode">{{codeBtn.prompt}}</a>
                     </div>
                 </div>
                 <div class="weui-cell"></div>
@@ -48,13 +48,13 @@ export default {
             region: '',
             regionList: [],
             region_code: 0,
-            codeBtn:{
-                prompt:'获取验证码',
-                disabled:false
+            codeBtn: {
+                prompt: '获取验证码',
+                disabled: ''
             },
             mobileCode: ''
-    }
-},
+        }
+    },
     mounted() {
         $("#region").focus(function() {
             document.activeElement.blur();
@@ -84,7 +84,7 @@ export default {
         selectRegion() {
             var _self = this;
             weui.picker(this.regionList, {
-                defaultValue:[2],
+                defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.region_code = result[2].value;
@@ -94,41 +94,44 @@ export default {
             });
         },
         getCode() {
-            var param = {
-                mobile: this.mobile
-            };
-            this.codeBtn = {
-                        prompt: "重新发送(60)",
-                        disabled: true
-                   };
-                   var _self = this;
-                   var time = 60;
-                    var interval = setInterval(function() {
-                        time--;
-                        _self.codeBtn.prompt = "重新发送(" + time + ")";
-                        if (time === 1) {
-                            clearInterval(interval);
-                            _self.codeBtn = {
-                                prompt: "重新发送",
-                                disabled: false
-                            }
-                        };
-                    }, 1000);
-            // if(!(/^1(3|4|5|7|8)\d{9}$/.test(param.mobile))){ 
-            //     weui.alert("手机号码有误，请重填");  
-            //     return false; 
-            // };
-            // var p_obj = {
-            //     action: 'c=Zb&m=User&a=sendMobileCode',
-            //     param: param,
-            //     success: (response) => {
-                   
-            //     },
-            //     fail: (response) => {
-            //         weui.alert(response.msg)
-            //     }
-            // };
-            // AjaxHelper.PostRequest(p_obj);
+            if (this.codeBtn.disabled == "") {
+                var param = {
+                    mobile: this.mobile
+                };
+                this.codeBtn = {
+                    prompt: "重新发送(60)",
+                    disabled: 'a_default'
+                };
+
+                if (!(/^1(3|4|5|7|8)\d{9}$/.test(param.mobile))) {
+                    weui.alert("手机号码有误，请重填");
+                    return false;
+                };
+                var p_obj = {
+                    action: 'c=Zb&m=User&a=sendMobileCode',
+                    param: param,
+                    success: (response) => {
+                        var _self = this;
+                        var time = 60;
+                        var interval = setInterval(function() {
+                            time--;
+                            _self.codeBtn.prompt = "重新发送(" + time + ")";
+                            if (time === 1) {
+                                clearInterval(interval);
+                                _self.codeBtn = {
+                                    prompt: "重新发送",
+                                    disabled: ''
+                                }
+                            };
+                        }, 1000);
+                    },
+                    fail: (response) => {
+                        weui.alert(response.msg)
+                    }
+                };
+                AjaxHelper.PostRequest(p_obj);
+            }
+
         },
         registered() {
             var param = {
@@ -136,13 +139,13 @@ export default {
                 password: this.password,
                 code: this.code,
                 region_code: this.region_code
-            }; 
-            var code=/^(\w){6,20}$/;  
-                if (!exec(code)){
-                    return false
-                } else {
-                      return true  
-                    }
+            };
+            var code = /^(\w){6,20}$/;
+            if (!exec(code)) {
+                return false
+            } else {
+                return true
+            }
             var p_obj = {
                 action: 'c=Zb&m=Register&a=registerByMobile',
                 param: param,
@@ -164,6 +167,9 @@ export default {
 <style lang="less" scoped>
 .container-body {
     margin-top: 20px;
+    .a_default {
+        color: #e2e2e2;
+    }
     .weui-flex,
     .weui-btn {
         margin: 0 15px;
