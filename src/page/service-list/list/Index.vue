@@ -161,6 +161,7 @@ export default {
                 param: param,
                 success: (response) => {
                     this.productList = response.list;
+                    // this.createDropload();
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -169,7 +170,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         createDropload() {
-            $('.inner').dropload({
+            var dropload = $('.dropload').dropload({
                 domUp: {
                     domClass: 'dropload-up',
                     domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
@@ -183,52 +184,52 @@ export default {
                     domNoData: '<div class="dropload-noData">暂无数据</div>'
                 },
                 loadUpFn: function(me) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'json/update.json',
-                        dataType: 'json',
-                        success: function(data) {
-                            var result = '';
-                            for (var i = 0; i < data.lists.length; i++) {
-                                result += '<a class="item opacity" href="' + data.lists[i].link + '">' + '<img src="' + data.lists[i].pic + '" alt="">' + '<h3>' + data.lists[i].title + '</h3>' + '<span class="date">' + data.lists[i].date + '</span>' + '</a>';
-                            }
-                            // 为了测试，延迟1秒加载
-                            setTimeout(function() {
-                                $('.lists').html(result);
-                                // 每次数据加载完，必须重置
-                                dropload.resetload();
-                            }, 1000);
-                        },
-                        error: function(xhr, type) {
-                            alert('Ajax error!');
-                            // 即使加载出错，也得重置
-                            dropload.resetload();
-                        }
-                    });
+                    // $.ajax({
+                    //     type: 'GET',
+                    //     url: 'json/update.json',
+                    //     dataType: 'json',
+                    //     success: function(data) {
+                    //         var result = '';
+                    //         for (var i = 0; i < data.lists.length; i++) {
+                    //             result += '<a class="item opacity" href="' + data.lists[i].link + '">' + '<img src="' + data.lists[i].pic + '" alt="">' + '<h3>' + data.lists[i].title + '</h3>' + '<span class="date">' + data.lists[i].date + '</span>' + '</a>';
+                    //         }
+                    //         // 为了测试，延迟1秒加载
+                    //         setTimeout(function() {
+                    //             $('.lists').html(result);
+                    //             // 每次数据加载完，必须重置
+                    //             dropload.resetload();
+                    //         }, 1000);
+                    //     },
+                    //     error: function(xhr, type) {
+                    //         alert('Ajax error!');
+                    //         // 即使加载出错，也得重置
+                    dropload.resetload();
+                    //     }
+                    // });
                 },
                 loadDownFn: function(me) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'json/more.json',
-                        dataType: 'json',
-                        success: function(data) {
-                            var result = '';
-                            for (var i = 0; i < data.lists.length; i++) {
-                                result += '<a class="item opacity" href="' + data.lists[i].link + '">' + '<img src="' + data.lists[i].pic + '" alt="">' + '<h3>' + data.lists[i].title + '</h3>' + '<span class="date">' + data.lists[i].date + '</span>' + '</a>';
-                            }
-                            // 为了测试，延迟1秒加载
-                            setTimeout(function() {
-                                $('.lists').append(result);
-                                // 每次数据加载完，必须重置
-                                dropload.resetload();
-                            }, 1000);
-                        },
-                        error: function(xhr, type) {
-                            alert('Ajax error!');
-                            // 即使加载出错，也得重置
-                            dropload.resetload();
-                        }
-                    });
+                    // $.ajax({
+                    //     type: 'GET',
+                    //     url: 'json/more.json',
+                    //     dataType: 'json',
+                    //     success: function(data) {
+                    //         var result = '';
+                    //         for (var i = 0; i < data.lists.length; i++) {
+                    //             result += '<a class="item opacity" href="' + data.lists[i].link + '">' + '<img src="' + data.lists[i].pic + '" alt="">' + '<h3>' + data.lists[i].title + '</h3>' + '<span class="date">' + data.lists[i].date + '</span>' + '</a>';
+                    //         }
+                    //         // 为了测试，延迟1秒加载
+                    //         setTimeout(function() {
+                    //             $('.lists').append(result);
+                    //             // 每次数据加载完，必须重置
+                    //             dropload.resetload();
+                    //         }, 1000);
+                    //     },
+                    //     error: function(xhr, type) {
+                    //         alert('Ajax error!');
+                    //         // 即使加载出错，也得重置
+                    dropload.resetload();
+                    //     }
+                    // });
                 }
             });
         }
@@ -250,5 +251,9 @@ export default {
     top: 50px;
     left: 0;
     right: 0;
+    bottom: 3px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
 }
 </style>
