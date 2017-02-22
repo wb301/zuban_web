@@ -9,12 +9,13 @@
                     </div>
                     <div class="weui-navbar__item">
                         分类
-<img :src="image" />                    </div>
+                        <img :src="image" /> </div>
                     <div class="weui-navbar__item">
                         排序
-<img :src="image" />                    </div>
+                        <img :src="image" /> </div>
                 </div>
             </div>
+            <div></div>
         </div>
     </div>
 </template>
@@ -37,11 +38,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    .weui-tab{
-        background: #FFFFFF;
-    }
-    img{
-        width: 12px;
-        height: 12px;
-    }
+.weui-tab {
+    background: #FFFFFF;
+}
+
+img {
+    width: 12px;
+    height: 12px;
+}
 </style>
