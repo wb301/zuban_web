@@ -9,19 +9,32 @@
                     </div>
                     <div class="weui-navbar__item">
                         分类
+<<<<<<< HEAD
                         <img :src="image" /> 
                     </div>
                     <div class="weui-navbar__item" @click="sort">
                         排序
                         <img :src="image" /> 
                     </div>
+=======
+                        <img :src="image" /> </div>
+                    <div class="weui-navbar__item">
+                        排序
+                        <img :src="image" /> </div>
+>>>>>>> 9d17b2826e59264f5fb18e3d3aae206e1adc9943
                 </div>
+            </div>
+            <div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import xiala from './image/xiala.png'
+import 'src/lib/js/dropload.min.js'
+import 'src/lib/css/dropload.css'
+
+
 export default {
     components: {},
     data() {
@@ -51,11 +64,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    .weui-tab{
-        background: #FFFFFF;
-    }
-    img{
-        width: 12px;
-        height: 12px;
-    }
+.weui-tab {
+    background: #FFFFFF;
+}
+
+img {
+    width: 12px;
+    height: 12px;
+}
 </style>
