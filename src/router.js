@@ -20,6 +20,17 @@ const router = new Router({
             require(['./page/account/registered/Index.vue'], resolve)
         }
     }, {
+        path: '/service-list',
+        component: function(resolve) {
+            require(['./page/service-list/Index.vue'], resolve)
+        },
+        children: [{
+            path: '/list',
+            component: function(resolve) {
+                require(['./page/service-list/list/Index.vue'], resolve)
+            }
+        }]
+    }, {
         path: '/',
         redirect: {
             path: '/index'
