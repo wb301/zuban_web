@@ -29,6 +29,16 @@ const router = new Router({
             component: function(resolve) {
                 require(['./page/service-list/list/Index.vue'], resolve)
             }
+        }, {
+            path: '/release',
+            component: function(resolve) {
+                require(['./page/service-list/release/Index.vue'], resolve)
+            }
+        }, {
+            path: '/my',
+            component: function(resolve) {
+                require(['./page/service-list/my/Index.vue'], resolve)
+            }
         }]
     }, {
         path: '/',

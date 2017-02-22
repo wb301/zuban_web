@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page__bd">
-            <router-view></router-view>
+            <router-view class="wapper"></router-view>
             <tabbar :side-list="tabbarList"></tabbar>
         </div>
     </div>
@@ -25,11 +25,11 @@ export default {
                 img: fuwu
             }, {
                 title: '发布',
-                path: 'list',
+                path: 'release',
                 img: fabu
             }, {
                 title: '我的',
-                path: 'list',
+                path: 'my',
                 img: wode
             }]
         }
@@ -51,5 +51,12 @@ export default {
     bottom: 0;
     right: 0;
     top: 0;
+    .wapper {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 50px;
+    }
 }
 </style>
