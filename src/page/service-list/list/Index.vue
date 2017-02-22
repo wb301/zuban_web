@@ -15,12 +15,17 @@
                         <img :src="image" /> </div>
                 </div>
             </div>
-            <div></div>
+            <div>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import xiala from './image/xiala.png'
+import 'src/lib/js/dropload.min.js'
+import 'src/lib/css/dropload.css'
+
+
 export default {
     components: {},
     data() {
