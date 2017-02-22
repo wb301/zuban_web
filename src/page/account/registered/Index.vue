@@ -139,12 +139,11 @@ export default {
                 code: this.code,
                 region_code: this.region_code
             };
-            var code = /^(\w){6,20}$/;
-            if (!exec(code)) {
-                return false
-            } else {
-                return true
-            }
+           var code = /^(\d){6,20}$/;
+            if (!code.exec(this.password)) {
+                weui.alert("密码格式错误！");
+                return
+            } 
             var p_obj = {
                 action: 'c=Zb&m=Register&a=registerByMobile',
                 param: param,
