@@ -13,9 +13,6 @@
     </div>
 </template>
 <script>
-import fabu from './images/fabu.png'
-import fuwu from './images/fuwu.png'
-import wode from './images/wode.png'
 export default {
     props: {
         sideList: {
@@ -26,11 +23,7 @@ export default {
         }
     },
     data() {
-        return {
-            fabu: fabu,
-            fuwu: fuwu,
-            wode: wode,
-        }
+        return {}
     },
     created: function() {
 
