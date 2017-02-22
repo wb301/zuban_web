@@ -98,11 +98,6 @@ export default {
                 var param = {
                     mobile: this.mobile
                 };
-                this.codeBtn = {
-                    prompt: "重新发送(60)",
-                    disabled: 'a_default'
-                };
-
                 if (!(/^1(3|4|5|7|8)\d{9}$/.test(param.mobile))) {
                     weui.alert("手机号码有误，请重填");
                     return false;
@@ -111,6 +106,10 @@ export default {
                     action: 'c=Zb&m=User&a=sendMobileCode',
                     param: param,
                     success: (response) => {
+                        this.codeBtn = {
+                            prompt: "重新发送(60)",
+                            disabled: 'a_default'
+                        };
                         var _self = this;
                         var time = 60;
                         var interval = setInterval(function() {
