@@ -44,17 +44,28 @@ export default {
                 account: this.mobile,
                 password: this.password
             };
+            var mobile = param.account;
+            if (!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))) {
+                    weui.alert("手机号码有误，请重填");
+                    return false;
+                };
+                var str = /^(\d){6,20}$/;
+            if (!str.exec(this.password)) {
+                weui.alert("密码格式错误！");
+                return
+            }
             var p_obj = {
                 action: 'c=Zb&m=Login&a=login',
                 param: param,
                 success: (response) => {
+
                     // NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, response);
                     // this.$router.push({
                     //     path: '/dashboard'
                     // });
                 },
                 fail: (response) => {
-                    sweetAlert(response.msg)
+                    weui.alert(response.msg);
                 }
             };
             AjaxHelper.PostRequest(p_obj);

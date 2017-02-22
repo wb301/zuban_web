@@ -139,8 +139,8 @@ export default {
                 code: this.code,
                 region_code: this.region_code
             };
-           var code = /^(\d){6,20}$/;
-            if (!code.exec(this.password)) {
+           var str = /^(\d){6,20}$/;
+            if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return
             } 
