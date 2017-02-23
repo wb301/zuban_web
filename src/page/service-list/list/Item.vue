@@ -41,7 +41,6 @@ export default {
     },
     mounted() {
         this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
-        this.item.price = parseInt(this.item.price);
     },
     methods: {},
     destroyed() {}
