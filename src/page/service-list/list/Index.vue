@@ -4,15 +4,15 @@
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item" @click="selectRegion">
-                        地区
+                        {{name.region}}
                         <img :src="image" />
                     </div>
                     <div class="weui-navbar__item" @click="selectCategory">
-                        分类
+                        {{name.category}}
                         <img :src="image" />
                     </div>
                     <div class="weui-navbar__item" @click="selectSort">
-                        排序
+                        {{name.order}}
                         <img :src="image" />
                     </div>
                 </div>
@@ -26,10 +26,10 @@
 </template>
 <script>
 import xiala from './image/xiala.png'
-import dropload from 'src/lib/js/dropload.min.js'
+import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 import ListItem from './item'
-
+var dropload = '';
 export default {
     components: {
         ListItem
@@ -42,13 +42,20 @@ export default {
             regionList: [],
             categoryList: [],
             productList: [],
-            page: 0
+            page: 1,
+            orderBy: '',
+            categoryId: '',
+            regionCode: '',
+            name: {
+                region: '地区',
+                category: '分类',
+                order: '排序'
+            }
         }
     },
     mounted() {
         this.getRegionList();
         this.getCategoryList();
-        // this.getShowProductList();
         this.createDropload();
     },
     methods: {
@@ -72,11 +79,15 @@ export default {
                 label: "距离从远到近",
                 value: 'jl_1'
             }];
+            var _self = this;
             weui.picker(arr, {
                 defaultValue: ['mr'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    //TODO:
+                    _self.orderBy = result[0].value;
+                    _self.name.order = result[0].label;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
                 },
                 id: 'sortPicker'
             });
@@ -109,7 +120,10 @@ export default {
                 defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    //TODO:
+                    _self.regionCode = result[2].value;
+                    _self.name.region = result[2].label;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
                 },
                 id: 'regionPicker'
             });
@@ -142,7 +156,10 @@ export default {
                 defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    //TODO:
+                    _self.categoryId = result[1].value;
+                    _self.name.category = result[1].label;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
                 },
                 id: 'categoryPicker'
             });
@@ -157,6 +174,15 @@ export default {
                 page: this.page,
                 row: 5
             };
+            if (this.orderBy != "") {
+                param.orderBy = this.orderBy;
+            }
+            if (this.categoryId != "") {
+                param.categoryId = this.categoryId;
+            }
+            if (this.regionCode != "") {
+                param.regionCode = this.regionCode;
+            }
             var p_obj = {
                 action: '',
                 param: param,
@@ -188,7 +214,7 @@ export default {
         },
         createDropload() {
             var _self = this;
-            $('.dropload-wapper').dropload({
+            dropload = $('.dropload-wapper').dropload({
                 domUp: {
                     domClass: 'dropload-up',
                     // 下拉过程显示内容
@@ -212,8 +238,8 @@ export default {
                     _self.getShowProductList(me);
                 },
                 loadDownFn: function(me) {
-                    _self.page++;
                     _self.getShowProductList(me);
+                    _self.page++;
                 }
             });
         }
