@@ -67,9 +67,6 @@ export default {
             }, {
                 label: "距离从远到近",
                 value: 'jl_1'
-            }, {
-                label: "智能综合",
-                value: 'zh'
             }];
             weui.picker(arr, {
                 defaultValue: ['mr'],
