@@ -8,7 +8,7 @@ export default {
     name: 'hello',
     data() {
         return {
-            msg: '图表控件(3秒后填充数据完毕后出现)'
+            msg: ''
         }
     }
 }

@@ -7,7 +7,7 @@ const router = new Router({
     routes: [{
         path: '/index',
         component: function(resolve) {
-            require(['./components/Hello.vue'], resolve)
+            require(['./page/account/login/Index.vue'], resolve)
         }
     }, {
         path: '/login',
