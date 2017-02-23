@@ -235,22 +235,22 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.weui-tab {
-    background: #FFFFFF;
-    img {
-        width: 12px;
-        height: 12px;
+.container-body {
+    .weui-tab {
+        background: #FFFFFF;
+        img {
+            width: 12px;
+            height: 12px;
+        }
     }
-}
-
-.dropload-wapper {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 3px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
+    .dropload-wapper {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 }
 </style>
