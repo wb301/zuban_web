@@ -18,13 +18,15 @@
                 </div>
             </div>
             <div class="dropload-wapper">
-                <list-item v-for="(item,index) in productList" :item="item"></list-item>
+                <div>
+                    <list-item v-for="(item,index) in productList" :item="item"></list-item>
+                </div>
             </div>
         </div>
 </template>
 <script>
 import xiala from './image/xiala.png'
-import 'src/lib/js/dropload.min.js'
+import dropload from 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 import ListItem from './item'
 
@@ -39,13 +41,15 @@ export default {
             areaList: [],
             regionList: [],
             categoryList: [],
-            productList: []
+            productList: [],
+            page: 0
         }
     },
     mounted() {
         this.getRegionList();
         this.getCategoryList();
-        this.getShowProductList();
+        // this.getShowProductList();
+        this.createDropload();
     },
     methods: {
         selectSort() {
@@ -116,8 +120,8 @@ export default {
                 m: 'Category',
                 a: 'getCategoryList',
                 mapping: {
-                    name: 'label',
-                    code: 'value'
+                    category_name: 'label',
+                    id: 'value'
                 }
             };
             var p_obj = {
@@ -143,22 +147,38 @@ export default {
                 id: 'categoryPicker'
             });
         },
-        getShowProductList() {
+        getShowProductList(me) {
             var param = {
                 c: 'Zb',
                 m: 'Product',
                 a: 'getShowProductList',
                 logitude: 1,
                 latitude: 12,
-                page: 1,
-                row: 10
+                page: this.page,
+                row: 5
             };
             var p_obj = {
                 action: '',
                 param: param,
                 success: (response) => {
-                    this.productList = response.list;
-                    // this.createDropload();
+                    if (this.page == 1) {
+                        if (response.list.length > 0) {
+                            this.productList = response.list;
+                        }
+                        me.resetload();
+                        me.unlock();
+                        me.noData(false);
+                    } else {
+                        if (response.list.length > 0) {
+                            for (var i = 0; i < response.list.length; i++) {
+                                this.productList.push(response.list[i]);
+                            }
+                        } else {
+                            me.lock();
+                            me.noData();
+                        }
+                        me.resetload();
+                    }
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -167,66 +187,33 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         createDropload() {
-            var dropload = $('.dropload').dropload({
+            var _self = this;
+            $('.dropload-wapper').dropload({
                 domUp: {
                     domClass: 'dropload-up',
+                    // 下拉过程显示内容
                     domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+                    // 下拉到一定程度显示提示内容
                     domUpdate: '<div class="dropload-update">↑释放更新</div>',
+                    // 释放后显示内容
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
                 },
                 domDown: {
                     domClass: 'dropload-down',
+                    // 滑动到底部显示内容
                     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    // 内容加载过程中显示内容
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    // 没有更多内容-显示提示
                     domNoData: '<div class="dropload-noData">暂无数据</div>'
                 },
                 loadUpFn: function(me) {
-                    // $.ajax({
-                    //     type: 'GET',
-                    //     url: 'json/update.json',
-                    //     dataType: 'json',
-                    //     success: function(data) {
-                    //         var result = '';
-                    //         for (var i = 0; i < data.lists.length; i++) {
-                    //             result += '<a class="item opacity" href="' + data.lists[i].link + '">' + '<img src="' + data.lists[i].pic + '" alt="">' + '<h3>' + data.lists[i].title + '</h3>' + '<span class="date">' + data.lists[i].date + '</span>' + '</a>';
-                    //         }
-                    //         // 为了测试，延迟1秒加载
-                    //         setTimeout(function() {
-                    //             $('.lists').html(result);
-                    //             // 每次数据加载完，必须重置
-                    //             dropload.resetload();
-                    //         }, 1000);
-                    //     },
-                    //     error: function(xhr, type) {
-                    //         alert('Ajax error!');
-                    //         // 即使加载出错，也得重置
-                    dropload.resetload();
-                    //     }
-                    // });
+                    _self.page = 1;
+                    _self.getShowProductList(me);
                 },
                 loadDownFn: function(me) {
-                    // $.ajax({
-                    //     type: 'GET',
-                    //     url: 'json/more.json',
-                    //     dataType: 'json',
-                    //     success: function(data) {
-                    //         var result = '';
-                    //         for (var i = 0; i < data.lists.length; i++) {
-                    //             result += '<a class="item opacity" href="' + data.lists[i].link + '">' + '<img src="' + data.lists[i].pic + '" alt="">' + '<h3>' + data.lists[i].title + '</h3>' + '<span class="date">' + data.lists[i].date + '</span>' + '</a>';
-                    //         }
-                    //         // 为了测试，延迟1秒加载
-                    //         setTimeout(function() {
-                    //             $('.lists').append(result);
-                    //             // 每次数据加载完，必须重置
-                    //             dropload.resetload();
-                    //         }, 1000);
-                    //     },
-                    //     error: function(xhr, type) {
-                    //         alert('Ajax error!');
-                    //         // 即使加载出错，也得重置
-                    dropload.resetload();
-                    //     }
-                    // });
+                    _self.page++;
+                    _self.getShowProductList(me);
                 }
             });
         }
