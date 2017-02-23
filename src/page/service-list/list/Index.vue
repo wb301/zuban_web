@@ -42,7 +42,10 @@ export default {
             regionList: [],
             categoryList: [],
             productList: [],
-            page: 0
+            page: 0,
+            orderBy: '',
+            categoryId: '',
+            regionCode: ''
         }
     },
     mounted() {
@@ -72,11 +75,12 @@ export default {
                 label: "距离从远到近",
                 value: 'jl_1'
             }];
+            var _self = this;
             weui.picker(arr, {
                 defaultValue: ['mr'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    //TODO:
+                    _self.orderBy = result[0].value;
                 },
                 id: 'sortPicker'
             });
@@ -109,7 +113,7 @@ export default {
                 defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    //TODO:
+                    _self.regionCode = result[2].value;
                 },
                 id: 'regionPicker'
             });
@@ -142,7 +146,7 @@ export default {
                 defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    //TODO:
+                    _self.categoryId = result[1].value;
                 },
                 id: 'categoryPicker'
             });
@@ -157,6 +161,15 @@ export default {
                 page: this.page,
                 row: 5
             };
+            if (this.orderBy != "") {
+                param.orderBy = this.orderBy;
+            }
+            if (this.categoryId != "") {
+                param.categoryId = this.categoryId;
+            }
+            if (this.regionCode != "") {
+                param.regionCode = this.regionCode;
+            }
             var p_obj = {
                 action: '',
                 param: param,
