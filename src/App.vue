@@ -26,10 +26,6 @@ export default {
 body {
     padding: 0;
     margin: 0;
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    font-size: 14px;
-    color: rgb(51, 51, 51);
-    overflow: hidden;
 }
 
 .font-bold {
