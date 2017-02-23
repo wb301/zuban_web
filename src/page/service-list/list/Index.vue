@@ -26,10 +26,10 @@
 </template>
 <script>
 import xiala from './image/xiala.png'
-import dropload from 'src/lib/js/dropload.min.js'
+import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 import ListItem from './item'
-
+var dropload = '';
 export default {
     components: {
         ListItem
@@ -42,7 +42,7 @@ export default {
             regionList: [],
             categoryList: [],
             productList: [],
-            page: 0,
+            page: 1,
             orderBy: '',
             categoryId: '',
             regionCode: '',
@@ -86,6 +86,8 @@ export default {
                 onConfirm: function(result) {
                     _self.orderBy = result[0].value;
                     _self.name.order = result[0].label;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
                 },
                 id: 'sortPicker'
             });
@@ -120,6 +122,8 @@ export default {
                 onConfirm: function(result) {
                     _self.regionCode = result[2].value;
                     _self.name.region = result[2].label;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
                 },
                 id: 'regionPicker'
             });
@@ -154,6 +158,8 @@ export default {
                 onConfirm: function(result) {
                     _self.categoryId = result[1].value;
                     _self.name.category = result[1].label;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
                 },
                 id: 'categoryPicker'
             });
@@ -208,7 +214,7 @@ export default {
         },
         createDropload() {
             var _self = this;
-            $('.dropload-wapper').dropload({
+            dropload = $('.dropload-wapper').dropload({
                 domUp: {
                     domClass: 'dropload-up',
                     // 下拉过程显示内容
@@ -232,8 +238,8 @@ export default {
                     _self.getShowProductList(me);
                 },
                 loadDownFn: function(me) {
-                    _self.page++;
                     _self.getShowProductList(me);
+                    _self.page++;
                 }
             });
         }
