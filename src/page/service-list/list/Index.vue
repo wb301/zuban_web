@@ -4,15 +4,15 @@
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item" @click="selectRegion">
-                        地区
+                        {{name.region}}
                         <img :src="image" />
                     </div>
                     <div class="weui-navbar__item" @click="selectCategory">
-                        分类
+                        {{name.category}}
                         <img :src="image" />
                     </div>
                     <div class="weui-navbar__item" @click="selectSort">
-                        排序
+                        {{name.order}}
                         <img :src="image" />
                     </div>
                 </div>
@@ -45,13 +45,17 @@ export default {
             page: 0,
             orderBy: '',
             categoryId: '',
-            regionCode: ''
+            regionCode: '',
+            name: {
+                region: '地区',
+                category: '分类',
+                order: '排序'
+            }
         }
     },
     mounted() {
         this.getRegionList();
         this.getCategoryList();
-        // this.getShowProductList();
         this.createDropload();
     },
     methods: {
@@ -81,6 +85,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.orderBy = result[0].value;
+                    _self.name.order = result[0].label;
                 },
                 id: 'sortPicker'
             });
@@ -114,6 +119,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.regionCode = result[2].value;
+                    _self.name.region = result[2].label;
                 },
                 id: 'regionPicker'
             });
@@ -147,6 +153,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.categoryId = result[1].value;
+                    _self.name.category = result[1].label;
                 },
                 id: 'categoryPicker'
             });
