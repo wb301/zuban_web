@@ -118,7 +118,7 @@ export default {
         selectRegion() {
             var _self = this;
             weui.picker(this.regionList, {
-                defaultValue: [2],
+                defaultValue: [1],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.regionCode = result[2].value;
@@ -155,7 +155,7 @@ export default {
         selectCategory() {
             var _self = this;
             weui.picker(this.categoryList, {
-                defaultValue: [2],
+                defaultValue: [1],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.categoryId = result[1].value;
