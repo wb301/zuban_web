@@ -8,7 +8,7 @@
                         <div class="info-top">
                             <div>
                                 <span class="title">{{item.category_name}}</span>
-                                <span class="time">{{item.update_time}}</span>
+                                <span class="status">{{item.statusName}}</span>
                             </div>
                             <div>
                                 <span class="region">{{item.region_name}}</span>
@@ -36,15 +36,16 @@ export default {
     data() {
         return {}
     },
-    created: function() {
-
-    },
-    mounted() {
+    beforeMount() {
         this.item.danwei = "小时";
         if(this.item.price_type == 2){
             this.item.danwei = "天";
         }
-        console.log(this.item);
+        var map = {"0": "已删除","1": "在架","2": "出售中"};
+        this.item.statusName = map[this.item.status];
+    },
+    created: function() {
+
     },
     methods: {},
     destroyed() {}
@@ -91,7 +92,7 @@ export default {
                     font-size: 10px;
                     color: #999;
                 }
-                .time {
+                .status {
                     font-size: 10px;
                     color: #999;
                     position: absolute;
