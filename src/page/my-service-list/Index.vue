@@ -17,7 +17,7 @@
         </div>
 </template>
 <script>
-import xiala from '../../service-list/list/image/xiala.png'
+import xiala from '../service-list/list/image/xiala.png'
 import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 import ListItem from './item'
