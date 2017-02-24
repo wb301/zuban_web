@@ -7,7 +7,7 @@ const router = new Router({
     routes: [{
         path: '/index',
         component: function(resolve) {
-            require(['./page/account/login/Index.vue'], resolve)
+            require(['./components/Hello.vue'], resolve)
         }
     }, {
         path: '/login',
@@ -43,7 +43,7 @@ const router = new Router({
     }, {
         path: '/',
         redirect: {
-            path: '/index'
+            path: '/login'
         }
     }, {
         path: '*',
