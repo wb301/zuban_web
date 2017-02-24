@@ -1,5 +1,5 @@
 <template>
-    <div style = "background: #e2e2e2;">
+    <div style = "background: #F5F5F5;">
 
         <div class="weui-cells" style = "margin-top:0px;">
             <a class="weui-cell weui-cell_access" href="javascript:;"  style = "height:125px;">
