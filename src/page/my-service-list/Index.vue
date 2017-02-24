@@ -46,13 +46,13 @@ export default {
                 label: "全部",
                 value: '-1'
             }, {
-                label: "在架",
+                label: "已上架",
                 value: '1'
             }, {
                 label: "出售中",
                 value: '2'
             }, {
-                label: "已删除",
+                label: "已下架",
                 value: '0'
             }];
             var _self = this;

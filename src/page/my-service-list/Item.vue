@@ -42,8 +42,8 @@ export default {
             this.item.danwei = "天";
         }
         var map = {
-            "0": "已删除",
-            "1": "在架",
+            "0": "已下架",
+            "1": "已上架",
             "2": "出售中"
         };
         this.item.statusName = map[this.item.status];
