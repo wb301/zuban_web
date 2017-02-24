@@ -190,12 +190,15 @@ export default {
                 param: param,
                 success: (response) => {
                     if (this.page == 1) {
+                        this.productList = response.list;
                         if (response.list.length > 0) {
-                            this.productList = response.list;
+                            me.resetload();
+                            me.unlock();
+                            me.noData(false);
+                        } else {
+                            me.noData();
+                            me.resetload();
                         }
-                        me.resetload();
-                        me.unlock();
-                        me.noData(false);
                     } else {
                         if (response.list.length > 0) {
                             for (var i = 0; i < response.list.length; i++) {
