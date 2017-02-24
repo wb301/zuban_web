@@ -38,10 +38,14 @@ export default {
     },
     beforeMount() {
         this.item.danwei = "小时";
-        if(this.item.price_type == 2){
+        if (this.item.price_type == 2) {
             this.item.danwei = "天";
         }
-        var map = {"0": "已删除","1": "在架","2": "出售中"};
+        var map = {
+            "0": "已删除",
+            "1": "在架",
+            "2": "出售中"
+        };
         this.item.statusName = map[this.item.status];
     },
     created: function() {

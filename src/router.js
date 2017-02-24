@@ -19,12 +19,12 @@ const router = new Router({
         component: function(resolve) {
             require(['./page/account/registered/Index.vue'], resolve)
         }
-    },{
-            path: '/orderlist/:type',
-            component: function(resolve) {
-                require(['./page/order/Index.vue'], resolve)
-            }
-        }, {
+    }, {
+        path: '/orderlist/:type',
+        component: function(resolve) {
+            require(['./page/order/Index.vue'], resolve)
+        }
+    }, {
         path: '/service-list/',
         component: function(resolve) {
             require(['./page/service-list/Index.vue'], resolve)
@@ -45,7 +45,7 @@ const router = new Router({
                 require(['./page/service-list/my/Index.vue'], resolve)
             }
         }]
-    },{
+    }, {
         path: '/my-service-list',
         component: function(resolve) {
             require(['./page/my-service-list/list/Index.vue'], resolve)

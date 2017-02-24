@@ -32,7 +32,7 @@ export default {
             productList: [],
             page: 1,
             status: '-1',
-            name:{
+            name: {
                 status: "全部"
             }
         }
