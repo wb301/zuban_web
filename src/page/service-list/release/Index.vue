@@ -27,7 +27,7 @@
                                 <label class="weui-label">价格单位</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input disabled-input" type="text" @click="selectUnitPrice" />
+                                <input class="weui-input disabled-input" type="text" v-model="danweiName" @click="selectUnitPrice" />
                             </div>
                             <div><img :src="image"></div>
                         </div>
@@ -36,7 +36,7 @@
                                 <label class="weui-label">服务地区</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input disabled-input" type="text" />
+                                <input class="weui-input disabled-input" v-model="region" type="text" @click="selectRegion" />
                             </div>
                             <div><img :src="image"></div>
                         </div>
@@ -45,7 +45,7 @@
                                 <label class="weui-label">服务类型</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input disabled-input" type="text" />
+                                <input class="weui-input disabled-input" v-model="categor" type="text" @click="selectCategory" />
                             </div>
                             <div><img :src="image"></div>
                         </div>
@@ -66,52 +66,117 @@
 </template>
 <script>
 import xiala from 'src/page/service-list/list/image/xiala.png'
+
+var unitPriceArr = [{
+    label: "小时",
+    value: '1'
+}, {
+    label: "天",
+    value: '2'
+}];
 export default {
     components: {},
     data() {
         return {
-            image: xiala
+            image: xiala,
+            danweiValue: '',
+            danweiName: '',
+            region: '',
+            regionList: [],
+            region_code: 0,
+            categor: '',
+            categoryList: [],
+            categor_id: 0
         }
     },
     mounted() {
         $(".disabled-input").focus(function() {
             document.activeElement.blur();
         });
+        this.getCategoryList();
+        this.getRegionList();
     },
     methods: {
         selectUnitPrice() {
-            var arr = [{
-                label: "最近时间",
-                value: 'mr'
-            }, {
-                label: "价格低到高",
-                value: 'jg_0'
-            }, {
-                label: "价格从低到高",
-                value: 'jg_0'
-            }, {
-                label: "价格从高到低",
-                value: 'jg_1'
-            }, {
-                label: "距离从近到远",
-                value: 'jl_0'
-            }, {
-                label: "距离从远到近",
-                value: 'jl_1'
-            }];
             var _self = this;
-            weui.picker(arr, {
-                defaultValue: ['mr'],
+            weui.picker(unitPriceArr, {
+                defaultValue: ['1'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    _self.orderBy = result[0].value;
-                    _self.name.order = result[0].label;
-                    _self.page = 1;
-                    _self.getShowProductList(dropload);
+                    _self.danweiValue = result[0].value;
+                    _self.danweiName = result[0].label;
                 },
                 id: 'unitPricePicker'
             });
-        }
+        },
+        getRegionList() {
+            var param = {
+                c: 'Zb',
+                m: 'Region',
+                a: 'getRegionList',
+                mapping: {
+                    name: 'label',
+                    code: 'value'
+                }
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.regionList = response;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        selectRegion() {
+            var _self = this;
+            weui.picker(this.regionList, {
+                defaultValue: [2],
+                className: 'custom-classname',
+                onConfirm: function(result) {
+                    _self.region_code = result[2].value;
+                    _self.region = result[0].label + " " + result[1].label + " " + result[2].label;
+                },
+                id: 'regionPicker'
+            });
+        },
+        getCategoryList() {
+            var param = {
+                c: 'Zb',
+                m: 'Category',
+                a: 'getCategoryList',
+                mapping: {
+                    category_name: 'label',
+                    id: 'value'
+                }
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.categoryList = response;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        selectCategory() {
+            var _self = this;
+            weui.picker(this.categoryList, {
+                defaultValue: [2],
+                className: 'custom-classname',
+                onConfirm: function(result) {
+                    _self.categor_id = result[2].value;
+                    _self.categor = result[0].label + " " + result[1].label;
+                },
+                id: 'categoryPicker'
+            });
+        },
     },
     destroyed() {}
 }
