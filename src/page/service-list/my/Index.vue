@@ -6,7 +6,7 @@
 
                 <div class="weui-cell">
                     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                        <img :src="image" style="width: 50px;display: block"/>
+                        <img :src="userInfo.head_img" style="width: 75px;height:75px;display: block"/>
                     </div>
                     <div class="weui-cell__bd">
                         <h3>{{userInfo.nick_name}}</h3>
@@ -51,14 +51,14 @@
         </div>
 
         <div class="weui-cells" style = "margin-top:7.5px;">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click='myOrderlist_1'>
                 <div class="weui-cell__bd">
                     <p>接到订单</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
             </a>
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click='myOrderlist_0'>
                 <div class="weui-cell__bd">
                     <p>预约订单</p>
                 </div>
@@ -89,6 +89,16 @@ export default {
         myServiceList() {
             this.$router.push({
                 path: '/my-service-list'
+            });
+        },
+        myOrderlist_0() {
+            this.$router.push({
+                path: '/orderlist/0'
+            });
+        },
+        myOrderlist_1() {
+            this.$router.push({
+                path: '/orderlist/1'
             });
         }
     },
