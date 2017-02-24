@@ -137,7 +137,8 @@ export default {
                 account: this.mobile,
                 password: this.password,
                 code: this.code,
-                region_code: this.region_code
+                region_code: this.region_code,
+                region_name: this.region
             };
            var str = /^(\d){6,20}$/;
             if (!str.exec(this.password)) {
