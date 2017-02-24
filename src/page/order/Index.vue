@@ -24,12 +24,13 @@ export default {
 
                     productList: [],
                     page: 1,
-                    orderBy: ''
+                    type: 0
 
                 }
     },
     mounted() {
-  this.getOrderList();
+    this.type = this.$route.params.type
+    this.getOrderList();
     },
     methods: {
      getOrderList () {
@@ -38,10 +39,9 @@ export default {
                     m: 'Order',
                     a: 'orderCommonFilter',
                     status:'ALL',
-                    type: 0,
+                    type: this.type,
                     page: this.page,
-                    row: 5,
-                    token:1111
+                    row: 5
                 };
                 var p_obj = {
                     action: '',

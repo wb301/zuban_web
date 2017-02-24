@@ -20,12 +20,12 @@ const router = new Router({
             require(['./page/account/registered/Index.vue'], resolve)
         }
     },{
-            path: '/orderlist',
+            path: '/orderlist/:type',
             component: function(resolve) {
                 require(['./page/order/Index.vue'], resolve)
             }
         }, {
-        path: '/service-list',
+        path: '/service-list/',
         component: function(resolve) {
             require(['./page/service-list/Index.vue'], resolve)
         },
