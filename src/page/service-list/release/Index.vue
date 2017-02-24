@@ -2,7 +2,11 @@
     <div>
         <div class="container-body">
             <div class="release-wapper">
-                <div class="image-manipulation"></div>
+                <div class="image-manipulation">
+                    <div v-for="(img,index) in img_list">
+                        <img :src="meinvimg">
+                    </div>
+                </div>
                 <div class="segmentation"></div>
                 <div class="content-manipulation">
                     <div class="weui-cells">
@@ -67,6 +71,7 @@
 </template>
 <script>
 import xiala from 'src/page/service-list/list/image/xiala.png'
+import meinv from './image/Artboard6.jpg'
 
 var unitPriceArr = [{
     label: "小时",
@@ -79,6 +84,7 @@ export default {
     components: {},
     data() {
         return {
+            meinvimg: meinv,
             image: xiala,
             danweiValue: '',
             danweiName: '',
@@ -87,7 +93,8 @@ export default {
             region_code: 0,
             categor: '',
             categoryList: [],
-            categor_id: 0
+            categor_id: 0,
+            img_list: [1, 2, 3, 4, 5, 6]
         }
     },
     mounted() {
@@ -193,7 +200,21 @@ export default {
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
-        .image-manipulation {}
+        .image-manipulation {
+            padding: 15px 15px 8px 15px;
+            >div {
+                display:inline-block;
+                margin-left: 7.5px;
+                img {
+                    width: 110px;
+                    height: 110px;
+                }
+            }
+            >div:nth-child(1),
+            >div:nth-child(4) {
+                margin-left: 0px;
+            }
+        }
         .segmentation {
             height: 8px;
             background: #F5F5F5;
