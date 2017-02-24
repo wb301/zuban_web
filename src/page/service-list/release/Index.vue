@@ -3,12 +3,9 @@
         <div class="container-body">
             <div class="release-wapper">
                 <div class="image-manipulation">
-                    <div v-for="(img,index) in img_list">
-                        <img :src="meinvimg">
-                        <img class="quxiao" :src="quxiaoimg">
-                    </div>
-                    <div>
-                        <img :src="meinvimg">
+                    <div v-for="(item,index) in img_list">
+                        <img :src="item.img_url">
+                        <img class="quxiao" :src="quxiaoimg" v-if="index!=5">
                     </div>
                 </div>
                 <div class="segmentation"></div>
@@ -76,6 +73,7 @@
 <script>
 import xiala from 'src/page/service-list/list/image/xiala.png'
 import meinv from './image/Artboard6.jpg'
+import addImg from './image/Artboard14.png'
 import quxiao from './image/quxiao.png'
 
 var unitPriceArr = [{
@@ -89,7 +87,6 @@ export default {
     components: {},
     data() {
         return {
-            meinvimg: meinv,
             image: xiala,
             quxiaoimg: quxiao,
             danweiValue: '',
@@ -100,7 +97,19 @@ export default {
             categor: '',
             categoryList: [],
             categor_id: 0,
-            img_list: [1, 2, 3, 4, 5]
+            img_list: [{
+                img_url: meinv
+            },{
+                img_url: meinv
+            },{
+                img_url: meinv
+            },{
+                img_url: meinv
+            },{
+                img_url: meinv
+            },{
+                img_url: addImg
+            }]
         }
     },
     mounted() {
@@ -232,17 +241,6 @@ export default {
             >div:nth-child(1),
             >div:nth-child(4) {
                 margin-left: 0px;
-            }
-            >div:last-child {
-                height: 108px;
-                width: 103px;
-                border: 1px dashed #BBBBBB;
-                color: #999999;
-                font-size: 11px;
-                >em {
-                    width: 110px;
-                    height: 110px;
-                }
             }
         }
         .segmentation {
