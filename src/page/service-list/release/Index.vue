@@ -5,6 +5,10 @@
                 <div class="image-manipulation">
                     <div v-for="(img,index) in img_list">
                         <img :src="meinvimg">
+                        <img class="quxiao" :src="quxiaoimg">
+                    </div>
+                    <div>
+                       
                     </div>
                 </div>
                 <div class="segmentation"></div>
@@ -72,6 +76,7 @@
 <script>
 import xiala from 'src/page/service-list/list/image/xiala.png'
 import meinv from './image/Artboard6.jpg'
+import quxiao from './image/quxiao.png'
 
 var unitPriceArr = [{
     label: "小时",
@@ -86,6 +91,7 @@ export default {
         return {
             meinvimg: meinv,
             image: xiala,
+            quxiaoimg: quxiao,
             danweiValue: '',
             danweiName: '',
             region: '',
@@ -94,7 +100,7 @@ export default {
             categor: '',
             categoryList: [],
             categor_id: 0,
-            img_list: [1, 2, 3, 4, 5, 6]
+            img_list: [1, 2, 3, 4, 5]
         }
     },
     mounted() {
@@ -203,11 +209,19 @@ export default {
         .image-manipulation {
             padding: 15px 15px 8px 15px;
             >div {
-                display:inline-block;
+                display: inline-block;
                 margin-left: 7.5px;
-                img {
+                position: relative;
+                img:not(.quxiao) {
                     width: 110px;
                     height: 110px;
+                }
+                .quxiao {
+                    position: absolute;
+                    top: 5.55px;
+                    right: 5.55px;
+                    height: 16.95px;
+                    width: 16.95px;
                 }
             }
             >div:nth-child(1),
