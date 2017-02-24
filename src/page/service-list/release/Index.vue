@@ -60,6 +60,7 @@
                     </div>
                 </div>
             </div>
+            <div class="button-release">发布</div>
         </div>
     </div>
     </div>
@@ -184,6 +185,14 @@ export default {
 <style lang="less" scoped>
 .container-body {
     .release-wapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 50px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
         .image-manipulation {}
         .segmentation {
             height: 8px;
@@ -212,6 +221,17 @@ export default {
                 }
             }
         }
+    }
+    .button-release {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background-color: #A877E6;
+        line-height: 50px;
+        text-align: center;
+        color: #FFFFFF;
     }
 }
 </style>
