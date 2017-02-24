@@ -97,7 +97,7 @@ export default {
                 c: 'Zb',
                 m: 'Region',
                 a: 'getRegionList',
-                code: '0',
+                fixAll: 1,
                 mapping: {
                     name: 'label',
                     code: 'value'
@@ -134,7 +134,7 @@ export default {
                 c: 'Zb',
                 m: 'Category',
                 a: 'getCategoryList',
-                id: 0,
+                fixAll: 1,
                 mapping: {
                     category_name: 'label',
                     id: 'value'
