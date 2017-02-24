@@ -7,7 +7,7 @@
                     <div>
                         <div class="info-top">
                             <div>
-                                <span class="title">{{item.product_info}}</span>
+                                <span class="title">{{item.category_name}}</span>
                                 <span class="juli">{{item.juli}}公里</span>
                             </div>
                             <div>
@@ -21,7 +21,7 @@
                             <span>{{item.price}}</span>
                             <span>/小时</span>
                         </div>
-                        <div class="content">白天有需要逛街的可以联系我哈~帮选购，帮砍价，还有看电影</div>
+                        <div class="content">{{item.product_info}}</div>
                     </div>
                 </div>
             </div>
