@@ -11,7 +11,7 @@
                     <div class="weui-cell__bd">
                         <h3>{{userInfo.nick_name}}</h3>
 
-                        <img :src="image" alt="" style="width:20px;float:left" />
+                        <img :src="shouji" alt="" style="width:12px;margin-top:3px;float:left" />
                         <p style="width:200px;color: #999999;">{{userInfo.account}}</p>
 
                     </div>
@@ -72,6 +72,7 @@
 </template>
 <script>
 import xiala from '../list/image/xiala.png'
+import shouji from '../list/image/shouji.png'
 export default {
     components: {
         
@@ -79,6 +80,7 @@ export default {
     data() {
         return {
             image: xiala,
+            shouji: shouji,
             userInfo: NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : {nick_name:'测试',account:'12345678909'}
         }
     },
