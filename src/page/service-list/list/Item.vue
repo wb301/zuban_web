@@ -19,7 +19,7 @@
                         <div class="price">
                             <span>￥</span>
                             <span>{{item.price}}</span>
-                            <span>/小时</span>
+                            <span>/{{item.danwei}}</span>
                         </div>
                         <div class="content">{{item.product_info}}</div>
                     </div>
@@ -41,6 +41,10 @@ export default {
     },
     mounted() {
         this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
+        this.item.danwei = "小时";
+        if(this.item.price_type == 2){
+            this.item.danwei = "天";
+        }
     },
     methods: {},
     destroyed() {}
