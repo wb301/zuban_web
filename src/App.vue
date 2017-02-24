@@ -27,10 +27,4 @@ body {
     padding: 0;
     margin: 0;
 }
-
-a:link,
-a:visited {
-    font-size: 14px;
-    color: #4990E2;
-}
 </style>

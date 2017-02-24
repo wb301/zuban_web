@@ -8,7 +8,7 @@
                         <img class="quxiao" :src="quxiaoimg">
                     </div>
                     <div>
-                       
+                        <img :src="meinvimg">
                     </div>
                 </div>
                 <div class="segmentation"></div>
@@ -197,6 +197,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .container-body {
+    a:link,
+    a:visited {
+        font-size: 14px;
+        color: #4990E2;
+    }
     .release-wapper {
         position: absolute;
         top: 0;
@@ -227,6 +232,17 @@ export default {
             >div:nth-child(1),
             >div:nth-child(4) {
                 margin-left: 0px;
+            }
+            >div:last-child {
+                height: 108px;
+                width: 103px;
+                border: 1px dashed #BBBBBB;
+                color: #999999;
+                font-size: 11px;
+                >em {
+                    width: 110px;
+                    height: 110px;
+                }
             }
         }
         .segmentation {
