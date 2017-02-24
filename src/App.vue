@@ -28,7 +28,9 @@ body {
     margin: 0;
 }
 
-.font-bold {
-    font-weight: bold;
+a:link,
+a:visited {
+    font-size: 14px;
+    color: #4990E2;
 }
 </style>
