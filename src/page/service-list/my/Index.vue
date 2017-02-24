@@ -1,23 +1,92 @@
 <template>
-    <div>
-        <div class="container-body">
-            我的
+    <div style = "background: #e2e2e2;">
+
+        <div class="weui-cells" style = "margin-top:0px;">
+            <a class="weui-cell weui-cell_access" href="javascript:;"  style = "height:125px;">
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <img :src="image" style="width: 50px;display: block"/>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <h3>{{userInfo.nick_name}}</h3>
+
+                        <img :src="image" alt="" style="width:20px;float:left" />
+                        <p style="width:200px;color: #999999;">{{userInfo.account}}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="weui-cell__bd">
+                    
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>我的发布</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
         </div>
+
+        <div class="weui-cells" style = "margin-top:7.5px;">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>我的会员</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>我的钱包</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>
+
+        <div class="weui-cells" style = "margin-top:7.5px;">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>接到订单</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>预约订单</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>
+
+
     </div>
 </template>
 <script>
+import xiala from '../list/image/xiala.png'
 export default {
-    components: {},
+    components: {
+        
+    },
     data() {
         return {
-
+            image: xiala,
+            userInfo: NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) : {nick_name:'何俊宏',account:'18221830467'}
         }
     },
     mounted() {
-
+        console.log(this.userInfo);
     },
     methods: {
-
+        
     },
     destroyed() {}
 }
