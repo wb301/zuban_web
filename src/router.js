@@ -40,6 +40,11 @@ const router = new Router({
                 require(['./page/service-list/my/Index.vue'], resolve)
             }
         }]
+    },{
+        path: '/my-service-list',
+        component: function(resolve) {
+            require(['./page/my-service-list/list/Index.vue'], resolve)
+        }
     }, {
         path: '/',
         redirect: {

@@ -10,7 +10,7 @@
 // import { setLoading, setTip } from './vuex/actions/doc_actions'
 export default function(request, next) {
     var userToken = NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) : '';
-    var userToken = '1';
+    userToken = '1';
     if (userToken) {
         if (request.method == 'GET') {
             request.params.token = userToken;

@@ -8,10 +8,10 @@
                         <div class="info-top">
                             <div>
                                 <span class="title">{{item.category_name}}</span>
-                                <span class="juli">{{item.juli}}公里</span>
+                                <span class="time">{{item.update_time}}</span>
                             </div>
                             <div>
-                                <span class="name">{{item.userInfo.nick_name}}</span>
+                                <span class="region">{{item.region_name}}</span>
                             </div>
                         </div>
                     </div>
@@ -40,11 +40,11 @@ export default {
 
     },
     mounted() {
-        this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
         this.item.danwei = "小时";
         if(this.item.price_type == 2){
             this.item.danwei = "天";
         }
+        console.log(this.item);
     },
     methods: {},
     destroyed() {}
@@ -87,11 +87,11 @@ export default {
                     font-size: 13px;
                     color: #333;
                 }
-                .name {
+                .region {
                     font-size: 10px;
                     color: #999;
                 }
-                .juli {
+                .time {
                     font-size: 10px;
                     color: #999;
                     position: absolute;
