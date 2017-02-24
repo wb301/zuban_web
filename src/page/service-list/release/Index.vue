@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="container-body">
-        发布
+            <div class="release-wapper">
+                <div class="image-manipulation"></div>
+                <div class="content-manipulation"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -23,4 +26,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.container-body {
+    .release-wapper {
+        .image-manipulation {}
+        .content-manipulation {}
+    }
+}
 </style>

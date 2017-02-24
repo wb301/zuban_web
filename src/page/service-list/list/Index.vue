@@ -97,6 +97,7 @@ export default {
                 c: 'Zb',
                 m: 'Region',
                 a: 'getRegionList',
+                fixAll: 1,
                 mapping: {
                     name: 'label',
                     code: 'value'
@@ -117,7 +118,7 @@ export default {
         selectRegion() {
             var _self = this;
             weui.picker(this.regionList, {
-                defaultValue: [2],
+                defaultValue: [1],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.regionCode = result[2].value;
@@ -133,6 +134,7 @@ export default {
                 c: 'Zb',
                 m: 'Category',
                 a: 'getCategoryList',
+                fixAll: 1,
                 mapping: {
                     category_name: 'label',
                     id: 'value'
@@ -153,7 +155,7 @@ export default {
         selectCategory() {
             var _self = this;
             weui.picker(this.categoryList, {
-                defaultValue: [2],
+                defaultValue: [1],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.categoryId = result[1].value;
