@@ -24,7 +24,7 @@
                 <div class="weui-cell__ft">
                 </div>
             </a>
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click='myServiceList'>
                 <div class="weui-cell__bd">
                     <p>我的发布</p>
                 </div>
@@ -79,14 +79,18 @@ export default {
     data() {
         return {
             image: xiala,
-            userInfo: NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) : {nick_name:'何俊宏',account:'18221830467'}
+            userInfo: NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : {nick_name:'测试',account:'12345678909'}
         }
     },
     mounted() {
-        console.log(this.userInfo);
+        console.log();
     },
     methods: {
-        
+        myServiceList() {
+            this.$router.push({
+                path: '/my-service-list'
+            });
+        }
     },
     destroyed() {}
 }

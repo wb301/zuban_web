@@ -59,10 +59,10 @@ export default {
                 param: param,
                 success: (response) => {
 
-                    // NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, response);
-                    // this.$router.push({
-                    //     path: '/dashboard'
-                    // });
+                    NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
+                    this.$router.push({
+                        path: '/list'
+                    });
                 },
                 fail: (response) => {
                     weui.alert(response.msg);
