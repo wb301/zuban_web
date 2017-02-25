@@ -24,6 +24,11 @@ const router = new Router({
         component: function(resolve) {
             require(['./page/account/password/Index.vue'], resolve)
         }
+    },{
+        path: '/agree',
+        component: function(resolve) {
+            require(['./page/account/agree/Index.vue'], resolve)
+        }
     }, {
         path: '/my-service-list',
         component: function(resolve) {

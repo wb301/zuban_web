@@ -30,7 +30,7 @@
                 <div for="weuiAgree" class="weui-agree">
                     <div class="weui-agree__item">
                         <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"  v-model="is_agree" >同意
-                        <a href="javascript:void(0);">《相关条款》</a>
+                        <router-link :to="{path: '/agree'}">《相关条款》</router-link>
                     </div>
                     <div class="weui-agree__item">
                         <router-link :to="{path: '/login'}">已有帐号,去登录</router-link>
