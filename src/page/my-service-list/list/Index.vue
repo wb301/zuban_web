@@ -30,7 +30,7 @@ export default {
         return {
             image: xiala,
             productList: [],
-            page: 1,
+            page: 0,
             status: '-1',
             name: {
                 status: "全部"
@@ -137,8 +137,8 @@ export default {
                     _self.getMyProductList(me);
                 },
                 loadDownFn: function(me) {
-                    _self.getMyProductList(me);
                     _self.page++;
+                    _self.getMyProductList(me);
                 }
             });
         }
