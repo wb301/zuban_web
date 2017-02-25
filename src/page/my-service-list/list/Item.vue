@@ -36,7 +36,7 @@ export default {
     data() {
         return {}
     },
-    beforeMount() {
+    created: function() {
         this.item.danwei = "小时";
         if (this.item.price_type == 2) {
             this.item.danwei = "天";
@@ -49,9 +49,6 @@ export default {
             "2": "出售中"
         };
         this.item.statusName = map[this.item.status];
-    },
-    created: function() {
-
     },
     methods: {},
     destroyed() {}

@@ -53,4 +53,39 @@ NormalHelper.delCookie = function(name) {
     this.setCookie(name, null, -1);
 };
 
+NormalHelper.getLocation = function(callback,target) {
+    var _self = target;
+    var geol;
+    try {
+        if (typeof(navigator.geolocation) == 'undefined') {
+            geol = google.gears.factory.create('beta.geolocation');
+        } else {
+            geol = navigator.geolocation;
+        }
+    } catch (error) {
+        alert(error.message);
+    }
+    if (geol) {
+        geol.getCurrentPosition(callback, function(error) {
+            switch(error.code){
+                case error.TIMEOUT :
+                    alert("连接超时，请重试");
+                    break;
+                case error.PERMISSION_DENIED :
+                    alert("您拒绝了使用位置共享服务，查询已取消");
+                    break;
+                case error.POSITION_UNAVAILABLE :
+                    alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
+                    break;
+            }
+        }, {
+            enableHighAccuracy:true,
+            timeout:10000,//设置十秒超时
+            maximumAge:0
+            }
+        );
+    }
+};
+
+
 module.exports = NormalHelper;

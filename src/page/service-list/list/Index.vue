@@ -43,7 +43,7 @@ export default {
             regionList: [],
             categoryList: [],
             productList: [],
-            page: 1,
+            page: 0,
             orderBy: '',
             categoryId: '',
             regionCode: '',
@@ -59,50 +59,19 @@ export default {
         }
     },
     mounted() {
-        this.getLocation();
+        this.getPosition();
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();
     },
     methods: {
-        getLocation(){
-            var _self = this;
-            var geol;
-            try {
-                if (typeof(navigator.geolocation) == 'undefined') {
-                    geol = google.gears.factory.create('beta.geolocation');
-                } else {
-                    geol = navigator.geolocation;
-                }
-            } catch (error) {
-                alert(error.message);
-            }
-
-            if (geol) {
-                geol.getCurrentPosition(function(position) {
-                    _self.pos.latitude = position.coords.latitude;
-                    _self.pos.logitude = position.coords.longitude;
-                    _self.page = 1;
-                    _self.getShowProductList(dropload);
-                }, function(error) {
-                    switch(error.code){
-                        case error.TIMEOUT :
-                            alert("连接超时，请重试");
-                            break;
-                        case error.PERMISSION_DENIED :
-                            alert("您拒绝了使用位置共享服务，查询已取消");
-                            break;
-                        case error.POSITION_UNAVAILABLE :
-                            alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
-                            break;
-                    }
-                }, {
-                    enableHighAccuracy:true,
-                    timeout:10000,//设置十秒超时
-                    maximumAge:0
-                    }
-                );
-            }
+        getPosition(){
+            NormalHelper.getLocation(function(position){
+                _self.pos.latitude = position.coords.latitude;
+                _self.pos.logitude = position.coords.longitude;
+                _self.page = 1;
+                _self.getShowProductList(dropload);
+            },this);
         },
         selectSort() {
             var arr = [{
@@ -290,8 +259,8 @@ export default {
                     _self.getShowProductList(me);
                 },
                 loadDownFn: function(me) {
-                    _self.getShowProductList(me);
                     _self.page++;
+                    _self.getShowProductList(me);
                 }
             });
         }

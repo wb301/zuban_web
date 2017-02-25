@@ -37,9 +37,6 @@ export default {
         return {}
     },
     created: function() {
-
-    },
-    beforeMount() {
         this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
         this.item.danwei = "小时";
         if (this.item.price_type == 2) {
