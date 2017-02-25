@@ -43,6 +43,7 @@ export default {
             page: 1,
             type: 0,
             status: 'ALL',
+            orderNo:'',
 
         }
     },
@@ -51,12 +52,13 @@ export default {
         this.getOrderList();
     },
     methods: {
-    changeStatus(type){
-    this.status=type;
-   //$(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-    this.getOrderList();
-    },
+        //状态筛选
+        changeStatus(type){
+            this.status = type;
+            this.getOrderList();
+        },
 
+        //订单列表
         getOrderList() {
             var param = {
                 c: 'Zb',
@@ -91,7 +93,52 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
 
-    },
+        //确认收货
+        orderConfirm() {
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderConfirm',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+
+                        weui.alert('确认成功！')
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
+        },
+
+        //发货
+        deliveryOrder() {
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'deliveryOrder',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+
+                        weui.alert('发货成功！')
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
+        },
+
+
+},
     destroyed() {}
 }
 </script>
