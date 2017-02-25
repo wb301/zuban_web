@@ -29,7 +29,7 @@
                 <a href="javascript:;" class="weui-btn weui-btn_primary" @click="registered">提交</a>
                 <div for="weuiAgree" class="weui-agree">
                     <div class="weui-agree__item">
-                        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">同意
+                        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"  v-model="is_agree" >同意
                         <a href="javascript:void(0);">《相关条款》</a>
                     </div>
                     <div class="weui-agree__item">
@@ -51,6 +51,7 @@ export default {
             region: '',
             regionList: [],
             region_code: 0,
+            is_agree: 1,
             codeBtn: {
                 prompt: '获取验证码',
                 disabled: ''
@@ -85,6 +86,12 @@ export default {
         AjaxHelper.GetRequest(p_obj);
     },
     methods: {
+        checkAgree(){
+            if(this.is_agree <= 0){
+                weui.alert("请先阅读《相关条款》");
+                return;
+            }
+        },
         selectRegion() {
             var _self = this;
             weui.picker(this.regionList, {
@@ -98,6 +105,7 @@ export default {
             });
         },
         getCode() {
+            this.checkAgree();
             if (this.codeBtn.disabled == "") {
                 var param = {
                     mobile: this.mobile,
@@ -138,6 +146,7 @@ export default {
 
         },
         registered() {
+            this.checkAgree();
             var param = {
                 account: this.mobile,
                 password: this.password,
@@ -150,7 +159,7 @@ export default {
            var str = /^(\d){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
-                return
+                return;
             }
             var _self = this;
             var p_obj = {
