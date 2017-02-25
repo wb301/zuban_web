@@ -31,6 +31,13 @@
                 <div class="weui-cell__ft">
                 </div>
             </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click='changePassword'>
+                <div class="weui-cell__bd">
+                    <p>修改密码</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
         </div>
 
         <div class="weui-cells" style = "margin-top:7.5px;">
@@ -96,6 +103,11 @@ export default {
         myServiceList() {
             this.$router.push({
                 path: '/my-service-list'
+            });
+        },
+        changePassword() {
+            this.$router.push({
+                path: '/password'
             });
         },
         myOrderlist_0() {

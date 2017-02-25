@@ -1,20 +1,21 @@
 <template>
     <div style = "background: #F5F5F5;">
 
-        <div class="weui-cells" style = "margin-top:0px;">
+        <div class="weui-cells" style = "margin-top:0px;height: 75px">
             <a class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__bd">
-                    <img :src="userInfo.head_img" style="width: 75px;height:75px;"/>
+                    <label class="weui-label">头像</label>
                 </div>
                 <div class="weui-cell__ft">
+                    <img :src="userInfo.head_img" style="width: 50px;height:50px;"/>
                 </div>
             </a>
         </div>
 
         <!-- 昵称 性别 -->
         <div class="content-manipulation">
-            <div class="weui-cells">
-                <div class="weui-cell">
+            <div class="weui-cells" style="margin-top: 8px">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">昵称</label>
                     </div>
@@ -22,7 +23,7 @@
                         <input class="weui-input" type="test" placeholder="未设置" v-model="nick_name_model" />
                     </div>
                 </div>
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">性别</label>
                     </div>
@@ -35,9 +36,9 @@
         </div>
 
         <div class="content-manipulation">
-            <div class="weui-cells">
+            <div class="weui-cells" style="margin-top: 8px">
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">所在地</label>
                     </div>
@@ -46,16 +47,18 @@
                     </div>
                 </div>
 
-                <div class="weui-cell">
+                <a class="weui-cell weui-cell_access class_height" href="javascript:;">
                     <div class="weui-cell__hd">
                         <label class="weui-label">绑定手机</label>
                     </div>
                     <div class="weui-cell__bd">
                         {{userInfo.account}}
                     </div>
-                </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">微信号</label>
                     </div>
@@ -64,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">年龄</label>
                     </div>
@@ -73,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">身高</label>
                     </div>
@@ -82,7 +85,7 @@
                     </div>
                 </div>
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">体重</label>
                     </div>
@@ -91,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">学历</label>
                     </div>
@@ -100,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="weui-cell">
+                <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
                         <label class="weui-label">职业</label>
                     </div>
@@ -112,13 +115,14 @@
             </div>
         </div>
 
-        <a @click="updUserInfo" class="weui-btn weui-btn_primary">修改并保存</a>
+        <div  style="margin-top: 8px">
+            <a @click="updUserInfo" class="weui-btn weui-btn_primary">修改并保存</a>
+        </div>
 
     </div>
 </template>
 <script>
 import xiala from '../service-list/list/image/xiala.png'
-import shouji from '../service-list/list/image/shouji.png'
 
 var sexArr = [{
     label: "男",
@@ -252,4 +256,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.class_height{
+    height: 25px
+}
 </style>
