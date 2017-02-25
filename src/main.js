@@ -7,7 +7,7 @@ import HttpReqDefine from './global-define/HttpReqDefine'
 import VueLazyLoad from 'vue-lazyload'
 import EmptyYouFan from './assets/logo.png'
 import 'weui/dist/style/weui.min.css'
-
+import 'vconsole'
 Vue.use(VueLazyLoad, {
     error: EmptyYouFan,
     loading: EmptyYouFan

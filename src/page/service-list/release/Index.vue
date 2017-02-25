@@ -194,7 +194,7 @@ export default {
                 defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    _self.categor_id = result[2].value;
+                    _self.categor_id = result[1].value;
                     _self.categor = result[0].label + " " + result[1].label;
                 },
                 id: 'categoryPicker'
