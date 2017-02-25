@@ -47,7 +47,7 @@ export default {
             orderBy: '',
             categoryId: '',
             regionCode: '',
-            pos: {},
+            pos: NormalHelper.getPostion(),
             name: {
                 region: '地区',
                 category: '分类',
@@ -56,7 +56,6 @@ export default {
         }
     },
     mounted() {
-        this.pos = NormalHelper.getPostion();
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();

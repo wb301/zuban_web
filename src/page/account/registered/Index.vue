@@ -53,11 +53,10 @@ export default {
                 disabled: ''
             },
             mobileCode: '',
-            pos: {}
+            pos: NormalHelper.getPostion()
         }
     },
     mounted() {
-        this.pos = NormalHelper.getPostion();
         $("#region").focus(function() {
             document.activeElement.blur();
         });

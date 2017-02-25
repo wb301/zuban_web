@@ -33,11 +33,10 @@ export default {
         return {
             mobile: '',
             password: '',
-            pos: {}
+            pos: NormalHelper.getPostion()
         }
     },
     mounted() {
-        this.pos = NormalHelper.getPostion();
     },
     methods: {
         login() {
