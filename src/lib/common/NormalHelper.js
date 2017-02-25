@@ -53,6 +53,11 @@ NormalHelper.delCookie = function(name) {
     this.setCookie(name, null, -1);
 };
 
+//用户数据
+NormalHelper.userInfo = {
+    nick_name:'测试',
+    account:'12345678909'
+};
 //获取经纬度  默认 上海周边经纬度
 NormalHelper.userPos = {
     latitude: 121,

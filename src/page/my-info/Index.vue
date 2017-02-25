@@ -110,9 +110,7 @@ export default {
     },
     data() {
         return {
-
-            userInfo: NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : {nick_name:'测试',account:'12345678909'}
-
+            userInfo: NormalHelper.userInfo
         }
     },
     mounted() {
@@ -128,8 +126,8 @@ export default {
                 action: 'c=Zb&m=User&a=getUserInfo',
                 param: param,
                 success: (response) => {
-
                     response["token"] = this.userInfo.token;
+                    NormalHelper.userInfo = response;
                     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
                     this.userInfo = response;
                     console.log(this.userInfo);
