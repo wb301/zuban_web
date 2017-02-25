@@ -17,7 +17,7 @@
                                 <label class="weui-label">服务内容</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" type="test" placeholder="比如陪吃饭、陪看电影" />
+                                <input class="weui-input" type="test" v-model="product_info" placeholder="比如陪吃饭、陪看电影" />
                             </div>
                         </div>
                         <div class="weui-cell">
@@ -25,7 +25,7 @@
                                 <label class="weui-label">价格</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" type="test" placeholder="请输入服务价格/元" />
+                                <input class="weui-input" type="test" v-model.number="price" placeholder="请输入服务价格/元" />
                             </div>
                         </div>
                         <div class="weui-cell">
@@ -66,9 +66,15 @@
                     </div>
                 </div>
             </div>
-            <div class="button-release">发布</div>
+            <div class="button-release" @click="createProductInfo">发布</div>
         </div>
-    </div>
+        <div id="toast" style="display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">已发布</p>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -105,7 +111,9 @@ export default {
             img_list: [{
                 img_url: addImg,
                 type: 'add'
-            }]
+            }],
+            product_info: '',
+            price: ''
         }
     },
     mounted() {
@@ -226,6 +234,70 @@ export default {
                 }
                 $(".imgupload").val('');
             });
+        },
+        createProductInfo() {
+
+            var param = {
+                productInfo: {
+                    product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
+                    product_info: this.product_info,
+                    price: this.price,
+                    price_type: this.danweiValue,
+                    region_code: this.region_code,
+                    region_name: this.region.split(" ").join("-"),
+                    category_id: this.categor_id,
+                    image_list: []
+                }
+            };
+            for (var i = 0; i < this.img_list.length; i++) {
+                if (this.img_list[i].type != "add") {
+                    param.productInfo.image_list.push(this.img_list[i].img_url);
+                }
+            }
+            for (var key in param.productInfo) {
+                if (param.productInfo[key].length == 0 || param.productInfo[key] == 0) {
+                    switch (key) {
+                        case 'product_image':
+                            weui.alert('服务图片不能为空');
+                            break;
+                        case 'product_info':
+                            weui.alert('服务内容不能为空');
+                            break;
+                        case 'price':
+                            weui.alert('服务价格不能为空');
+                            break;
+                        case 'price_type':
+                            weui.alert('价格单位不能为空');
+                            break;
+                        case 'region_code':
+                            weui.alert('服务地区不能为空');
+                            break;
+                        case 'category_id':
+                            weui.alert('服务类型不能为空');
+                            break;
+                    }
+                }
+            }
+            var _self = this;
+            var p_obj = {
+                action: 'c=Zb&m=Product&a=createProductInfo',
+                param: param,
+                success: (response) => {
+                    var $toast = $('#toast');
+                    if ($toast.css('display') != 'none') return;
+                    $toast.fadeIn(100);
+                    setTimeout(function() {
+                        $toast.fadeOut(100);
+                        _self.$router.push({
+                            path: '/list'
+                        });
+                    }, 2000);
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
         }
     },
     destroyed() {}

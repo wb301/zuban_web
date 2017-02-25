@@ -54,8 +54,8 @@ NormalHelper.delCookie = function(name) {
 };
 
 //用户数据
-NormalHelper.userInfo = function(){
-    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : {nick_name:'未登录',account:' '}
+NormalHelper.userInfo = function() {
+    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: ' ', token: 1 }
 }
 NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
