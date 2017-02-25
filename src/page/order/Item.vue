@@ -1,23 +1,19 @@
 <template>
-    <div class="weui-form-preview">
-        <div class="weui-form-preview__hd">
-            <label class="weui-form-preview__label">付款金额</label>
-            <em class="weui-form-preview__value">¥{{item.total_price}}</em>
-        </div>
-        <div class="weui-form-preview__bd">
-            <p>
-                <label class="weui-form-preview__label">商品</label>
-                <span class="weui-form-preview__value">{{item.productList[0].product.product_info}}</span>
-            </p>
-            <p>
-                <label class="weui-form-preview__label">状态</label>
-                <span class="weui-form-preview__value">{{item.status_name}}</span>
-            </p>
-        </div>
-        <div class="weui-form-preview__ft">
-            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">操作</a>
-        </div>
+<div class="weui-panel weui-panel_access">
+   <div class="weui-panel__bd">
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+            <img :src="item.productList[0].product.product_image" class="weui-media-box__thumb">
+            </div>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">{{item.productList[0].product.category_name}}</h4>
+                <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+            </div>
+        </a>
+
     </div>
+    </div>
+
 </template>
 <script>
 export default {
