@@ -5,7 +5,7 @@
                 <div class="image-manipulation">
                     <div v-for="(item,index) in img_list">
                         <img :src="item.img_url">
-                        <img class="quxiao" :src="quxiaoimg" v-if="index!=5">
+                        <img class="quxiao" :src="quxiaoimg" @click="deleteImg(index)" v-if="index!=5">
                     </div>
                 </div>
                 <div class="segmentation"></div>
@@ -99,15 +99,15 @@ export default {
             categor_id: 0,
             img_list: [{
                 img_url: meinv
-            },{
+            }, {
                 img_url: meinv
-            },{
+            }, {
                 img_url: meinv
-            },{
+            }, {
                 img_url: meinv
-            },{
+            }, {
                 img_url: meinv
-            },{
+            }, {
                 img_url: addImg
             }]
         }
@@ -200,6 +200,9 @@ export default {
                 id: 'categoryPicker'
             });
         },
+        deleteImg(p_index) {
+            this.img_list.splice(p_index, 1);
+        }
     },
     destroyed() {}
 }
