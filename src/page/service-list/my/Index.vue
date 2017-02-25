@@ -41,7 +41,7 @@
         </div>
 
         <div class="weui-cells" style = "margin-top:7.5px;">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click='myVip'>
                 <div class="weui-cell__bd">
                     <p>我的会员</p>
                 </div>
@@ -108,6 +108,11 @@ export default {
         changePassword() {
             this.$router.push({
                 path: '/password/my'
+            });
+        },
+        myVip() {
+            this.$router.push({
+                path: '/vip'
             });
         },
         myOrderlist_0() {
