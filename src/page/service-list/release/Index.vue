@@ -112,7 +112,7 @@ export default {
         this.getCategoryList();
         this.getRegionList();
         this.$nextTick(function() {
-            console.log($("body").width());
+
         });
     },
     watch: {},
