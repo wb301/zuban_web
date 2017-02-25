@@ -1,10 +1,10 @@
 <template>
     <div class="container-body">
-        <swiper v-ref:swiper direction="horizontal" :mousewheel-control="true" :performance-mode="false" :pagination-visible="true" :pagination-clickable="true" :loop=“true” @slide-change-start="onSlideChangeStart" @slide-change-end="onSlideChangeEnd">
+        <!-- <swiper v-ref:swiper direction="horizontal" :mousewheel-control="true" :performance-mode="false" :pagination-visible="true" :pagination-clickable="true" :loop=“true” @slide-change-start="onSlideChangeStart" @slide-change-end="onSlideChangeEnd">
             <div>Page 1</div>
             <div>Page 2</div>
             <div>Page 3</div>
-        </swiper>
+        </swiper> -->
     </div>
 </template>
 <script>
@@ -14,7 +14,7 @@ import ListItem from './item'
 import Swiper from 'vue-swiper'
 export default {
     components: {
-        ListItem，
+        ListItem,
         Swiper
     },
     data() {
@@ -36,7 +36,7 @@ export default {
         },
         onSlideChangeEnd(currentPage) {
             console.log('onSlideChangeEnd', currentPage);
-        }，
+        },
         changeStatus(type) {
             this.status = type;
             //$(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
