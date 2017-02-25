@@ -19,7 +19,7 @@
                         <router-link :to="{path: '/registered'}">手机快速注册</router-link>
                     </div>
                     <div class="weui-flex__item">
-                        <a href="">忘记密码</a>
+                        <router-link :to="{path: '/password/list'}">忘记/重置密码</router-link>
                     </div>
                 </div>
             </div>
