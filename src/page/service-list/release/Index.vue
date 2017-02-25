@@ -83,6 +83,9 @@ var unitPriceArr = [{
 }, {
     label: "天",
     value: '2'
+}, {
+    label: "次",
+    value: '3'
 }];
 var imguploadNum = 0;
 export default {
