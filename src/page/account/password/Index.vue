@@ -22,7 +22,7 @@
                 </div>
                 <div class="weui-cell"></div>
                 <a href="javascript:;" class="weui-btn weui-btn_primary" @click="registered">提交</a>
-                <div for="weuiAgree" class="weui-agree">
+                <div for="weuiAgree" class="weui-agree" v-if="this.next=='list'">
                     <div class="weui-agree__item"></div>
                     <div class="weui-agree__item">
                         <router-link :to="{path: '/login'}">已有帐号,去登录</router-link>

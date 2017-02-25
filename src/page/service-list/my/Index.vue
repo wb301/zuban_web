@@ -107,7 +107,7 @@ export default {
         },
         changePassword() {
             this.$router.push({
-                path: '/password'
+                path: '/password/my'
             });
         },
         myOrderlist_0() {
