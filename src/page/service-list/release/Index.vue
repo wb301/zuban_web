@@ -196,6 +196,16 @@ export default {
         },
         deleteImg(p_index) {
             this.img_list.splice(p_index, 1);
+            var bool = true;
+            for (var i = 0; i < this.img_list.length; i++) {
+                this.img_list[i].type == "add" ? bool = false : '';
+            }
+            if (bool) {
+                this.img_list.push({
+                    img_url: addImg,
+                    type: 'add'
+                });
+            }
         },
         setUpload() {
             var _self = this;
