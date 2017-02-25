@@ -32,7 +32,7 @@
         </div>
 
         <div class="weui-cells" style = "margin-top:7.5px;">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access">
                 <div class="weui-cell__bd">
                     <p>所在地</p>
                 </div>
@@ -130,7 +130,6 @@ export default {
                     NormalHelper.userInfo = response;
                     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
                     this.userInfo = response;
-                    console.log(this.userInfo);
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
