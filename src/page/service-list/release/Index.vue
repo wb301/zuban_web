@@ -111,6 +111,9 @@ export default {
         });
         this.getCategoryList();
         this.getRegionList();
+        this.$nextTick(function() {
+            console.log($("body").width());
+        });
     },
     watch: {},
     methods: {
@@ -247,9 +250,11 @@ export default {
                 display: inline-block;
                 margin-left: 7.5px;
                 position: relative;
+                width: 110px;
+                height: 110px;
                 .imgupload {
-                    width: 110px;
-                    height: 110px;
+                    width: 100%;
+                    height: 100%;
                     opacity: 0;
                     position: absolute;
                     left: 0;
@@ -259,8 +264,8 @@ export default {
                     z-index: 501;
                 }
                 img:not(.quxiao) {
-                    width: 110px;
-                    height: 110px;
+                    width: 100%;
+                    height: 100%;
                 }
                 .quxiao {
                     position: absolute;
@@ -273,6 +278,18 @@ export default {
             >div:nth-child(1),
             >div:nth-child(4) {
                 margin-left: 0px;
+            }
+            @media only screen and (min-width:320px) {
+                >div {
+                    width: 91.5px;
+                    height: 91.5px;
+                }
+            }
+            @media only screen and (min-width:414px) {
+                >div {
+                    width: 122.5px;
+                    height: 122.5px;
+                }
             }
         }
         .segmentation {
