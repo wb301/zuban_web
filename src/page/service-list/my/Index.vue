@@ -2,7 +2,7 @@
     <div style = "background: #F5F5F5;">
 
         <div class="weui-cells" style = "margin-top:0px;">
-            <a class="weui-cell weui-cell_access" href="javascript:;"  style = "height:125px;">
+            <a class="weui-cell weui-cell_access" href="javascript:;"  style = "height:125px;" @click='myInfo'>
 
                 <div class="weui-cell">
                     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
@@ -88,6 +88,11 @@ export default {
         console.log();
     },
     methods: {
+        myInfo() {
+            this.$router.push({
+                path: '/my-info'
+            });
+        },
         myServiceList() {
             this.$router.push({
                 path: '/my-service-list'
