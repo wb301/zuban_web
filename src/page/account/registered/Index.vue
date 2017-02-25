@@ -27,12 +27,15 @@
                 </div>
                 <div class="weui-cell"></div>
                 <a href="javascript:;" class="weui-btn weui-btn_primary" @click="registered">提交</a>
-                <label for="weuiAgree" class="weui-agree">
-                    <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
-                    <span class="weui-agree__text">
-                        同意<a href="javascript:void(0);">《相关条款》</a>
-                    </span>
-                </label>
+                <div for="weuiAgree" class="weui-agree">
+                    <div class="weui-agree__item">
+                        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">同意
+                        <a href="javascript:void(0);">《相关条款》</a>
+                    </div>
+                    <div class="weui-agree__item">
+                        <router-link :to="{path: '/login'}">已有帐号</router-link>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -211,8 +214,16 @@ export default {
         width: 16px;
         height: 16px;
     }
-    .weui-agree {
-        font-size: 16px;
+    .weui-agree{
+        font-size: 14px;
+
+        >.weui-agree__item:nth-child(1) {
+            text-align: left;
+            float: left;
+        }
+        >.weui-agree__item:nth-child(2) {
+            text-align: right;
+        }
     }
 }
 </style>
