@@ -147,17 +147,39 @@ export default {
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return
-            } 
+            }
+            var _self = this;
             var p_obj = {
                 action: 'c=Zb&m=Register&a=registerByMobile',
                 param: param,
                 success: (response) => {
-                    this.$router.push({
-                        path: 'login'
-                    });
+                    this.login();
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        },
+        login() {
+            var param = {
+                account: this.mobile,
+                password: this.password,
+                latitude: NormalHelper.userPos.latitude,
+                logitude: NormalHelper.userPos.logitude
+            };
+            var p_obj = {
+                action: 'c=Zb&m=Login&a=login',
+                param: param,
+                success: (response) => {
+                    NormalHelper.userInfo = response;
+                    NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
+                    this.$router.push({
+                        path: '/list'
+                    });
+                },
+                fail: (response) => {
+                    weui.alert(response.msg);
                 }
             };
             AjaxHelper.PostRequest(p_obj);
