@@ -83,6 +83,9 @@ var unitPriceArr = [{
 }, {
     label: "天",
     value: '2'
+}, {
+    label: "次",
+    value: '3'
 }];
 var imguploadNum = 0;
 export default {
@@ -111,6 +114,9 @@ export default {
         });
         this.getCategoryList();
         this.getRegionList();
+        this.$nextTick(function() {
+
+        });
     },
     watch: {},
     methods: {
@@ -188,7 +194,7 @@ export default {
                 defaultValue: [2],
                 className: 'custom-classname',
                 onConfirm: function(result) {
-                    _self.categor_id = result[2].value;
+                    _self.categor_id = result[1].value;
                     _self.categor = result[0].label + " " + result[1].label;
                 },
                 id: 'categoryPicker'
@@ -248,8 +254,8 @@ export default {
                 margin-left: 7.5px;
                 position: relative;
                 .imgupload {
-                    width: 110px;
-                    height: 110px;
+                    width: 100%;
+                    height: 100%;
                     opacity: 0;
                     position: absolute;
                     left: 0;
@@ -259,8 +265,8 @@ export default {
                     z-index: 501;
                 }
                 img:not(.quxiao) {
-                    width: 110px;
-                    height: 110px;
+                    width: 100%;
+                    height: 100%;
                 }
                 .quxiao {
                     position: absolute;
@@ -273,6 +279,24 @@ export default {
             >div:nth-child(1),
             >div:nth-child(4) {
                 margin-left: 0px;
+            }
+            @media only screen and (min-width:320px) {
+                >div {
+                    width: 91.5px;
+                    height: 91.5px;
+                }
+            }
+            @media only screen and (min-width:375px) {
+                >div {
+                    width: 110px;
+                    height: 110px;
+                }
+            }
+            @media only screen and (min-width:414px) {
+                >div {
+                    width: 122.5px;
+                    height: 122.5px;
+                }
             }
         }
         .segmentation {
