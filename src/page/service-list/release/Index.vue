@@ -250,8 +250,6 @@ export default {
                 display: inline-block;
                 margin-left: 7.5px;
                 position: relative;
-                width: 110px;
-                height: 110px;
                 .imgupload {
                     width: 100%;
                     height: 100%;
@@ -283,6 +281,12 @@ export default {
                 >div {
                     width: 91.5px;
                     height: 91.5px;
+                }
+            }
+            @media only screen and (min-width:375px) {
+                >div {
+                    width: 110px;
+                    height: 110px;
                 }
             }
             @media only screen and (min-width:414px) {
