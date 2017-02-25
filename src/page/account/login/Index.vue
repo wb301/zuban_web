@@ -36,13 +36,15 @@ export default {
         }
     },
     mounted() {
-
+        NormalHelper.getPostion();
     },
     methods: {
         login() {
             var param = {
                 account: this.mobile,
-                password: this.password
+                password: this.password,
+                latitude: NormalHelper.userPos.latitude,
+                logitude: NormalHelper.userPos.logitude
             };
             var mobile = param.account;
             if (!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))) {

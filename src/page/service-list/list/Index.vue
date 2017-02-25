@@ -47,10 +47,6 @@ export default {
             orderBy: '',
             categoryId: '',
             regionCode: '',
-            pos: {
-                latitude: 121,//上海周边经纬度
-                logitude: 31
-            },
             name: {
                 region: '地区',
                 category: '分类',
@@ -59,20 +55,12 @@ export default {
         }
     },
     mounted() {
-        this.getPosition();
+        NormalHelper.getPostion();
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();
     },
     methods: {
-        getPosition(){
-            NormalHelper.getLocation(function(position){
-                _self.pos.latitude = position.coords.latitude;
-                _self.pos.logitude = position.coords.longitude;
-                _self.page = 1;
-                _self.getShowProductList(dropload);
-            },this);
-        },
         selectSort() {
             var arr = [{
                 label: "最近时间",
@@ -197,10 +185,8 @@ export default {
             if (this.regionCode != "") {
                 param.regionCode = this.regionCode;
             }
-            if (this.pos.latitude != 0&& this.pos.logitude != 0) {
-                param.latitude = this.pos.latitude;
-                param.logitude = this.pos.logitude;
-            }
+            param.latitude = NormalHelper.userPos.latitude;
+            param.logitude = NormalHelper.userPos.logitude;
             var p_obj = {
                 action: '',
                 param: param,

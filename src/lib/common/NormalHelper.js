@@ -53,8 +53,12 @@ NormalHelper.delCookie = function(name) {
     this.setCookie(name, null, -1);
 };
 
-NormalHelper.getLocation = function(callback,target) {
-    var _self = target;
+//获取经纬度  默认 上海周边经纬度
+NormalHelper.userPos = {
+    latitude: 121,
+    logitude: 31
+};
+NormalHelper.getPostion = function() {
     var geol;
     try {
         if (typeof(navigator.geolocation) == 'undefined') {
@@ -66,17 +70,23 @@ NormalHelper.getLocation = function(callback,target) {
         alert(error.message);
     }
     if (geol) {
-        geol.getCurrentPosition(callback, function(error) {
+        geol.getCurrentPosition(function(postion){
+            NormalHelper.userPos.latitude = postion.coords.latitude;
+            NormalHelper.userPos.logitude = postion.coords.longitude;
+        },
+        function(error) {
             switch(error.code){
-                case error.TIMEOUT :
-                    alert("连接超时，请重试");
-                    break;
-                case error.PERMISSION_DENIED :
-                    alert("您拒绝了使用位置共享服务，查询已取消");
-                    break;
-                case error.POSITION_UNAVAILABLE :
-                    alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
-                    break;
+                // case error.TIMEOUT :
+                //     alert("连接超时，请重试");
+                //     break;
+                // case error.PERMISSION_DENIED :
+                //     alert("您拒绝了使用位置共享服务，查询已取消");
+                //     break;
+                // case error.POSITION_UNAVAILABLE :
+                //     alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
+                //     break;
+                // default:
+                //     alert("无法获取定位信息");
             }
         }, {
             enableHighAccuracy:true,
@@ -85,6 +95,7 @@ NormalHelper.getLocation = function(callback,target) {
             }
         );
     }
+    return NormalHelper.userPos;
 };
 
 

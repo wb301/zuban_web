@@ -56,6 +56,7 @@ export default {
         }
     },
     mounted() {
+        NormalHelper.getPostion();
         $("#region").focus(function() {
             document.activeElement.blur();
         });
@@ -138,7 +139,9 @@ export default {
                 password: this.password,
                 code: this.code,
                 region_code: this.region_code,
-                region_name: this.region
+                region_name: this.region,
+                latitude: NormalHelper.userPos.latitude,
+                logitude: NormalHelper.userPos.logitude
             };
            var str = /^(\d){6,20}$/;
             if (!str.exec(this.password)) {
