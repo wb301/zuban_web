@@ -1,6 +1,6 @@
 <template>
     <div class="container-body">
-        <swiper v-ref:image direction="horizontal" :mousewheel-control="true" :performance-mode="false" :pagination-visible="true" :pagination-clickable="true" :loop="true" @slide-change-start="onSlideChangeStart" @slide-change-end="onSlideChangeEnd">
+        <swiper v-ref:icon direction="horizontal" :mousewheel-control="true" :performance-mode="false" :pagination-visible="true" :pagination-clickable="true" :loop="true" @slide-change-start="onSlideChangeStart" @slide-change-end="onSlideChangeEnd">
         </swiper>
         <div>
             <img :scr="userInfo.head_img" />
@@ -42,8 +42,6 @@ import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 import ListItem from './item'
 import Swiper from 'vue-swiper'
-import image1 from './image/1.jpg'
-import image2 from './image/2.jpg'
 import boda from './image/boda.png'
 export default {
     components: {
@@ -52,7 +50,6 @@ export default {
     },
     data() {
         return {
-            image: [image1, image2],
             icon: boda,
             productList: [],
             page: 1,
