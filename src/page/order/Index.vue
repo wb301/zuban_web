@@ -1,25 +1,25 @@
 <template>
     <div class="container-body">
-    <div class="weui-tab">
-        <div class="weui-navbar">
-            <div class="weui-navbar__item weui-bar__item_on" @click="changeStatus('ALL')">
-                全部
+        <div class="weui-tab">
+            <div class="weui-navbar">
+                <div class="weui-navbar__item weui-bar__item_on" @click="changeStatus('ALL')">
+                    全部
+                </div>
+                <div class="weui-navbar__item" @click="changeStatus('WaitingPay')">
+                    代付款
+                </div>
+                <div class="weui-navbar__item" @click="changeStatus('WaitingConfirm')">
+                    待确认
+                </div>
+                <div class="weui-navbar__item" @click="changeStatus('Ongoing')">
+                    进行中
+                </div>
+                <div class="weui-navbar__item" @click="changeStatus('End')">
+                    已完成
+                </div>
             </div>
-            <div class="weui-navbar__item" @click="changeStatus('WaitingPay')">
-                代付款
-            </div>
-            <div class="weui-navbar__item" @click="changeStatus('WaitingPay')">
-                待确认
-            </div>
-              <div class="weui-navbar__item" @click="changeStatus('WaitingPay')">
-                            进行中
-                        </div>
-                          <div class="weui-navbar__item" @click="changeStatus('End')">
-                                        已完成
-                                    </div>
         </div>
-    </div>
-        <div >
+        <div>
             <div class="dropload-wapper">
                 <div>
                     <list-item v-for="(item,index) in productList" :item="item"></list-item>
@@ -96,4 +96,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.container-body {
+    .weui-navbar__item {
+        background: #FFFFFF;
+
+    }
+    }
+
 </style>
