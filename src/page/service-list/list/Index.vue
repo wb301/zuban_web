@@ -47,6 +47,10 @@ export default {
             orderBy: '',
             categoryId: '',
             regionCode: '',
+            pos: {
+                latitude: 121,//上海周边经纬度
+                logitude: 31
+            },
             name: {
                 region: '地区',
                 category: '分类',
@@ -55,11 +59,51 @@ export default {
         }
     },
     mounted() {
+        this.getLocation();
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();
     },
     methods: {
+        getLocation(){
+            var _self = this;
+            var geol;
+            try {
+                if (typeof(navigator.geolocation) == 'undefined') {
+                    geol = google.gears.factory.create('beta.geolocation');
+                } else {
+                    geol = navigator.geolocation;
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+
+            if (geol) {
+                geol.getCurrentPosition(function(position) {
+                    _self.pos.latitude = position.coords.latitude;
+                    _self.pos.logitude = position.coords.longitude;
+                    _self.page = 1;
+                    _self.getShowProductList(dropload);
+                }, function(error) {
+                    switch(error.code){
+                        case error.TIMEOUT :
+                            alert("连接超时，请重试");
+                            break;
+                        case error.PERMISSION_DENIED :
+                            alert("您拒绝了使用位置共享服务，查询已取消");
+                            break;
+                        case error.POSITION_UNAVAILABLE :
+                            alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
+                            break;
+                    }
+                }, {
+                    enableHighAccuracy:true,
+                    timeout:10000,//设置十秒超时
+                    maximumAge:0
+                    }
+                );
+            }
+        },
         selectSort() {
             var arr = [{
                 label: "最近时间",
@@ -172,8 +216,6 @@ export default {
                 c: 'Zb',
                 m: 'Product',
                 a: 'getShowProductList',
-                logitude: 1,
-                latitude: 12,
                 page: this.page,
                 row: 5
             };
@@ -185,6 +227,10 @@ export default {
             }
             if (this.regionCode != "") {
                 param.regionCode = this.regionCode;
+            }
+            if (this.pos.latitude != 0&& this.pos.logitude != 0) {
+                param.latitude = this.pos.latitude;
+                param.logitude = this.pos.logitude;
             }
             var p_obj = {
                 action: '',
