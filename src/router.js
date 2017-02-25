@@ -20,6 +20,11 @@ const router = new Router({
             require(['./page/account/registered/Index.vue'], resolve)
         }
     }, {
+        path: '/product',
+        component: function(reslove){
+            require(['./page/product/Index.vue'],reslove)
+        }
+    },{
         path: '/orderlist/:type',
         component: function(resolve) {
             require(['./page/order/Index.vue'], resolve)
