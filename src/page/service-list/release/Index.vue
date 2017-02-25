@@ -5,7 +5,8 @@
                 <div class="image-manipulation">
                     <div v-for="(item,index) in img_list">
                         <img :src="item.img_url">
-                        <img class="quxiao" :src="quxiaoimg" @click="deleteImg(index)" v-if="index!=5">
+                        <img class="quxiao" :src="quxiaoimg" @click="deleteImg(index)" v-if="item.type!='add'">
+                        <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" v-if="item.type=='add'" @click="setUpload">
                     </div>
                 </div>
                 <div class="segmentation"></div>
@@ -83,6 +84,7 @@ var unitPriceArr = [{
     label: "天",
     value: '2'
 }];
+var imguploadNum = 0;
 export default {
     components: {},
     data() {
@@ -98,17 +100,8 @@ export default {
             categoryList: [],
             categor_id: 0,
             img_list: [{
-                img_url: meinv
-            }, {
-                img_url: meinv
-            }, {
-                img_url: meinv
-            }, {
-                img_url: meinv
-            }, {
-                img_url: meinv
-            }, {
-                img_url: addImg
+                img_url: addImg,
+                type: 'add'
             }]
         }
     },
@@ -119,6 +112,7 @@ export default {
         this.getCategoryList();
         this.getRegionList();
     },
+    watch: {},
     methods: {
         selectUnitPrice() {
             var _self = this;
@@ -202,6 +196,20 @@ export default {
         },
         deleteImg(p_index) {
             this.img_list.splice(p_index, 1);
+        },
+        setUpload() {
+            var _self = this;
+            $(".imgupload").off('change');
+            NormalHelper.uploadBase64($(".imgupload"), function(img) {
+                _self.img_list.splice(_self.img_list.length - 1, 0, {
+                    img_url: img,
+                    type: 'edit'
+                });
+                if (_self.img_list.length == 7) {
+                    _self.img_list.splice(_self.img_list.length - 1, 1);
+                }
+                $(".imgupload").val('');
+            });
         }
     },
     destroyed() {}
@@ -229,6 +237,17 @@ export default {
                 display: inline-block;
                 margin-left: 7.5px;
                 position: relative;
+                .imgupload {
+                    width: 110px;
+                    height: 110px;
+                    opacity: 0;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    z-index: 501;
+                }
                 img:not(.quxiao) {
                     width: 110px;
                     height: 110px;
