@@ -47,6 +47,7 @@ export default {
             orderBy: '',
             categoryId: '',
             regionCode: '',
+            pos: {},
             name: {
                 region: '地区',
                 category: '分类',
@@ -55,7 +56,7 @@ export default {
         }
     },
     mounted() {
-        NormalHelper.getPostion();
+        this.pos = NormalHelper.getPostion();
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();
@@ -185,8 +186,8 @@ export default {
             if (this.regionCode != "") {
                 param.regionCode = this.regionCode;
             }
-            param.latitude = NormalHelper.userPos.latitude;
-            param.logitude = NormalHelper.userPos.logitude;
+            param.latitude = this.pos.latitude;
+            param.logitude = this.pos.logitude;
             var p_obj = {
                 action: '',
                 param: param,

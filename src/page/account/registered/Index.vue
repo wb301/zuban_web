@@ -52,11 +52,12 @@ export default {
                 prompt: '获取验证码',
                 disabled: ''
             },
-            mobileCode: ''
+            mobileCode: '',
+            pos: {}
         }
     },
     mounted() {
-        NormalHelper.getPostion();
+        this.pos = NormalHelper.getPostion();
         $("#region").focus(function() {
             document.activeElement.blur();
         });
@@ -140,8 +141,8 @@ export default {
                 code: this.code,
                 region_code: this.region_code,
                 region_name: this.region,
-                latitude: NormalHelper.userPos.latitude,
-                logitude: NormalHelper.userPos.logitude
+                latitude: this.pos.latitude,
+                logitude: this.pos.logitude
             };
            var str = /^(\d){6,20}$/;
             if (!str.exec(this.password)) {
@@ -165,8 +166,8 @@ export default {
             var param = {
                 account: this.mobile,
                 password: this.password,
-                latitude: NormalHelper.userPos.latitude,
-                logitude: NormalHelper.userPos.logitude
+                latitude: this.pos.latitude,
+                logitude: this.pos.logitude
             };
             var p_obj = {
                 action: 'c=Zb&m=Login&a=login',

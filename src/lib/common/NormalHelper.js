@@ -62,10 +62,7 @@ NormalHelper.setUserInfo = function(response){
 }
 
 //获取经纬度  默认 上海周边经纬度
-NormalHelper.userPos = {
-    latitude: 121,
-    logitude: 31
-};
+NormalHelper.cur_postion = {latitude:121,logitude:31};
 NormalHelper.getPostion = function() {
     var geol;
     try {
@@ -79,8 +76,8 @@ NormalHelper.getPostion = function() {
     }
     if (geol) {
         geol.getCurrentPosition(function(postion){
-            NormalHelper.userPos.latitude = postion.coords.latitude;
-            NormalHelper.userPos.logitude = postion.coords.longitude;
+            NormalHelper.cur_postion.latitude = postion.coords.latitude;
+            NormalHelper.cur_postion.logitude = postion.coords.longitude;
         },
         function(error) {
             switch(error.code){
@@ -103,7 +100,7 @@ NormalHelper.getPostion = function() {
             }
         );
     }
-    return NormalHelper.userPos;
+    return NormalHelper.cur_postion;
 };
 
 
