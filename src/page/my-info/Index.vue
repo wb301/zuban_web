@@ -110,7 +110,7 @@ export default {
     },
     data() {
         return {
-            userInfo: NormalHelper.userInfo
+            userInfo: NormalHelper.userInfo()
         }
     },
     mounted() {
@@ -127,8 +127,7 @@ export default {
                 param: param,
                 success: (response) => {
                     response["token"] = this.userInfo.token;
-                    NormalHelper.userInfo = response;
-                    NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
+                    NormalHelper.setUserInfo(response);
                     this.userInfo = response;
                 },
                 fail: (response) => {

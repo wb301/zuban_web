@@ -172,8 +172,7 @@ export default {
                 action: 'c=Zb&m=Login&a=login',
                 param: param,
                 success: (response) => {
-                    NormalHelper.userInfo = response;
-                    NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
+                    NormalHelper.setUserInfo(response);
                     this.$router.push({
                         path: '/list'
                     });

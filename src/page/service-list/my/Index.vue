@@ -81,7 +81,7 @@ export default {
         return {
             image: xiala,
             shouji: shouji,
-            userInfo: NormalHelper.userInfo
+            userInfo: NormalHelper.userInfo()
         }
     },
     mounted() {

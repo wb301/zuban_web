@@ -9,11 +9,7 @@
 // 全局错误处理，全局loading
 // import { setLoading, setTip } from './vuex/actions/doc_actions'
 export default function(request, next) {
-    var user = NormalHelper.userInfo;
-    if(!user.token){
-        user = NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : '';
-    }
-    var userToken = user.token;
+    var userToken =  NormalHelper.userInfo().token;
     if (userToken) {
         if (request.method == 'GET') {
             request.params.token = userToken;
