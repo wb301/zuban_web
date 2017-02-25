@@ -42,8 +42,10 @@ export default {
     beforeMount() {
         this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
         this.item.danwei = "小时";
-        if(this.item.price_type == 2){
+        if (this.item.price_type == 2) {
             this.item.danwei = "天";
+        }else if(this.item.price_type == 3){
+            this.item.danwei = "次";
         }
     },
     methods: {},

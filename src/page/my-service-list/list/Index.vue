@@ -17,7 +17,7 @@
         </div>
 </template>
 <script>
-import xiala from '../service-list/list/image/xiala.png'
+import xiala from '../../service-list/list/image/xiala.png'
 import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 import ListItem from './item'
@@ -74,8 +74,7 @@ export default {
                 m: 'Product',
                 a: 'getMyProductList',
                 page: this.page,
-                row: 5,
-                token: 1
+                row: 5
             };
             if (this.status != "") {
                 param.status = this.status;

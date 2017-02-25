@@ -48,7 +48,7 @@ const router = new Router({
     }, {
         path: '/my-service-list',
         component: function(resolve) {
-            require(['./page/my-service-list/Index.vue'], resolve)
+            require(['./page/my-service-list/list/Index.vue'], resolve)
         }
     }, {
         path: '/',
