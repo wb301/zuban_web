@@ -174,7 +174,11 @@ export default {
     }
     .weui-agree{
         font-size: 14px;
-
+        color: #4990E2;
+        a:link ,a:visited{
+            font-size: 14px;
+            color: #4990E2;
+        }
         >.weui-agree__item:nth-child(1) {
             text-align: left;
             float: left;
