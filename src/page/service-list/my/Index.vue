@@ -81,7 +81,7 @@ export default {
         return {
             image: xiala,
             shouji: shouji,
-            userInfo: NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : {nick_name:'测试',account:'12345678909'}
+            userInfo: NormalHelper.userInfo
         }
     },
     mounted() {
