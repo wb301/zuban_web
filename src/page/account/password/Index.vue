@@ -52,11 +52,9 @@ export default {
     },
     mounted() {
         this.next = this.$route.params.next
-        if(NormalHelper.userInfo().account){
+        if(this.next == "my" && NormalHelper.userInfo().account){
             this.mobile = NormalHelper.userInfo().account;
-            if(this.next == "my"){
-                this.mobile_readonly = true;
-            }
+            this.mobile_readonly = true;
         }
     },
     methods: {

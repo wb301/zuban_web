@@ -44,6 +44,11 @@ const router = new Router({
         component: function(resolve) {
             require(['./page/order/Index.vue'], resolve)
         }
+    },{
+        path: '/buy-order-list',
+        component: function(resolve) {
+            require(['./page/order/buy-list/Index.vue'], resolve)
+        }
     }, {
         path: '/my-info',
         component: function(resolve) {
