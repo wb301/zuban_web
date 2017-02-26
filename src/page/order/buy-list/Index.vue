@@ -33,7 +33,7 @@ export default {
             page: 0,
             status: 'ALL',
             name: {
-                status: "全部订单"
+                status: "全部"
             }
         }
     },
@@ -43,10 +43,10 @@ export default {
     methods: {
         selectStatus() {
             var arr = [{
-                label: "全部订单",
+                label: "全部",
                 value: 'ALL'
             }, {
-                label: "待支付",
+                label: "待付款",
                 value: 'WaitingPay'
             }, {
                 label: "待确认",
@@ -163,6 +163,7 @@ export default {
     .dropload-wapper {
         position: absolute;
         top: 50px;
+        background: #F5F5F5;
         left: 0;
         right: 0;
         bottom: 0;
