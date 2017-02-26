@@ -50,6 +50,14 @@ const router = new Router({
             require(['./page/order/buy-list/Index.vue'], resolve)
         }
     }, {
+    },
+        {
+            path: '/order-details/:orderNo/:type',
+            component: function(resolve) {
+                require(['./page/order-details/Index.vue'], resolve)
+            }
+        },
+        {
         path: '/my-info',
         component: function(resolve) {
             require(['./page/my-info/Index.vue'], resolve)
