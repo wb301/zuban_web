@@ -117,7 +117,7 @@ export default {
         },
         myOrderlist_0() {
             this.$router.push({
-                path: '/orderlist/0'
+                path: '/buy-order-list'
             });
         },
         myOrderlist_1() {
