@@ -24,7 +24,7 @@ const router = new Router({
         component: function(resolve) {
             require(['./page/account/password/Index.vue'], resolve)
         }
-    },{
+    }, {
         path: '/agree',
         component: function(resolve) {
             require(['./page/account/agree/Index.vue'], resolve)
@@ -36,28 +36,25 @@ const router = new Router({
         }
     }, {
         path: '/product',
-        component: function(reslove){
-            require(['./page/product/Index.vue'],reslove)
+        component: function(reslove) {
+            require(['./page/product/Index.vue'], reslove)
         }
-    },{
+    }, {
         path: '/orderlist/:type',
         component: function(resolve) {
             require(['./page/order/Index.vue'], resolve)
         }
-    },{
+    }, {
         path: '/buy-order-list',
         component: function(resolve) {
             require(['./page/order/buy-list/Index.vue'], resolve)
         }
     }, {
-    },
-        {
-            path: '/order-details/:orderNo/:type',
-            component: function(resolve) {
-                require(['./page/order-details/Index.vue'], resolve)
-            }
-        },
-        {
+        path: '/order-details/:orderNo/:type',
+        component: function(resolve) {
+            require(['./page/order-details/Index.vue'], resolve)
+        }
+    }, {
         path: '/my-info',
         component: function(resolve) {
             require(['./page/my-info/Index.vue'], resolve)
