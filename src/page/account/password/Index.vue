@@ -4,7 +4,7 @@
             <div>
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <input class="weui-input" v-model="mobile" type="text" placeholder="请输入您的手机号" />
+                        <input class="weui-input" v-bind:readonly="mobile_readonly" v-model="mobile" type="text" placeholder="请输入您的手机号" />
                     </div>
                 </div>
                 <div class="weui-cell">
@@ -37,6 +37,7 @@ export default {
     components: {},
     data() {
         return {
+            mobile_readonly:false,
             mobile: '',
             password: '',
             code: '',
@@ -51,8 +52,11 @@ export default {
     },
     mounted() {
         this.next = this.$route.params.next
-        if(NormalHelper.userInfo().mobile){
-            this.mobile = NormalHelper.userInfo().mobile;
+        if(NormalHelper.userInfo().account){
+            this.mobile = NormalHelper.userInfo().account;
+            if(this.next == "my"){
+                this.mobile_readonly = true;
+            }
         }
     },
     methods: {
