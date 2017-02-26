@@ -22,11 +22,11 @@ export default {
     },
     data() {
         return {
-            orderDetails:[],
+            orderDetails: [],
             type: 0, //0是买家查看订单 1 卖家查看订单
-            orderNo:'',
-            head_img:'',
-            nick_name:'',
+            orderNo: '',
+            head_img: '',
+            nick_name: '',
 
         }
     },
@@ -49,13 +49,13 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                    if(response.length <= 0){
-                       weui.alert('网络异常！')
+                    if (response.length <= 0) {
+                        weui.alert('网络异常！')
                     }
                     this.orderDetails = response;
                     //0是买家看卖家，1是卖家看买家
-                    this.head_img=response.seller.head_img;
-                    this.nick_name=response.seller.nick_name;
+                    this.head_img = response.seller.head_img;
+                    this.nick_name = response.seller.nick_name;
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -63,17 +63,15 @@ export default {
             };
             AjaxHelper.GetRequest(p_obj);
         },
-},
+    },
     destroyed() {}
 }
 </script>
 <style lang="less" scoped>
 .container-body {
-    .details-wapper{
+    .details-wapper {
         height: 117.5px;
         position: relative;
-
     }
-    }
-
+}
 </style>

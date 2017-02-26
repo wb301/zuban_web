@@ -43,7 +43,7 @@ export default {
             page: 1,
             type: 0,
             status: 'ALL',
-            orderNo:'',
+            orderNo: '',
 
         }
     },
@@ -53,7 +53,7 @@ export default {
     },
     methods: {
         //状态筛选
-        changeStatus(type){
+        changeStatus(type) {
             this.status = type;
             this.getOrderList();
         },
@@ -102,16 +102,16 @@ export default {
                 orderNo: this.orderNo
             };
             var p_obj = {
-                        action: '',
-                        param: param,
-                        success: (response) => {
+                action: '',
+                param: param,
+                success: (response) => {
 
-                        weui.alert('确认成功！')
-        },
-            fail: (response) => {
-                weui.alert(response.msg)
-            }
-        };
+                    weui.alert('确认成功！')
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
             AjaxHelper.GetRequest(p_obj);
         },
 
@@ -124,21 +124,21 @@ export default {
                 orderNo: this.orderNo
             };
             var p_obj = {
-                        action: '',
-                        param: param,
-                        success: (response) => {
+                action: '',
+                param: param,
+                success: (response) => {
 
-                        weui.alert('发货成功！')
-        },
-            fail: (response) => {
-                weui.alert(response.msg)
-            }
-        };
+                    weui.alert('发货成功！')
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
             AjaxHelper.GetRequest(p_obj);
         },
 
 
-},
+    },
     destroyed() {}
 }
 </script>
@@ -146,8 +146,6 @@ export default {
 .container-body {
     .weui-navbar__item {
         background: #FFFFFF;
-
     }
-    }
-
+}
 </style>

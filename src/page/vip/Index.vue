@@ -1,6 +1,5 @@
 <template>
-    <div style = "background: #F5F5F5;">
-
+    <div style="background: #F5F5F5;">
         <!-- 当前等级 会员特权 -->
         <div class="content-manipulation">
             <div class="weui-cells" style="margin-top: 0px">
@@ -22,20 +21,15 @@
                 </div>
             </div>
         </div>
-
         <div style="margin-top: 10px">
             <label class="weui-label">会员特权说明</label>
             <div><img :src="image"></div>
-
         </div>
-
         <!-- 说明 -->
         <div style="margin-top: 10px">
             <label class="weui-label" style="color:blue">说明:</label>
             <label class="weui-label" style="width: 100%;color:blue">会员时间的计算从支付当天开始算起,到期后自动失效;支付成功10分钟内即可在服务详情页查看租人的联系方式。</label>
-
         </div>
-
         <!-- 开通会员 -->
         <div style="margin-top: 10px" v-if="is_vip == false">
             <label class="weui-label">开通会员</label>
@@ -46,9 +40,7 @@
                     </div>
                 </div>
             </div>
-
-        </div>        
-
+        </div>
     </div>
 </template>
 <script>
@@ -61,11 +53,11 @@ export default {
     },
     data() {
         return {
-            image : xiala,
-            vip_level : '注册会员',
-            vip_info  : '无',
-            is_vip : NormalHelper.userInfo()["vip"] ? true : false,
-            vipList  : [],
+            image: xiala,
+            vip_level: '注册会员',
+            vip_info: '无',
+            is_vip: NormalHelper.userInfo()["vip"] ? true : false,
+            vipList: [],
             vipInfo: NormalHelper.userInfo()["vip"]
         }
     },
@@ -90,11 +82,11 @@ export default {
                     NormalHelper.setUserInfo(userInfo);
 
                     for (var i = 0; i < this.vipConfig.length; i++) {
-                        if(this.vipInfo && this.vipInfo["vip_type"] == this.vipConfig[i]["level"]){
+                        if (this.vipInfo && this.vipInfo["vip_type"] == this.vipConfig[i]["level"]) {
 
                             this.is_vip = true;
                             this.vip_level = this.vipConfig[i]["name"];
-                            this.vip_info = "可在"+this.vipInfo["start_time"]+"至"+this.vipInfo["end_time"]+"内免费查看出租人的联系方式";
+                            this.vip_info = "可在" + this.vipInfo["start_time"] + "至" + this.vipInfo["end_time"] + "内免费查看出租人的联系方式";
                         }
                         this.vipList.push(this.vipConfig[i]);
                     }
@@ -110,7 +102,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.class_height{
+.class_height {
     height: 25px
 }
 </style>

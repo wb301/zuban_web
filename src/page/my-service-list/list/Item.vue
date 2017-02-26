@@ -40,7 +40,7 @@ export default {
         this.item.danwei = "小时";
         if (this.item.price_type == 2) {
             this.item.danwei = "天";
-        }else if(this.item.price_type == 3){
+        } else if (this.item.price_type == 3) {
             this.item.danwei = "次";
         }
         var map = {

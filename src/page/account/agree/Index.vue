@@ -2,7 +2,7 @@
     <div>
         <div class="container-body">
             <div>
-               <img :src="this.agreeImg">
+                <img :src="this.agreeImg">
             </div>
             <div class="button-release" @click="agree">同意</div>
         </div>
@@ -14,11 +14,10 @@ export default {
     components: {},
     data() {
         return {
-            agreeImg:agreeImg
+            agreeImg: agreeImg
         }
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {
         agree() {
             this.$router.push({

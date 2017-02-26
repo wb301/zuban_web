@@ -37,7 +37,7 @@ export default {
     components: {},
     data() {
         return {
-            mobile_readonly:false,
+            mobile_readonly: false,
             mobile: '',
             password: '',
             code: '',
@@ -52,7 +52,7 @@ export default {
     },
     mounted() {
         this.next = this.$route.params.next
-        if(this.next == "my" && NormalHelper.userInfo().account){
+        if (this.next == "my" && NormalHelper.userInfo().account) {
             this.mobile = NormalHelper.userInfo().account;
             this.mobile_readonly = true;
         }
@@ -104,7 +104,7 @@ export default {
                 password: this.password,
                 code: this.code,
             };
-           var str = /^(\d){6,20}$/;
+            var str = /^(\d){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return
@@ -137,7 +137,7 @@ export default {
                 success: (response) => {
                     NormalHelper.setUserInfo(response);
                     this.$router.push({
-                        path: '/'+_self.next
+                        path: '/' + _self.next
                     });
                 },
                 fail: (response) => {
@@ -174,10 +174,11 @@ export default {
         width: 16px;
         height: 16px;
     }
-    .weui-agree{
+    .weui-agree {
         font-size: 14px;
         color: #4990E2;
-        a:link ,a:visited{
+        a:link,
+        a:visited {
             font-size: 14px;
             color: #4990E2;
         }

@@ -35,14 +35,13 @@ export default {
         item: {}
     },
     data() {
-        return {
-        }
+        return {}
     },
     created: function() {
         this.item.danwei = "小时";
         if (this.item.price_type == 2) {
             this.item.danwei = "天";
-        }else if(this.item.price_type == 3){
+        } else if (this.item.price_type == 3) {
             this.item.danwei = "次";
         }
 
@@ -54,7 +53,7 @@ export default {
         // status
     },
     methods: {
-        goPay(){//支付
+        goPay() { //支付
 
         }
     },
@@ -89,19 +88,19 @@ export default {
                 }
             }
             .name {
-                    font-size: 17px;
-                    color: #333333;
-                    margin-top: 16px;
-                    margin-left: 10px;
-                    position: absolute;
-                }
+                font-size: 17px;
+                color: #333333;
+                margin-top: 16px;
+                margin-left: 10px;
+                position: absolute;
+            }
             .status {
-                    margin-top: 17px;
-                    font-size: 14px;
-                    color: #4990E2;
-                    position: absolute;
-                    right: 20px;
-                }
+                margin-top: 17px;
+                font-size: 14px;
+                color: #4990E2;
+                position: absolute;
+                right: 20px;
+            }
         }
         .info-wapper {
             position: relative;
