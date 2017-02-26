@@ -65,6 +65,11 @@ const router = new Router({
             require(['./page/vip/Index.vue'], resolve)
         }
     }, {
+        path: '/confirm',
+        component: function(resolve) {
+            require(['./page/confirm/Index.vue'], resolve)
+        }
+    }, {
         path: '/service-list/',
         component: function(resolve) {
             require(['./page/service-list/Index.vue'], resolve)
