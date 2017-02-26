@@ -2,12 +2,17 @@
     <div style = "background: #F5F5F5;">
 
         <div class="weui-cells" style = "margin-top:0px;height: 75px">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click="setUpload">
                 <div class="weui-cell__bd">
                     <label class="weui-label">头像</label>
                 </div>
                 <div class="weui-cell__ft">
-                    <img :src="userInfo.head_img" style="width: 50px;height:50px;"/>
+                    <div class="image-manipulation">
+                        <div v-for="(item,index) in img_list">
+                            <img :src="item" style="height: 50px;width: 50px">
+                            <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png"" @click="setUpload">
+                        </div>
+                    </div>
                 </div>
             </a>
         </div>
@@ -147,11 +152,13 @@ export default {
             age_model : '',
             height_model : '',
             weight_model : '',
-            userInfo: NormalHelper.userInfo()
+            userInfo: NormalHelper.userInfo(),
+            img_list : []
         }
     },
     mounted() {
         this.getUserInfo()
+        this.img_list = [this.userInfo.head_img]
         this.nick_name_model = this.userInfo.nick_name
         this.sex = this.userInfo.sex
         this.sex_model = this.sex == 'W' ? '女' : '男'
@@ -181,6 +188,14 @@ export default {
                 id: 'unitPricePicker'
             });
         },
+        setUpload() {
+            var _self = this;
+            $(".imgupload").off('change');
+            NormalHelper.uploadBase64($(".imgupload"), function(img) {
+                _self.img_list = [img]
+                $(".imgupload").val('');
+            });
+        },
         getUserInfo() {
 
             var param = {
@@ -203,6 +218,9 @@ export default {
         updUserInfo() {
 
             var param = {"token" : this.userInfo.token,"sex" : this.sex};
+            if(this.img_list){
+                param["head_img"] = this.img_list[0];
+            }
             if(this.nick_name_model){
                 param["nick_name"] = this.nick_name_model;
             }
@@ -258,5 +276,24 @@ export default {
 <style lang="less" scoped>
 .class_height{
     height: 25px
+}
+.image-manipulation {
+    margin-top: 3px;
+    >div {
+        display: inline-block;
+        margin-left: 7.5px;
+        position: relative;
+        .imgupload {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 501;
+        }
+    }
 }
 </style>
