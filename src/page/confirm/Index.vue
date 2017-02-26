@@ -35,6 +35,10 @@
                     </div>
                 </div>
                 <div class="message">
+                    <div>留言</div>
+                    <div>
+                        <textarea class="weui-textarea" placeholder="请输入文本" rows="5"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,6 +186,7 @@ export default {
     .weui-cell.phone {
         padding-left: 0;
         font-size: 14px;
+        border-bottom: 1px solid #E2E2E2;
         .weui-input {
             text-align: right;
             color: #666666;
@@ -189,6 +194,20 @@ export default {
     }
     .weui-cell.phone:before {
         border: 0;
+    }
+    .message {
+        div:first-child {
+            font-size: 14px;
+            color: #666;
+            margin: 15px 0;
+        }
+        div:last-child {
+            margin-right: 15px;
+            textarea {
+                font-size: 13px;
+                color: #BBBBBB;
+            }
+        }
     }
 }
 
