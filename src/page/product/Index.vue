@@ -35,8 +35,8 @@
             <div class="contact-information">
                 <div>
                     <div>
-                        <span>联系方式</span>
-                        <span>15元购买联系方式后可查看</span>
+                        <div>联系方式</div>
+                        <div>15元购买联系方式后可查看</div>
                     </div>
                     <div class="specific">
                         <div>手机号：
@@ -51,7 +51,7 @@
                 </div>
                 <div>
                     <div>
-                        <span>基本信息</span>
+                        <div>基本信息</div>
                     </div>
                     <div class="specific">
                         <div>所在地：上海</div>
@@ -221,20 +221,23 @@ export default {
     .contact-information {
         margin: 15px 15px;
         >div>div:nth-child(1) {
-            span:nth-child(1) {
+            >div {
+                display: inline-block;
+            }
+            div:nth-child(1) {
                 font-size: 15px;
                 color: #666;
             }
-            span:nth-child(2) {
+            div:nth-child(2) {
                 font-size: 11px;
                 color: #8760BA;
                 padding: 0 6px;
-                border: 0.5px solid #A878E5;
+                border: 1px solid #A878E5;
                 border-radius: 5px;
             }
         }
         .specific {
-            font-size: 3px;
+            font-size: 13px;
             color: #333;
             margin: 3px 0;
             >div {
