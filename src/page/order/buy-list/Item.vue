@@ -85,6 +85,7 @@ export default {
                     margin-top: 11px;
                     width: 27px;
                     height: 27px;
+                    border-radius: 50%;
                 }
             }
             .name {
