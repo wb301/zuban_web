@@ -56,6 +56,7 @@ export default {
             image: xiala,
             vip_level: '注册会员',
             vip_info: '无',
+            userInfo: NormalHelper.userInfo(),
             is_vip: NormalHelper.userInfo()["vip"] ? true : false,
             vipList: [],
             vipInfo: NormalHelper.userInfo()["vip"]
@@ -68,7 +69,7 @@ export default {
         getVipInfo() {
 
             var param = {
-                token: NormalHelper.userInfo()["token"]
+                token: this.userInfo.token
             };
             var p_obj = {
                 action: 'c=Zb&m=SystemConfig&a=getVipPayList',
@@ -77,9 +78,8 @@ export default {
                     this.vipInfo = response["info"];
                     this.vipConfig = response["config"];
 
-                    var userInfo = NormalHelper.userInfo();
-                    userInfo["vip"] = this.vipInfo;
-                    NormalHelper.setUserInfo(userInfo);
+                    this.userInfo.vip = this.vipInfo;
+                    NormalHelper.setUserInfo(this.userInfo);
 
                     for (var i = 0; i < this.vipConfig.length; i++) {
                         if (this.vipInfo && this.vipInfo["vip_type"] == this.vipConfig[i]["level"]) {
