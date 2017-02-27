@@ -3,9 +3,7 @@
         <div class="container-body">
             <div class="swipe">
                 <mt-swipe :auto="4000" class="swipt-wapper">
-                    <mt-swipe-item><img :src="img_meinv"></mt-swipe-item>
-                    <mt-swipe-item><img :src="img_meinv"></mt-swipe-item>
-                    <mt-swipe-item><img :src="img_meinv"></mt-swipe-item>
+                    <mt-swipe-item v-for="(item,index) in imageList"><img :src="item"></mt-swipe-item>
                 </mt-swipe>
             </div>
             <div class="user-information">
@@ -13,24 +11,24 @@
                     <img :src="img_meinv">
                 </div>
                 <div class="user-info">
-                    <div>Kyumi琪</div>
-                    <div><img :src="gender_icon[1]"></div>
+                    <div>{{productInfo.product_info}}</div>
+                    <div><img :src="gender_icon"></div>
                 </div>
                 <div class="da-phone" v-if="members==1">
                     <img :src="icon">
                 </div>
             </div>
             <div class="service-information">
-                <div>陪逛街</div>
+                <div>{{productInfo.category.category_name}}</div>
                 <div>
                     <span>￥</span>
-                    <span>179</span>
-                    <span>/小时</span>
+                    <span>{{productInfo.price}}</span>
+                    <span>/{{productInfo.price_type == 1 ? '小时' : productInfo.price_type == 2 ? '天' : '次' }}</span>
                 </div>
-                <div>白天有需要逛街的可以联系我哈~帮选购，帮砍价，还有看电影</div>
+                <div>{{productInfo.product_info}}</div>
             </div>
             <div class="region-information">
-                服务地区：上海 浦东新区
+                服务地区：{{productInfo.region_name}}
             </div>
             <div class="contact-information">
                 <div>
@@ -40,11 +38,11 @@
                     </div>
                     <div class="specific">
                         <div>手机号：
-                            <span v-if="members==1">13672888888</span>
+                            <span v-if="members==1">{{userInfo.account}}</span>
                             <span v-else>***********</span>
                         </div>
                         <div>微信号：
-                            <span v-if="members==1">kyumi0122</span>
+                            <span v-if="members==1">{{userInfo.wx_account}}</span>
                             <span v-else>***********</span>
                         </div>
                     </div>
@@ -54,16 +52,16 @@
                         <div>基本信息</div>
                     </div>
                     <div class="specific">
-                        <div>所在地：上海</div>
-                        <div>年龄：24</div>
+                        <div>所在地：{{userInfo.region_name}}</div>
+                        <div>年龄：{{userInfo.age}}</div>
                     </div>
                     <div class="specific">
-                        <div>身高：165cm</div>
-                        <div>体重：42kg</div>
+                        <div>身高：{{userInfo.height}}cm</div>
+                        <div>体重：{{userInfo.weight}}g</div>
                     </div>
                     <div class="specific">
-                        <div>学历：大学本科</div>
-                        <div>职业：自由职业</div>
+                        <div>学历：{{userInfo.qualifications}}</div>
+                        <div>职业：{{userInfo.professional}}</div>
                     </div>
                 </div>
             </div>
@@ -95,19 +93,52 @@ export default {
     },
     data() {
         return {
-            gender_icon: {
-                1: nan,
-                2: nv
-            },
+            gender_icon: nan,
             icon: boda,
             img_meinv: meinv,
-            members: 2
+            members: 2,
+            productCode: this.$route.params.productCode,
+            productInfo: {category: {}},
+            userInfo: {},
+            imageList: []
         }
     },
     mounted() {
-
+        this.getProductInfo()
     },
     methods: {
+
+        getProductInfo(){
+
+            var param = {
+                c: 'Zb',
+                m: 'Product',
+                a: 'getProductInfo',
+                productCode: this.productCode
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.productInfo = response;
+                    this.imageList = [this.productInfo.product_image];
+
+                    for (var i = 0; i < this.productInfo.image_list.length; i++) {
+                        this.imageList.push(this.productInfo.image_list[i]);
+                    }
+
+                    this.userInfo = this.productInfo.user_info;
+                    if(this.userInfo){
+                        this.members = 1;
+                        this.gender_icon = this.userInfo.sex == 'M' ? nan : nv;
+                    }
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
+        }
 
     },
     destroyed() {}

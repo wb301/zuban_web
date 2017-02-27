@@ -35,7 +35,7 @@ const router = new Router({
             require(['./page/my-service-list/list/Index.vue'], resolve)
         }
     }, {
-        path: '/product',
+        path: '/product/:productCode',
         component: function(reslove) {
             require(['./page/product/Index.vue'], reslove)
         }
