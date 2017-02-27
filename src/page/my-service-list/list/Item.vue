@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry">
+        <div class="item-entry" @click="toProductInfo(item)">
             <div class="wapper">
                 <div class="img-wapper"><img :src="item.product_image"></div>
                 <div class="info-wapper">
@@ -50,7 +50,14 @@ export default {
         };
         this.item.statusName = map[this.item.status];
     },
-    methods: {},
+    methods: {
+        toProductInfo(item){
+
+            this.$router.push({
+                path: '/product/'+item.product_sys_code
+            });
+        }
+    },
     destroyed() {}
 }
 </script>
