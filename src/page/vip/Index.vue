@@ -19,24 +19,47 @@
                         <label class="weui-label" style="width: 100%">{{this.vip_info}}</label>
                     </div>
                 </div>
+                <div class="weui-cell class_height">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">会员特权说明</label>
+                    </div>
+                </div>
             </div>
         </div>
-        <div style="margin-top: 10px">
-            <label class="weui-label">会员特权说明</label>
-            <div><img :src="image"></div>
+
+        <div>
+            <div><img :src="image" style="width: 100%"></div>
         </div>
+
         <!-- 说明 -->
-        <div style="margin-top: 10px">
-            <label class="weui-label" style="color:blue">说明:</label>
-            <label class="weui-label" style="width: 100%;color:blue">会员时间的计算从支付当天开始算起,到期后自动失效;支付成功10分钟内即可在服务详情页查看租人的联系方式。</label>
+        <div class="content-manipulation">
+            <div class="weui-cells" style="margin-top: -10px">
+                <div class="weui-cell" style="height: 30px">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label" style="width: 100%;font-size: 12px;color: #E35257;">说明:会员时间的计算从支付当天开始算起,到期后自动失效;支付成功10分钟内即可在服务详情页查看租人的联系方式。</label>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <!-- 开通会员 -->
-        <div style="margin-top: 10px" v-if="is_vip == false">
-            <label class="weui-label">开通会员</label>
-            <div>
-                <div class="dropload-wapper">
-                    <div>
-                        <list-item v-for="(item,index) in vipList" :item="item"></list-item>
+        <div class="content-manipulation" style="margin-top: 8px" v-if="is_vip == false">
+            <div class="weui-cells" style="margin-top: 0px">
+                <div class="weui-cell class_height">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">开通会员</label>
+                    </div>
+                </div>
+
+                <div class="weui-cell class_height" v-for="(item,index) in vipList">
+                    <div class="weui-cell__hd">
+                        <p>{{item.name}}￥{{item.price}}元</p>
+                    </div>
+                    <div class="weui-cell__bd">
+                        
+                    </div>
+                    <div class="weui-cell__ft" style="margin-top: 5px">
+                        <a @click="payVip(item)" class="weui-btn weui-btn_mini weui-btn_warn" style="background-color: #A878E5">购买</a>
                     </div>
                 </div>
             </div>
@@ -44,16 +67,15 @@
     </div>
 </template>
 <script>
-import xiala from '../service-list/list/image/xiala.png'
-import ListItem from './item'
+import vip from './image/vip.png'
 
 export default {
     components: {
-        ListItem
+
     },
     data() {
         return {
-            image: xiala,
+            image: vip,
             vip_level: '注册会员',
             vip_info: '无',
             userInfo: NormalHelper.userInfo(),
@@ -90,6 +112,31 @@ export default {
                         }
                         this.vipList.push(this.vipConfig[i]);
                     }
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        },
+        payVip(item) {
+
+            var param = {
+                token: NormalHelper.userInfo()["token"],
+                vip: item.level,
+                source: 1,
+                allPrice: item.price,
+                paymentAry: JSON.stringify({
+                    "pay_type": "WX"
+                })
+            };
+            console.log(JSON.stringify(param));
+            var p_obj = {
+                action: 'c=Zb&m=Order&a=createMembersOrder',
+                param: param,
+                success: (response) => {
+
+                    alert("下单成功!" + JSON.stringify(response));
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
