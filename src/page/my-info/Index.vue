@@ -8,7 +8,9 @@
                 <div class="weui-cell__ft">
                     <div class="image-manipulation">
                         <div v-for="(item,index) in img_list">
-                            <img :src="item" style="height: 50px;width: 50px">
+                            <div class="user-portrait">
+                                <img :src="item" style="height: 50px;width: 50px">
+                            </div>
                             <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" @click="setUpload ">
                         </div>
                     </div>
@@ -297,5 +299,16 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+}
+.user-portrait {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 3px 0;
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }
 </style>
