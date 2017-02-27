@@ -156,7 +156,7 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
-           var str = /^(\d){6,20}$/;
+           var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return;

@@ -14,6 +14,7 @@ import orderList from './item.vue'
 import image from './image/1.jpg'
 import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
+var dropload = '';
 export default {
     components: {
         orderList,

@@ -51,7 +51,7 @@ export default {
                     weui.alert("手机号码有误，请重填");
                     return false;
                 };
-                var str = /^(\d){6,20}$/;
+                var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return
