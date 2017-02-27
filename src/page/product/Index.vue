@@ -36,7 +36,7 @@
                 <div>
                     <div>
                         <div>联系方式</div>
-                        <div>15元购买联系方式后可查看</div>
+                        <div v-if="members!=1">15元购买联系方式后可查看</div>
                     </div>
                     <div class="specific">
                         <div>手机号：
@@ -101,7 +101,7 @@ export default {
             },
             icon: boda,
             img_meinv: meinv,
-            members: 1
+            members: 2
         }
     },
     mounted() {
