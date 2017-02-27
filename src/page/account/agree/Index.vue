@@ -111,13 +111,17 @@ export default {
 
     },
     data() {
-        return {}
+        return {
+            next: "registered"
+        }
     },
-    mounted() {},
+    mounted() {
+        this.next = this.$route.params.next
+    },
     methods: {
         agree() {
             this.$router.push({
-                path: '/registered'
+                path: '/'+this.next
             });
         }
     },
