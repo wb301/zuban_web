@@ -36,7 +36,7 @@ const router = new Router({
         }
     }, {
         path: '/product/:productCode',
-        component: function(reslove) {
+        component: function(resolve) {
             require(['./page/product/Index.vue'], reslove)
         }
     }, {
@@ -91,7 +91,7 @@ const router = new Router({
             }
         },{
             path: '/my-wallet',
-            component: function(reslove) {
+            component: function(resolve) {
                 require (['./page/my-wallet/Index.vue'],resolve)
             }
         }]
