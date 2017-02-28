@@ -37,7 +37,7 @@ const router = new Router({
     }, {
         path: '/product/:productCode',
         component: function(resolve) {
-            require(['./page/product/Index.vue'], reslove)
+            require(['./page/product/Index.vue'], resolve)
         }
     }, {
         path: '/orderlist/:type',
@@ -65,7 +65,7 @@ const router = new Router({
             require(['./page/vip/Index.vue'], resolve)
         }
     }, {
-        path: '/confirm',
+        path: '/confirm/:type/:productCode',
         component: function(resolve) {
             require(['./page/confirm/Index.vue'], resolve)
         }
@@ -89,10 +89,10 @@ const router = new Router({
             component: function(resolve) {
                 require(['./page/service-list/my/Index.vue'], resolve)
             }
-        },{
+        }, {
             path: '/my-wallet',
             component: function(resolve) {
-                require (['./page/my-wallet/Index.vue'],resolve)
+                require(['./page/my-wallet/Index.vue'], resolve)
             }
         }]
     }, {

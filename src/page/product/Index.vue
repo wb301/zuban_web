@@ -8,13 +8,13 @@
             </div>
             <div class="user-information">
                 <div class="user-portrait">
-                    <img :src="img_meinv">
+                    <img :src="userInfo.head_img">
                 </div>
                 <div class="user-info">
                     <div>{{productInfo.product_info}}</div>
                     <div><img :src="gender_icon"></div>
                 </div>
-                <div class="da-phone" v-if="members==1">
+                <div class="da-phone" v-if="members==1" @click="phone">
                     <img :src="icon">
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div>
                     <div>
                         <div>联系方式</div>
-                        <div v-if="members!=1">15元购买联系方式后可查看</div>
+                        <div v-if="members!=1">{{productInfo.look_price}}元购买联系方式后可查看</div>
                     </div>
                     <div class="specific">
                         <div>手机号：
@@ -68,10 +68,10 @@
         </div>
         <div class="button-wapper">
             <div v-if="members!=1">
-                <div class="button-buy">购买联系方式</div>
-                <div class="button-immediately">立即租</div>
+                <div class="button-buy" @click="buyContact">购买联系方式</div>
+                <div class="button-immediately" @click="rentImmediately">立即租</div>
             </div>
-            <div class="button-immediately" v-else>立即租</div>
+            <div class="button-immediately" @click="rentImmediately" v-else>立即租</div>
         </div>
     </div>
 </template>
@@ -84,7 +84,6 @@ import 'mint-ui/lib/swipe/style.css';
 import boda from './image/boda.png'
 import nan from './image/nan.png'
 import nv from './image/nv.png'
-import meinv from '../service-list/release/image/Artboard6.jpg'
 
 export default {
     components: {
@@ -95,21 +94,21 @@ export default {
         return {
             gender_icon: nan,
             icon: boda,
-            img_meinv: meinv,
             members: 2,
             productCode: this.$route.params.productCode,
-            productInfo: {category: {}},
+            productInfo: {
+                category: {}
+            },
             userInfo: {},
             imageList: []
         }
     },
     mounted() {
-        this.getProductInfo()
+        console.log(NormalHelper.userInfo());
+        this.getProductInfo();
     },
     methods: {
-
-        getProductInfo(){
-
+        getProductInfo() {
             var param = {
                 c: 'Zb',
                 m: 'Product',
@@ -122,22 +121,34 @@ export default {
                 success: (response) => {
                     this.productInfo = response;
                     this.imageList = [this.productInfo.product_image];
-
                     for (var i = 0; i < this.productInfo.image_list.length; i++) {
                         this.imageList.push(this.productInfo.image_list[i]);
                     }
-
                     this.userInfo = this.productInfo.user_info;
-                    if(this.userInfo){
-                        this.members = 1;
+                    if (this.userInfo) {
                         this.gender_icon = this.userInfo.sex == 'M' ? nan : nv;
                     }
+                    if (response.vip_level > 0)
+                        this.members = 1;
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
                 }
             };
             AjaxHelper.GetRequest(p_obj);
+        },
+        phone() {
+            window.location.href = 'tel://' + this.userInfo.account;
+        },
+        buyContact() {
+            this.$router.push({
+                path: '/confirm/1/' + this.productInfo.product_sys_code
+            });
+        },
+        rentImmediately() {
+            this.$router.push({
+                path: '/confirm/2/' + this.productInfo.product_sys_code
+            });
         }
 
     },

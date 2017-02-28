@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry" @click="toProductInfo(item)">
+        <div class="item-entry" @click="toProductInfo()">
             <div class="wapper">
                 <div class="img-wapper"><img :src="item.product_image"></div>
                 <div class="info-wapper">
@@ -41,15 +41,14 @@ export default {
         this.item.danwei = "小时";
         if (this.item.price_type == 2) {
             this.item.danwei = "天";
-        }else if(this.item.price_type == 3){
+        } else if (this.item.price_type == 3) {
             this.item.danwei = "次";
         }
     },
     methods: {
-        toProductInfo(item){
-
+        toProductInfo() {
             this.$router.push({
-                path: '/product/'+item.product_sys_code
+                path: '/product/' + this.item.product_sys_code
             });
         }
     },
