@@ -3,7 +3,7 @@
         <div class="weui-cells" style="margin-top:0px;height: 75px">
             <a class="weui-cell weui-cell_access" href="javascript:;" @click="setUpload">
                 <div class="weui-cell__bd">
-                    <label class="weui-label">头像</label>
+                    <label class="weui-label class_font_size_hd">头像</label>
                 </div>
                 <div class="weui-cell__ft">
                     <div class="image-manipulation">
@@ -20,20 +20,20 @@
         <!-- 昵称 性别 -->
         <div class="content-manipulation ">
             <div class="weui-cells " style="margin-top: 8px ">
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">昵称</label>
+                        <label class="weui-label class_font_size_hd">昵称</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input " type="test " placeholder="未设置 " v-model="nick_name_model " />
+                        <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="nick_name_model " />
                     </div>
                 </div>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">性别</label>
+                        <label class="weui-label class_font_size_hd">性别</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input disabled-input " type="text " v-model="sex_model " @click="selectSex " />
+                        <input class="weui-input disabled-input class_font_size_bd" type="text " v-model="sex_model " @click="selectSex " />
                     </div>
                     <div><img :src="image "></div>
                 </div>
@@ -41,70 +41,70 @@
         </div>
         <div class="content-manipulation ">
             <div class="weui-cells " style="margin-top: 8px ">
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">所在地</label>
+                        <label class="weui-label class_font_size_hd">所在地</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        {{userInfo.region_name}}
+                        <label class="weui-label class_font_size_bd">{{userInfo.region_name}}</label>
                     </div>
                 </div>
-                <a class="weui-cell weui-cell_access class_height " href="javascript:; ">
-                    <div class="weui-cell__hd ">
-                        <label class="weui-label ">绑定手机</label>
+                <a class="weui-cell weui-cell_access" href="javascript:; ">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label class_font_size_hd">绑定手机</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        {{userInfo.account}}
+                        <label class="weui-label class_font_size_bd">{{userInfo.account}}</label>
                     </div>
                     <div class="weui-cell__ft ">
                     </div>
                 </a>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">微信号</label>
+                        <label class="weui-label class_font_size_hd">微信号</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input " type="test " placeholder="未设置 " v-model="wx_account_model " />
+                        <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="wx_account_model " />
                     </div>
                 </div>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">年龄</label>
+                        <label class="weui-label class_font_size_hd">年龄</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input disabled-input " placeholder="未设置 " type="text " v-model="age_model " />
+                        <input class="weui-input disabled-input class_font_size_bd" placeholder="未设置" type="text " v-model="age_model " />
                     </div>
                 </div>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">身高</label>
+                        <label class="weui-label class_font_size_hd">身高</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input " type="test " placeholder="未设置 " v-model="height_model " />
+                        <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="height_model " />
                     </div>
                 </div>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">体重</label>
+                        <label class="weui-label class_font_size_hd">体重</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input " type="test " placeholder="未设置 " v-model="weight_model " />
+                        <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="weight_model " />
                     </div>
                 </div>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">学历</label>
+                        <label class="weui-label class_font_size_hd">学历</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input " type="test " placeholder="未设置 " v-model="qualifications_model " />
+                        <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="qualifications_model " />
                     </div>
                 </div>
-                <div class="weui-cell class_height ">
+                <div class="weui-cell">
                     <div class="weui-cell__hd ">
-                        <label class="weui-label ">职业</label>
+                        <label class="weui-label class_font_size_hd">职业</label>
                     </div>
                     <div class="weui-cell__bd ">
-                        <input class="weui-input " type="test " placeholder="未设置 " v-model="professional_model " />
+                        <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="professional_model " />
                     </div>
                 </div>
             </div>
@@ -267,10 +267,17 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.class_font_size_hd {
+    font-size: 14px;
+    color: #666666;
+}
 .class_height {
     height: 25px
 }
-
+.class_font_size_bd {
+    font-size: 14px;
+    color: #333333;
+}
 .image-manipulation {
     margin-top: 3px;
     >div {

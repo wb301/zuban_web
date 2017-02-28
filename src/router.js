@@ -37,7 +37,7 @@ const router = new Router({
     }, {
         path: '/product/:productCode',
         component: function(resolve) {
-            require(['./page/product/Index.vue'], reslove)
+            require(['./page/product/Index.vue'], resolve)
         }
     }, {
         path: '/orderlist/:type',

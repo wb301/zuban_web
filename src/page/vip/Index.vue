@@ -5,23 +5,23 @@
             <div class="weui-cells" style="margin-top: 0px">
                 <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">当前等级</label>
+                        <label class="weui-label class_font_size_hd">当前等级</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <label class="weui-label" name="vip_level">{{this.vip_level}}</label>
+                        <label class="weui-label class_font_size_bd" name="vip_level">{{this.vip_level}}</label>
                     </div>
                 </div>
                 <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">会员特权</label>
+                        <label class="weui-label class_font_size_hd">会员特权</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <label class="weui-label" style="width: 100%">{{this.vip_info}}</label>
+                        <label class="weui-label class_font_size_bd" style="width: 100%">{{this.vip_info}}</label>
                     </div>
                 </div>
                 <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">会员特权说明</label>
+                        <label class="weui-label class_font_size_hd">会员特权说明</label>
                     </div>
                 </div>
             </div>
@@ -47,19 +47,19 @@
             <div class="weui-cells" style="margin-top: 0px">
                 <div class="weui-cell class_height">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">开通会员</label>
+                        <label class="weui-label class_font_size_hd">开通会员</label>
                     </div>
                 </div>
 
                 <div class="weui-cell class_height" v-for="(item,index) in vipList">
                     <div class="weui-cell__hd">
-                        <p>{{item.name}}￥{{item.price}}元</p>
+                        <label class="weui-label class_font_size_bd">{{item.name}}</label>
                     </div>
                     <div class="weui-cell__bd">
-                        
+                        <label class="weui-label class_font_size_bd">{{item.price}}元</label>
                     </div>
                     <div class="weui-cell__ft" style="margin-top: 5px">
-                        <a @click="payVip(item)" class="weui-btn weui-btn_mini weui-btn_warn" style="background-color: #A878E5">购买</a>
+                        <a @click="payVip(item)" class="weui-btn weui-btn_mini weui-btn_warn" style="background-color: #A878E5;font-size:12px">购买</a>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.class_font_size_hd {
+    font-size: 14px;
+    color: #666666;
+}
 .class_height {
     height: 25px
+}
+.class_font_size_bd {
+    font-size: 14px;
+    color: #333333;
 }
 </style>

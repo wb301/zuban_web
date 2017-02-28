@@ -2,17 +2,17 @@
     <div style = "background: #F5F5F5;">
 
         <div class="weui-cells" style = "margin-top:0px;">
-            <a class="weui-cell weui-cell_access" href="javascript:;"  style = "height:125px;" @click='myInfo'>
+            <a class="weui-cell weui-cell_access" href="javascript:;" style = "height:85px;" @click='myInfo'>
 
                 <div class="weui-cell">
-                    <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                        <img :src="userInfo.head_img" style="width: 75px;height:75px;display: block"/>
+                    <div class="weui-cell__hd">
+                        <img :src="userInfo.head_img" class="user-portrait" />
                     </div>
                     <div class="weui-cell__bd">
-                        <h3>{{userInfo.nick_name}}</h3>
 
-                        <img :src="shouji" alt="" style="width:12px;margin-top:3px;float:left" />
-                        <p style="width:200px;color: #999999;">{{userInfo.account}}</p>
+                        <h3 style="font-size: 17px;">{{userInfo.nick_name}}</h3>
+                        <img :src="shouji" alt="" style="width:8px;height: 10px;margin-top:4px;float:left" />
+                        <p style="width:150px;color: #999999;font-size: 14px">{{userInfo.account}}</p>
 
                     </div>
 
@@ -26,48 +26,48 @@
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;" @click='myServiceList'>
                 <div class="weui-cell__bd">
-                    <p>我的发布</p>
+                    <p class="font_size">我的发布</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;" @click='changePassword'>
                 <div class="weui-cell__bd">
-                    <p>修改密码</p>
+                    <p class="font_size">修改密码</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
             </a>
         </div>
 
-        <div class="weui-cells" style = "margin-top:7.5px;">
+        <div class="weui-cells" style = "margin-top:8px;">
             <a class="weui-cell weui-cell_access" href="javascript:;" @click='myVip'>
                 <div class="weui-cell__bd">
-                    <p>我的会员</p>
+                    <p class="font_size">我的会员</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__bd">
-                    <p>我的钱包</p>
+                    <p class="font_size">我的钱包</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
             </a>
         </div>
 
-        <div class="weui-cells" style = "margin-top:7.5px;">
+        <div class="weui-cells" style = "margin-top:8px;">
             <a class="weui-cell weui-cell_access" href="javascript:;" @click='myOrderlist_1'>
                 <div class="weui-cell__bd">
-                    <p>接到订单</p>
+                    <p class="font_size">接到订单</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;" @click='myOrderlist_0'>
                 <div class="weui-cell__bd">
-                    <p>预约订单</p>
+                    <p class="font_size">预约订单</p>
                 </div>
                 <div class="weui-cell__ft">
                 </div>
@@ -130,4 +130,18 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.user-portrait {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 5px 10px 0px -15px;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+.font_size {
+    font-size: 14px;
+}
 </style>
