@@ -194,7 +194,7 @@ export default {
                 action: 'c=Zb&m=User&a=getUserInfo',
                 param: param,
                 success: (response) => {
-                    response["token "] = this.userInfo.token;
+                    response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
                 },
@@ -211,47 +211,48 @@ export default {
                 "sex ": this.sex
             };
             if (this.img_list) {
-                param["head_img "] = this.img_list[0];
+                param["head_img"] = this.img_list[0];
             }
             if (this.nick_name_model) {
-                param["nick_name "] = this.nick_name_model;
+                param["nick_name"] = this.nick_name_model;
             }
             if (this.wx_account_model) {
-                param["wx_account "] = this.wx_account_model;
+                param["wx_account"] = this.wx_account_model;
             }
             if (this.qualifications_model) {
-                param["qualifications "] = this.qualifications_model;
+                param["qualifications"] = this.qualifications_model;
             }
             if (this.professional_model) {
-                param["professional "] = this.professional_model;
+                param["professional"] = this.professional_model;
             }
             if (this.age_model) {
                 if (!(/^[1-9]\d$/.test(this.age_model)) || this.age_model > 100) {
                     weui.alert("年龄在1~100之间 ");
                     return false;
                 };
-                param["age "] = this.age_model;
+                param["age"] = this.age_model;
             }
             if (this.height_model) {
                 if (!(/^[1-9]\d{2}$/.test(this.height_model)) || this.height_model > 500) {
                     weui.alert("身高在0~260之间 ");
                     return false;
                 };
-                param["height "] = this.height_model;
+                param["height"] = this.height_model;
             }
             if (this.weight_model) {
                 if (!(/^[1-9]\d{2}$/.test(this.weight_model)) || this.weight_model > 500) {
                     weui.alert("体重在50~500之间 ");
                     return false;
                 };
-                param["weight "] = this.weight_model;
+                param["weight"] = this.weight_model;
             }
 
             var p_obj = {
                 action: 'c=Zb&m=User&a=updUserInfo',
                 param: param,
                 success: (response) => {
-                    response["token "] = this.userInfo.token;
+                    response["token"] = this.userInfo.token;
+                    JSON.stringify(response);
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
                 },

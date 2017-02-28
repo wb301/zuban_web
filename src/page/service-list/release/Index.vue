@@ -59,7 +59,7 @@
                     <div class="agreement">
                         <div class="agreed">
                             同意
-                            <router-link :to="{path: '/agree'}">《租伴网服务者入住协议》
+                            <router-link :to="{path: '/agree/release'}">《租伴网服务者入住协议》
                             </router-link>
                         </div>
                         <div class="instructions">说明：交易成功，平台收取交易额10%的手续费</div>

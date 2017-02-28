@@ -25,7 +25,7 @@ const router = new Router({
             require(['./page/account/password/Index.vue'], resolve)
         }
     }, {
-        path: '/agree',
+        path: '/agree/:next',
         component: function(resolve) {
             require(['./page/account/agree/Index.vue'], resolve)
         }
