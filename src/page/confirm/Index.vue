@@ -12,20 +12,21 @@
             </div>
             <div class="service-information">
                 <div>
-                    <div>陪逛街</div>
+                    <div v-if="type==2">陪逛街</div>
+                    <div v-else>购买联系方式</div>
                     <div>
                         <span>￥</span>
-                        <span>179</span>
-                        <span>/小时</span>
+                        <span v-text="type==2?productInfo.price:productInfo.look_price">179</span>
+                        <span>/{{type==2?productInfo.price_type == 1 ? '小时' : productInfo.price_type == 2 ? '天' : '次' :'元'}}</span>
                     </div>
                 </div>
-                <div>
-                    <img :src="quantity>0?btn_less[1]:btn_less[2]">
+                <div v-if="type==2">
+                    <img :src="quantity>0?btn_less[1]:btn_less[2]" @click="quantity>0?quantity--:''">
                     <span> {{quantity}} </span>
-                    <img :src="quantity<9999?btn_plus[1]:btn_plus[2]">
+                    <img :src="quantity<9999?btn_plus[1]:btn_plus[2]" @click="quantity<9999?quantity++:''">
                 </div>
             </div>
-            <div>
+            <div v-if="type==2">
                 <div class="weui-cell phone">
                     <div class="weui-cell__hd">
                         <label class="weui-label">您的联系方式</label>
@@ -37,15 +38,15 @@
                 <div class="message">
                     <div>留言</div>
                     <div>
-                        <textarea class="weui-textarea" placeholder="请输入文本" rows="5"></textarea>
+                        <textarea class="weui-textarea" placeholder="请输入文本" rows="5" v-model="memo"></textarea>
                     </div>
                 </div>
             </div>
         </div>
         <div class="button-wapper">
             <div class="button-buy">
-                <label>ca</label>合计：<span>15元</span></div>
-            <div class="button-confirm">确认支付</div>
+                <label>ca</label>合计：<span>{{allPrice}}元</span></div>
+            <div class="button-confirm" @click="createOrder">确认支付</div>
         </div>
     </div>
 </template>
@@ -76,14 +77,85 @@ export default {
                 1: plus_1,
                 2: plus_2
             },
-            quantity: 9999,
-            contact_information: 13672888888
+            quantity: 1,
+            contact_information: NormalHelper.userInfo().account,
+            memo: '',
+            type: this.$route.params.type,
+            productCode: this.$route.params.productCode,
+            productInfo: {},
+            allPrice: 0
         }
     },
-    mounted() {},
-    watch: {},
+    mounted() {
+        console.log(NormalHelper.userInfo());
+        this.getProductInfo();
+        this.getOderPrice();
+    },
+    watch: {
+        quantity: function() {
+            this.getOderPrice();
+        }
+    },
     methods: {
+        getProductInfo() {
+            var param = {
+                c: 'Zb',
+                m: 'Product',
+                a: 'getProductInfo',
+                productCode: this.productCode
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.productInfo = response;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        getOderPrice() {
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'getOderPrice',
+                productSysCode: this.productCode,
+                num: this.type == 1 ? 1 : this.quantity,
+                type: this.type == 1 ? 0 : 1
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.allPrice = response.product.allPrice;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        createOrder() {
+            var param = {
+                phone: this.contact_information,
+                allPrice: this.allPrice,
+                order_type: this.type == 1 ? 0 : 1,
 
+            };
+            var p_obj = {
+                action: 'c=Zb&m=Order&a=getOderPrice',
+                param: param,
+                success: (response) => {
+                    this.allPrice = response.product.allPrice;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        }
     },
     destroyed() {}
 }

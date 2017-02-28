@@ -104,7 +104,6 @@ export default {
         }
     },
     mounted() {
-        console.log(NormalHelper.userInfo());
         this.getProductInfo();
     },
     methods: {
