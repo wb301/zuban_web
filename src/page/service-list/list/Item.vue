@@ -79,7 +79,7 @@ export default {
             position: absolute;
             left: 100px;
             right: 0;
-            top: 12.5px;
+            top: 13.5px;
             bottom: 15px;
             >div {
                 height: 45px;
@@ -89,7 +89,7 @@ export default {
                     line-height: 15px;
                 }
                 .title {
-                    font-size: 13px;
+                    font-size: 14px;
                     color: #333;
                 }
                 .name {
@@ -104,6 +104,7 @@ export default {
                 }
             }
             .info-bottom {
+                margin-top: 13px;
                 >div {
                     line-height: 15px;
                 }
