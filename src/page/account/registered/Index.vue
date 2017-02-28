@@ -33,7 +33,7 @@
                         <router-link :to="{path: '/agree/registered'}">《相关条款》</router-link>
                     </div>
                     <div class="weui-agree__item">
-                        <router-link :to="{path: '/login'}">已有帐号,去登录</router-link>
+                        <router-link :to="{path: '/login'}">手机号已注册?</router-link>
                     </div>
                 </div>
             </div>

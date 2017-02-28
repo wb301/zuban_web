@@ -61,6 +61,17 @@ NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
 }
 
+//获取浏览器信息
+NormalHelper.getPhoneInfo = function(){
+    return JSON.stringify(navigator.userAgent);
+}
+
+//微信登录
+NormalHelper.wxLogin = function(redirect_url) {
+    redirect_url = JSON.stringify({"url": encodeURIComponent(redirect_url)});
+    window.location.href = GlobalModel.SERVER_URL+"c=Wechat&m=ThirdLogin&a=wxLogin&redirect_url="+redirect_url;;
+};
+
 //获取经纬度  默认 上海周边经纬度
 NormalHelper.cur_postion = { latitude: 121, logitude: 31 };
 NormalHelper.getPostion = function() {
