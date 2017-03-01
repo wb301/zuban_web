@@ -99,12 +99,12 @@ const router = new Router({
             component: function(resolve) {
                 require(['./page/service-list/my/Index.vue'], resolve)
             }
-        }, {
-            path: '/my-wallet',
-            component: function(resolve) {
-                require(['./page/my-wallet/Index.vue'], resolve)
-            }
         }]
+    }, {
+        path: '/my-wallet',
+        component: function(resolve) {
+            require(['./page/my-wallet/Index.vue'], resolve)
+        }
     }, {
         path: '/',
         redirect: {
@@ -121,5 +121,5 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     window.scrollTo(0, 0) // scroll to top
     next()
-})
+});
 export default router
