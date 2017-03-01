@@ -223,7 +223,7 @@ export default {
                         appId: response.body.appid,
                         nonceStr: response.body.nonceStr,
                         package: "prepay_id=" + response.body.prePayId,
-                        paySign: response.body.sign,
+                        paySign: encodeURIComponent(response.body.sign),
                         signType: "MD5",
                         timeStamp: response.body.timeStamp + ""
                     };
