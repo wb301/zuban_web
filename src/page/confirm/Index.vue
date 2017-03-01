@@ -225,7 +225,7 @@ export default {
                         package: "prepay_id=" + response.body.prePayId,
                         paySign: response.body.sign,
                         signType: "MD5",
-                        timeStamp: response.body.timeStamp
+                        timeStamp: response.body.timeStamp + ""
                     };
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
