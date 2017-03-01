@@ -64,13 +64,14 @@
 }
 </style>
 <script>
+import jiantou from './image/jiantou1.png'
 // import 'src/lib/js/dropload.min.js'
 // import 'src/lib/css/dropload.css'
 export default {
     components: {},
     data() {
         return {
-
+            arrow: jiantou
         }
     },
     mounted() {
