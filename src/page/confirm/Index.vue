@@ -222,7 +222,7 @@ export default {
                     var payJson = {
                         appId: response.body.appid,
                         nonceStr: response.body.nonceStr,
-                        package: "prepay_id=" + response.body.prePayId,
+                        package: encodeURIComponent("prepay_id=" + response.body.prePayId),
                         paySign: encodeURIComponent(response.body.sign),
                         signType: "MD5",
                         timeStamp: response.body.timeStamp + ""
