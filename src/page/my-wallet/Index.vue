@@ -42,18 +42,17 @@
         }
     }
     .weui-navbar {
-        border: 1px solid #A878E5;
         .weui-navbar__item {
             height: 50px;
             line-height: 50px;
             font-size: 14px;
             color: #8760BA;
             letter-spacing: 0.85px;
+            border-bottom: 1px solid #A878E5;
         }
         .weui-bar__item_on {
             background-color: #A878E5;
             color: #fff;
-            // padding-bottom: -5px;
         }
     }
     .weui-cell {
