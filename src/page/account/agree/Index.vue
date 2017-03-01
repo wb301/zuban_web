@@ -104,6 +104,9 @@
                         <div class="button-release" @click="agree">同意</div>
                     </div>
                 </div>
+                </div>
+                </div>
+                </div>
 </template>
 <script>
 export default {

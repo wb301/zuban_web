@@ -15,6 +15,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </template>
 <script>
 import xiala from '../../service-list/list/image/xiala.png'
