@@ -20,6 +20,11 @@ const router = new Router({
             require(['./page/wx/login/Index.vue'], resolve)
         }
     }, {
+        path: '/wx-pay',
+        component: function(resolve) {
+            require(['./page/wx/pay/Index.vue'], resolve)
+        }
+    }, {
         path: '/wx-middle/:user',
         component: function(resolve) {
             require(['./page/wx/login/WxMiddle.vue'], resolve)
