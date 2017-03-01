@@ -221,11 +221,11 @@ export default {
                     console.log(response);
                     var payJson = {
                         appId: response.body.appid,
+                        timeStamp: response.body.timeStamp + "",
                         nonceStr: response.body.nonceStr,
-                        package: "prepay_id=" + response.body.prePayId,
-                        paySign: response.body.sign,
+                        package: response.body.package,
                         signType: "MD5",
-                        timeStamp: response.body.timeStamp + ""
+                        paySign: response.body.sign
                     };
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
