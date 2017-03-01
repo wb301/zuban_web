@@ -18,17 +18,24 @@
                 </div>
             </div>
             <div class="weui-cells">
-                <div class="weui-cell" href="javascript:;">申请提现</div>
-                <div class="weui-cell" href="javascript:;">收支明细</div>
+                <div class="weui-cell" href="javascript:;">
+                    <label class="weui-label class_font_size_hd">申请提现</label>
+                    <input class="weui-input disabled-input class_font_size_bd" v-model="categor" type="text" @click="selectCategory" />
+                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                </div>
+                <div class="weui-cell" href="javascript:;">
+                    <label class="weui-label class_font_size_hd">收支明细</label>
+                    <input class="weui-input disabled-input class_font_size_bd" v-model="categor" type="text" @click="selectCategory" />
+                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                </div>
             </div>
-            <div>说明文字</div>
+            <div></div>
         </div>
     </div>
 </template>
 <style lang="less" scoped>
 .container-body {
     text-align: center;
-    margin-top: 20px;
     .wallet-hd {
         background-image: linear-gradient(-180deg, #A878E5 0%, #8760BA 100%);
         height: 150px;
@@ -75,7 +82,9 @@ export default {
         }
     },
     mounted() {
-        // this.createDropload();
+        $(".disabled-input").focus(function() {
+            document.activeElement.blur();
+        });
     },
     methods: {
         // createDropload() {
