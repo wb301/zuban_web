@@ -60,6 +60,34 @@ import less_2 from './image/less_2.png'
 import plus_1 from './image/plus_1.png'
 import plus_2 from './image/plus_2.png'
 
+// function onBridgeReady() {
+//     WeixinJSBridge.invoke(
+//         'getBrandWCPayRequest', {
+//             "appId": "wx2421b1c4370ec43b", //公众号名称，由商户传入     
+//             "timeStamp": " 1395712654", //时间戳，自1970年以来的秒数     
+//             "nonceStr": "e61463f8efa94090b1f366cccfbbb444", //随机串     
+//             "package": "prepay_id=u802345jgfjsdfgsdg888",
+//             "signType": "MD5", //微信签名方式:     
+//             "paySign": "70EA570631E4BB79628FBCA90534C63FF7FADD89", //微信签名
+//             "total_fee": 100
+//         },
+//         function(res) {
+//             if (res.err_msg == "get_brand_wcpay_request:ok") {} // 使用以上方式判断前端返回,微信团队郑重提示:res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+//         }
+//     );
+// }
+
+// if (typeof WeixinJSBridge == "undefined") {
+//     if (document.addEventListener) {
+//         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+//     } else if (document.attachEvent) {
+//         document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+//         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+//     }
+// } else {
+//     onBridgeReady();
+// }
+
 export default {
     components: {},
     data() {
@@ -83,11 +111,13 @@ export default {
             type: this.$route.params.type,
             productCode: this.$route.params.productCode,
             productInfo: {},
-            allPrice: 0
+            allPrice: 0,
+            order_no: '',
+            order_price: ''
         }
     },
     mounted() {
-        console.log(NormalHelper.userInfo());
+        // console.log(NormalHelper.userInfo());
         this.getProductInfo();
         this.getOderPrice();
     },
@@ -139,22 +169,74 @@ export default {
         },
         createOrder() {
             var param = {
+                memo: this.memo,
                 phone: this.contact_information,
                 allPrice: this.allPrice,
                 order_type: this.type == 1 ? 0 : 1,
-
+                //地区code
+                source: NormalHelper.userInfo().region_code,
+                receiver: NormalHelper.userInfo().nick_name,
+                //时间戳
+                check_code: Date.parse(new Date()),
+                paymentAry: {
+                    payment: 'ON_LINE',
+                    pay_type: 'WX'
+                },
+                cartList: [{
+                    product_sys_code: this.productInfo.product_sys_code,
+                    num: this.quantity
+                }],
             };
+            param.paymentAry = JSON.stringify(param.paymentAry);
+            param.cartList = JSON.stringify(param.cartList)
             var p_obj = {
-                action: 'c=Zb&m=Order&a=getOderPrice',
+                action: 'c=Zb&m=Order&a=createOrder',
                 param: param,
                 success: (response) => {
-                    this.allPrice = response.product.allPrice;
+                    this.order_no = response.order_no;
+                    this.order_price = response.price;
+                    this.prePay();
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
                 }
             };
             AjaxHelper.PostRequest(p_obj);
+        },
+        prePay() {
+            console.log(NormalHelper.isWeixin());
+            if (NormalHelper.isWeixin()) {
+                var p_obj = {
+                    action: 'c=Zb&m=Order&a=prePay',
+                    param: {
+                        out_trade_no: this.order_no,
+                        total_fee: this.order_price,
+                        openid: 'oAnh1wZJm5gxyIk0OrzYJjAUUCVw'
+                    }
+                };
+                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
+                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
+                    emulateJSON: true
+                }).then((response) => {
+                    console.log(response);
+                    var payJson = {
+                        appId: response.body.appid,
+                        nonceStr: response.body.nonceStr,
+                        package: "prepay_id=" + response.body.prePayId,
+                        paySign: response.body.sign,
+                        signType: "MD5",
+                        timeStamp: response.body.timeStamp
+                    };
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                        function(res) {
+                            console.log(res);
+                            //myApp.alert(res.err_msg);
+                        }
+                    );
+                }, (response) => {
+                    //请求异常
+                })
+            }
         }
     },
     destroyed() {}

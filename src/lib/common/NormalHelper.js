@@ -114,6 +114,11 @@ NormalHelper.getPostion = function() {
     return NormalHelper.cur_postion;
 };
 
+NormalHelper.isWeixin = function() {
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+};
+
 NormalHelper.uploadBase64 = function(p_sel, callback) {
     p_sel.on('change', function() {
         if (window.FileReader && this.files[0]) {
