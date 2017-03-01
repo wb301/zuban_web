@@ -140,130 +140,170 @@ export default {
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         margin-left: 15px;
+
     .user-information,
     .service-information {
         border-bottom: 1px solid #E2E2E2;
     }
+
     .user-information {
         height: 40px;
         position: relative;
-    >div {
-         display: inline-block;
-     }
+
+    >
+    div {
+        display: inline-block;
+    }
+
     .user-portrait {
         width: 25px;
         height: 25px;
         border-radius: 50%;
         overflow: hidden;
         margin: 10px 0;
+
     img {
         width: 100%;
         height: 100%;
     }
+
     }
     .user-info {
         position: absolute;
         top: 0;
         bottom: 0;
         margin-left: 10px;
-    >div:nth-child(1) {
-         font-size: 12px;
-         color: #333;
-         margin-top: 15.5px;
-     }
-    >div:nth-child(2) {
-         height: 15.1px;
-         width: 15.7px;
-    >img {
-         width: 100%;
-         height: 100%;
-     }
+
+    >
+    div:nth-child(1) {
+        font-size: 12px;
+        color: #333;
+        margin-top: 15.5px;
     }
-    .user-status {
+
+    >
+    div:nth-child(2) {
+        height: 15.1px;
+        width: 15.7px;
+
+    >
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    }
+    }
+    .order-status {
         position: absolute;
         top: 0;
         bottom: 0;
-        margin-left: 100px;
-    >div:nth-child(1) {
-         font-size: 12px;
-         color: #333;
-         margin-top: 15.5px;
-     }
-    >div:nth-child(2) {
-         height: 15.1px;
-         width: 15.7px;
-     }
+        right: 20px;
+
+    >
+    div:nth-child(1) {
+        font-size: 12px;
+        color: #333;
+        margin-top: 15.5px;
+    }
+
+    >
+    div:nth-child(2) {
+        height: 15.1px;
+        width: 15.7px;
+    }
+
     }
     }
     }
     .service-information {
         height: 70px;
         position: relative;
-    >div {
-    >div:nth-child(1) {
-         margin-top: 7.5px;
-         font-size: 13px;
-         color: #333;
-     }
-    >div:nth-child(2) {
-         color: #A878E5;
-         margin-top: 5px;
+
+    >
+    div {
+
+    >
+    div:nth-child(1) {
+        margin-top: 7.5px;
+        font-size: 13px;
+        color: #333;
+    }
+
+    >
+    div:nth-child(2) {
+        color: #A878E5;
+        margin-top: 5px;
+
     span:nth-child(1) {
         font-size: 12px;
     }
+
     span:nth-child(2) {
         font-size: 17px;
     }
+
     span:nth-child(3) {
         font-size: 10px;
     }
+
     }
     }
-    >div:nth-child(2) {
-         width: 100px;
-         position: absolute;
-         right: 20px;
-         top: 0;
-         bottom: 7.5px;
-         line-height: 60px;
-         text-align: right;
+    >
+    div:nth-child(2) {
+        width: 100px;
+        position: absolute;
+        right: 20px;
+        top: 0;
+        bottom: 7.5px;
+        line-height: 60px;
+        text-align: right;
+
     span {
         font-size: 16px;
         margin-bottom: 1px;
         vertical-align: middle;
     }
+
     img {
         vertical-align: middle;
         width: 14px;
         height: 14px;
     }
+
     }
     }
     .weui-cell.phone {
         padding-left: 0;
         font-size: 14px;
         border-bottom: 1px solid #E2E2E2;
+
     .weui-input {
         text-align: right;
         color: #666666;
     }
+
     }
     .weui-cell.phone:before {
         border: 0;
     }
+
     .message {
+
     div:first-child {
         font-size: 14px;
         color: #666;
         margin: 15px 0;
     }
+
     div:last-child {
         margin-right: 15px;
+
     textarea {
         font-size: 13px;
         color: #BBBBBB;
     }
-    }
+
     }
     }
 
@@ -273,21 +313,27 @@ export default {
         bottom: 0px;
         left: 0;
         right: 0;
-    >div {
-         width: 50%;
-         float: left;
-     }
+
+    >
+    div {
+        width: 50%;
+        float: left;
+    }
+
     .button-buy {
         font-size: 14px;
         background-color: #FFFFFF;
         line-height: 50px;
         color: #333333;
+
     label {
         visibility: hidden;
     }
+
     span {
         color: #8760BA;
     }
+
     }
     .button-confirm {
         font-size: 16px;
@@ -296,5 +342,6 @@ export default {
         text-align: center;
         color: #FFFFFF;
     }
+
     }
 </style>
