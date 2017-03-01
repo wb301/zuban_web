@@ -210,7 +210,7 @@ export default {
                     action: 'c=Zb&m=Order&a=prePay',
                     param: {
                         out_trade_no: this.order_no,
-                        total_fee: this.order_price,
+                        total_fee: parseFloat(this.order_price) * 100,
                         openid: 'oAnh1wZJm5gxyIk0OrzYJjAUUCVw'
                     }
                 };
