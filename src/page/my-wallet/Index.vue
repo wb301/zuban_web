@@ -20,13 +20,13 @@
             <div class="weui-cells">
                 <div class="weui-cell" href="javascript:;">
                     <label class="weui-label class_font_size_hd">申请提现</label>
-                    <input class="weui-input disabled-input class_font_size_bd" v-model="categor" type="text" @click="selectCategory" />
-                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                    <input class="weui-input disabled-input class_font_size_bd" type="text" />
+                    <div><router-link :to="{path:'/money'}"><img :src="arrow" style="width:15px;height:15px;" /></router-link></div>
                 </div>
                 <div class="weui-cell" href="javascript:;">
                     <label class="weui-label class_font_size_hd">收支明细</label>
-                    <input class="weui-input disabled-input class_font_size_bd" v-model="categor" type="text" @click="selectCategory" />
-                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                    <input class="weui-input disabled-input class_font_size_bd" type="text" />
+                    <div><router-link to="{path:'/detail'}"><img :src="arrow" style="width:15px;height:15px;" /></router-link></div>
                 </div>
             </div>
             <div></div>

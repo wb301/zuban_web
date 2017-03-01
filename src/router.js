@@ -109,6 +109,16 @@ const router = new Router({
         path: '/my-wallet',
         component: function(resolve) {
             require(['./page/my-wallet/Index.vue'], resolve)
+        },
+    }, {
+        path: '/money',
+        component: function(resolve) {
+            require(['./page/my-wallet/Money.vue'], resolve)
+        }
+    }, {
+        path: '/detail',
+        componment: function(resolve) {
+            require(['./page/my-wallet/Detail.vue'], resolve)
         }
     }, {
         path: '/',
