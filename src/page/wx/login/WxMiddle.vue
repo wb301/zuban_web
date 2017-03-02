@@ -9,11 +9,13 @@ export default {
     components: {},
     data() {
         return {
+            next: 'list',
             pos: NormalHelper.getPostion(),
             userInfo: JSON.parse(this.$route.params.user)
         }
     },
     mounted() {
+        this.next = this.$route.params.next
         //如果account存在 则 获取用户信息并提供经纬度  跳转 找服务列表
         if(this.userInfo.account && this.userInfo.account.length > 0 && this.userInfo.token){
             this.getUserInfo();
@@ -36,7 +38,7 @@ export default {
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
                     this.$router.push({
-                        path: '/list'
+                        path: '/'+this.next
                     });
                 },
                 fail: (response) => {
