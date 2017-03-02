@@ -9,11 +9,12 @@ export default {
     components: {},
     data() {
         return {
-            redirect_url:"https://weixin.zuban8.com/zuban_web/console/#/wx-middle"
+            next: 'list',
         }
     },
     mounted() {
-        NormalHelper.wxLogin(this.redirect_url);
+        this.next = this.$route.params.next
+        NormalHelper.wxLogin("https://weixin.zuban8.com/zuban_web/console/#/wx-middle/"+this.next);
     },
     methods: {
     },

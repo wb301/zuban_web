@@ -15,12 +15,12 @@ const router = new Router({
             require(['./page/account/login/Index.vue'], resolve)
         }
     }, {
-        path: '/wx-login',
+        path: '/wx-login/:next',
         component: function(resolve) {
             require(['./page/wx/login/Index.vue'], resolve)
         }
     }, {
-        path: '/wx-middle/:user',
+        path: '/wx-middle/:next/:user',
         component: function(resolve) {
             require(['./page/wx/login/WxMiddle.vue'], resolve)
         }
