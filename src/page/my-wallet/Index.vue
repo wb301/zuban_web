@@ -3,15 +3,15 @@
         <div class="container-body">
             <div class="wallet-hd">
                 <div class="title">账户余额（元）</div>
-                <div class="money">{{userInfo.money.maxMoney}}</div>
+                <div class="money" v-model="maxMoney">{{maxMoney}}</div>
             </div>
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item weui-bar__item_on">
-                        可提现（元）：{{userInfo.money.available}}
+                        <span v-model="available">可提现（元）：{{available}}</span>
                     </div>
                     <div class="weui-navbar__item">
-                        冻结中（元）：{{userInfo.money.freeze}}
+                        <span v-model="freeze">冻结中（元）：{{freeze}}</span>
                     </div>
                 </div>
                 <div class="weui-tab__panel">
@@ -77,7 +77,9 @@ export default {
     data() {
         return {
             arrow: jiantou,
-            userInfo: NormalHelper.userInfo()
+            maxMoney: 0,
+            available: 0,
+            freeze: 0
         }
     },
     mounted() {
@@ -89,16 +91,19 @@ export default {
     methods: {
         getUserInfo() {
 
+            var userInfo = NormalHelper.userInfo();
             var param = {
-                token: this.userInfo.token
+                token: userInfo.token
             };
             var p_obj = {
                 action: 'c=Zb&m=User&a=getUserInfo',
                 param: param,
                 success: (response) => {
-                    response["token"] = this.userInfo.token;
+                    response["token"] = userInfo.token;
                     NormalHelper.setUserInfo(response);
-                    this.userInfo = response;
+                    this.maxMoney = response["money"]["maxMoney"];
+                    this.available = response["money"]["available"];
+                    this.freeze = response["money"]["freeze"];
                 },
                 fail: (response) => {
                     weui.alert(response.msg)

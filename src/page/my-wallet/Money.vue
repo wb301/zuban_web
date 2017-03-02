@@ -74,6 +74,7 @@ export default {
                     response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
+                    console.log(this.userInfo);
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -84,6 +85,11 @@ export default {
         toWithdraw() {
             if(this.money_model == "" || this.money_model <= 0){
                 weui.alert("请输入提现金额");
+                return false;
+            }
+
+            if(this.money_model > this.userInfo.money.available){
+                weui.alert("提现金额不能大于可提现金额");
                 return false;
             }
 
