@@ -50,7 +50,7 @@ export default {
                 label: "待付款",
                 value: 'WaitingPay'
             }, {
-                label: "待确认",
+                label: "待接单",
                 value: 'WaitingConfirm'
             }, {
                 label: "进行中",
@@ -80,7 +80,7 @@ export default {
                 status: this.status,
                 type: 0,
                 page: this.page,
-                row: 5
+                row: 10
             };
             if (this.status != "") {
                 param.status = this.status;
