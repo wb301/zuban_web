@@ -9,7 +9,7 @@ export default {
     components: {},
     data() {
         return {
-            redirect_url:"https://test.guleshop.com/youfan/web/console/#/wx-middle"
+            redirect_url:"https://weixin.zuban8.com/zuban_web/console/#/wx-middle"
         }
     },
     mounted() {
