@@ -33,7 +33,8 @@ export default {
         return {
             mobile: '',
             password: '',
-            pos: NormalHelper.getPostion()
+            pos: NormalHelper.getPostion(),
+            openid: NormalHelper.getOpenId()
         }
     },
     beforeRouteEnter(to, from, next) {
@@ -52,6 +53,9 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
+            if(this.openid != ''){
+                param.openId = this.openid;
+            }
             var mobile = param.account;
             if (!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))) {
                 weui.alert("手机号码有误，请重填");

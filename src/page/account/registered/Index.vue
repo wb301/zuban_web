@@ -57,7 +57,8 @@ export default {
                 disabled: ''
             },
             mobileCode: '',
-            pos: NormalHelper.getPostion()
+            pos: NormalHelper.getPostion(),
+            openid: NormalHelper.getOpenId()
         }
     },
     mounted() {
@@ -156,6 +157,9 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
+            if(this.openid != ''){
+                param.openId = this.openid;
+            }
            var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");

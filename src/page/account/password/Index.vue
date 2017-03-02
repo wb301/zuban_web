@@ -47,7 +47,8 @@ export default {
             },
             mobileCode: '',
             next: 'list',
-            pos: NormalHelper.getPostion()
+            pos: NormalHelper.getPostion(),
+            openid: NormalHelper.getOpenId()
         }
     },
     mounted() {
@@ -130,6 +131,9 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
+            if(this.openid != ''){
+                param.openId = this.openid;
+            }
             var _self = this;
             var p_obj = {
                 action: 'c=Zb&m=Login&a=login',

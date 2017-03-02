@@ -9,19 +9,51 @@ export default {
     components: {},
     data() {
         return {
-            userInfo:this.$route.params.user
+            pos: NormalHelper.getPostion(),
+            userInfo: JSON.parse(this.$route.params.user)
         }
     },
     mounted() {
-        alert(this.userInfo);
+        alert(JSON.stringify(this.userInfo));
         //如果account存在 则 获取用户信息并提供经纬度  跳转 找服务列表
-
-        //如果account存在 则 跳转注册/登录 页面并传递open_id,注册或登录时 绑定open_id
-
-
-        //todo:服务修改:  1.登录注册 兼容open_id传入 如果open_id长度>0 则 最后 user=xx(open_id,user)return 新user 合并帐号 删除open_id信息  并更新open_id到account有值的帐号信息下  2.获取用户信息兼容 pos 经纬度传入  如果存在 则刷新 user_info中的经纬度
+        if(this.userInfo.account && this.userInfo.token){
+            this.getUserInfo();
+        }else{
+            this.bangdingIphone();
+        }
     },
     methods: {
+        getUserInfo() {
+            var param = {
+                token: this.userInfo.token,
+                logitude: this.pos.logitude,
+                latitude: this.pos.latitude
+            };
+            var p_obj = {
+                action: 'c=Zb&m=User&a=getUserInfo',
+                param: param,
+                success: (response) => {
+                    response["token"] = this.userInfo.token;
+                    NormalHelper.setUserInfo(response);
+                    this.userInfo = response;
+                    this.$router.push({
+                        path: '/list'
+                    });
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        },
+        bangdingIphone() {
+            NormalHelper.setUserInfo({
+                wx_middle_open_id: this.userInfo.openid
+            });
+            this.$router.push({
+                    path: '/registered/'+this.userInfo.openid
+                });
+        }
     },
     destroyed() {}
 }
