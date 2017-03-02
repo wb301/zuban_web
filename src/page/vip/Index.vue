@@ -1,65 +1,67 @@
 <template>
-    <div style="background: #F5F5F5;">
-        <!-- 当前等级 会员特权 -->
-        <div class="content-manipulation">
-            <div class="weui-cells" style="margin-top: 0px">
-                <div class="weui-cell class_height">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label class_font_size_hd">当前等级</label>
+    <div>
+        <div style="background: #F5F5F5;">
+            <!-- 当前等级 会员特权 -->
+            <div class="content-manipulation">
+                <div class="weui-cells" style="margin-top: 0px">
+                    <div class="weui-cell class_height">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label class_font_size_hd">当前等级</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <label class="weui-label class_font_size_bd" name="vip_level">{{this.vip_level}}</label>
+                        </div>
                     </div>
-                    <div class="weui-cell__bd">
-                        <label class="weui-label class_font_size_bd" name="vip_level">{{this.vip_level}}</label>
+                    <div class="weui-cell class_height">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label class_font_size_hd">会员特权</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <label class="weui-label class_font_size_bd" style="width: 100%">{{this.vip_info}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="weui-cell class_height">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label class_font_size_hd">会员特权</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <label class="weui-label class_font_size_bd" style="width: 100%">{{this.vip_info}}</label>
-                    </div>
-                </div>
-                <div class="weui-cell class_height">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label class_font_size_hd">会员特权说明</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div><img :src="image" style="width: 100%"></div>
-        </div>
-
-        <!-- 说明 -->
-        <div class="content-manipulation">
-            <div class="weui-cells" style="margin-top: -10px">
-                <div class="weui-cell" style="height: 30px">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label" style="width: 100%;font-size: 12px;color: #E35257;">说明:会员时间的计算从支付当天开始算起,到期后自动失效;支付成功10分钟内即可在服务详情页查看租人的联系方式。</label>
+                    <div class="weui-cell class_height">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label class_font_size_hd">会员特权说明</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 开通会员 -->
-        <div class="content-manipulation" style="margin-top: 8px" v-if="is_vip == false">
-            <div class="weui-cells" style="margin-top: 0px">
-                <div class="weui-cell class_height">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label class_font_size_hd">开通会员</label>
+            <div>
+                <div><img :src="image" style="width: 100%"></div>
+            </div>
+
+            <!-- 说明 -->
+            <div class="content-manipulation">
+                <div class="weui-cells" style="margin-top: -10px">
+                    <div class="weui-cell" style="height: 30px">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label" style="width: 100%;font-size: 12px;color: #E35257;">说明:会员时间的计算从支付当天开始算起,到期后自动失效;支付成功10分钟内即可在服务详情页查看租人的联系方式。</label>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="weui-cell class_height" v-for="(item,index) in vipList">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label class_font_size_bd">{{item.name}}</label>
+            <!-- 开通会员 -->
+            <div class="content-manipulation" style="margin-top: 8px" v-if="is_vip == false">
+                <div class="weui-cells" style="margin-top: 0px">
+                    <div class="weui-cell class_height">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label class_font_size_hd">开通会员</label>
+                        </div>
                     </div>
-                    <div class="weui-cell__bd">
-                        <label class="weui-label class_font_size_bd">{{item.price}}元</label>
-                    </div>
-                    <div class="weui-cell__ft" style="margin-top: 5px">
-                        <a @click="payVip(item)" class="weui-btn weui-btn_mini weui-btn_warn" style="background-color: #A878E5;font-size:12px">购买</a>
+
+                    <div class="weui-cell class_height" v-for="(item,index) in vipList">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label class_font_size_bd">{{item.name}}</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <label class="weui-label class_font_size_bd">{{item.price}}元</label>
+                        </div>
+                        <div class="weui-cell__ft" style="margin-top: 5px">
+                            <a @click="payVip(item)" class="weui-btn weui-btn_mini weui-btn_warn" style="background-color: #A878E5;font-size:12px">购买</a>
+                        </div>
                     </div>
                 </div>
             </div>
