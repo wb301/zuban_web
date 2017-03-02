@@ -4,10 +4,10 @@
             <div class="weui-tab__panel">
             </div>
             <div class="weui-tabbar">
-                <router-link active-class='weui-bar__item_on' class="weui-tabbar__item" tag="a" :to="{path: '/'+item.path}" v-for="(item,index) in sideList">
+                <div active-class='weui-bar__item_on' class="weui-tabbar__item" tag="a" @click="toPath(item)" v-for="(item,index) in sideList">
                     <img :src="item.img" alt="" class="weui-tabbar__icon">
                     <p class="weui-tabbar__label">{{item.title}}</p>
-                </router-link>
+                </div>
             </div>
         </div>
     </div>
@@ -31,7 +31,22 @@ export default {
     mounted() {
 
     },
-    methods: {},
+    methods: {
+        toPath(item) {
+
+            if(item.check){
+                var userInfo = NormalHelper.userInfo();
+                if(userInfo.is_complete <= 0){
+                    weui.alert("完善信息后可发布");
+                    item.path = "my";
+                }
+            }
+
+            this.$router.push({
+                path: '/' + item.path
+            });
+        }
+    },
     destroyed() {}
 }
 </script>
