@@ -3,15 +3,15 @@
         <div class="container-body">
             <div class="wallet-hd">
                 <div class="title">账户余额（元）</div>
-                <div class="money">299.09</div>
+                <div class="money">{{userInfo.money.maxMoney}}</div>
             </div>
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item weui-bar__item_on">
-                        可提现（元）：
+                        可提现（元）：{{userInfo.money.available}}
                     </div>
                     <div class="weui-navbar__item">
-                        冻结中（元）：
+                        冻结中（元）：{{userInfo.money.freeze}}
                     </div>
                 </div>
                 <div class="weui-tab__panel">
@@ -19,12 +19,12 @@
             </div>
             <div class="weui-cells">
                 <div class="weui-cell" href="javascript:;">
-                    <label class="weui-label class_font_size_hd">申请提现</label>
+                    <label class="weui-label class_font_size_hd" @click='toWithdraw'>申请提现</label>
                     <input class="weui-input disabled-input class_font_size_bd" type="text" />
                     <div><router-link :to="{path:'/money'}"><img :src="arrow" style="width:15px;height:15px;" /></router-link></div>
                 </div>
                 <div class="weui-cell" href="javascript:;">
-                    <label class="weui-label class_font_size_hd">收支明细</label>
+                    <label class="weui-label class_font_size_hd" @click='toMoneyHistroy'>收支明细</label>
                     <input class="weui-input disabled-input class_font_size_bd" type="text" />
                     <div><router-link to="{path:'/detail'}"><img :src="arrow" style="width:15px;height:15px;" /></router-link></div>
                 </div>
@@ -78,47 +78,48 @@ export default {
     components: {},
     data() {
         return {
-            arrow: jiantou
+            arrow: jiantou,
+            userInfo: NormalHelper.userInfo()
         }
     },
     mounted() {
         $(".disabled-input").focus(function() {
             document.activeElement.blur();
         });
+        this.getUserInfo();
     },
     methods: {
-        // createDropload() {
-        //     var _self = this;
-        //     dropload = $('.dropload-wapper').dropload({
-        //         domUp: {
-        //             domClass: 'dropload-up',
-        //             // 下拉过程显示内容
-        //             domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
-        //             // 下拉到一定程度显示提示内容
-        //             domUpdate: '<div class="dropload-update">↑释放更新</div>',
-        //             // 释放后显示内容
-        //             domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
-        //         },
-        //         domDown: {
-        //             domClass: 'dropload-down',
-        //             // 滑动到底部显示内容
-        //             domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
-        //             // 内容加载过程中显示内容
-        //             domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-        //             // 没有更多内容-显示提示
-        //             domNoData: '<div class="dropload-noData">暂无数据</div>'
-        //         },
-        //         loadUpFn: function(me) {
-        //             _self.page = 1;
-        //             _self.getShowProductList(me);
-        //         },
-        //         loadDownFn: function(me) {
-        //             _self.page++;
-        //             _self.getShowProductList(me);
-        //         }
-        //     });
-        // },
-        // destroyed() {}
+        getUserInfo() {
+
+            var param = {
+                token: this.userInfo.token
+            };
+            var p_obj = {
+                action: 'c=Zb&m=User&a=getUserInfo',
+                param: param,
+                success: (response) => {
+                    response["token"] = this.userInfo.token;
+                    NormalHelper.setUserInfo(response);
+                    this.userInfo = response;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        },
+        toWithdraw() {
+            console.log("申请提现");
+            // this.$router.push({
+            //     path: '/my-wallet'
+            // });
+        },
+        toMoneyHistroy() {
+            console.log("收支明细");
+            // this.$router.push({
+            //     path: '/my-wallet'
+            // });
+        }
     }
 }
 </script>

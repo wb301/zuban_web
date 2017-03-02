@@ -49,7 +49,7 @@
                     <div class="weui-cell__ft">
                     </div>
                 </a>
-                <a class="weui-cell weui-cell_access" href="javascript:;">
+                <a class="weui-cell weui-cell_access" href="javascript:;" @click='myWallet'>
                     <div class="weui-cell__bd">
                         <p class="font_size">我的钱包</p>
                     </div>
@@ -124,6 +124,11 @@ export default {
         myOrderlist_1() {
             this.$router.push({
                 path: '/orderlist/1'
+            });
+        },
+        myWallet() {
+            this.$router.push({
+                path: '/my-wallet'
             });
         }
     },
