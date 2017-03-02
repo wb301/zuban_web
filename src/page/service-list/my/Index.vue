@@ -1,26 +1,19 @@
 <template>
     <div>
-        <div style = "background: #F5F5F5;">
-
-            <div class="weui-cells" style = "margin-top:0px;">
-                <a class="weui-cell weui-cell_access" href="javascript:;" style = "height:85px;" @click='myInfo'>
-
+        <div style="background: #F5F5F5;">
+            <div class="weui-cells" style="margin-top:0px;">
+                <a class="weui-cell weui-cell_access" href="javascript:;" style="height:85px;" @click='myInfo'>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
                             <img :src="userInfo.head_img" class="user-portrait" />
                         </div>
                         <div class="weui-cell__bd">
-
                             <h3 style="font-size: 17px;">{{userInfo.nick_name}}</h3>
                             <img :src="shouji" alt="" style="width:8px;height: 10px;margin-top:4px;float:left" />
                             <p style="width:150px;color: #999999;font-size: 14px">{{userInfo.account}}</p>
-
                         </div>
-
                     </div>
-
                     <div class="weui-cell__bd">
-                        
                     </div>
                     <div class="weui-cell__ft">
                     </div>
@@ -40,8 +33,7 @@
                     </div>
                 </a>
             </div>
-
-            <div class="weui-cells" style = "margin-top:8px;">
+            <div class="weui-cells" style="margin-top:8px;">
                 <a class="weui-cell weui-cell_access" href="javascript:;" @click='myVip'>
                     <div class="weui-cell__bd">
                         <p class="font_size">我的会员</p>
@@ -57,8 +49,7 @@
                     </div>
                 </a>
             </div>
-
-            <div class="weui-cells" style = "margin-top:8px;">
+            <div class="weui-cells" style="margin-top:8px;">
                 <a class="weui-cell weui-cell_access" href="javascript:;" @click='myOrderlist_1'>
                     <div class="weui-cell__bd">
                         <p class="font_size">接到订单</p>
@@ -74,7 +65,6 @@
                     </div>
                 </a>
             </div>
-
         </div>
     </div>
 </template>
@@ -83,7 +73,7 @@ import xiala from '../list/image/xiala.png'
 import shouji from '../list/image/shouji.png'
 export default {
     components: {
-        
+
     },
     data() {
         return {
@@ -118,7 +108,7 @@ export default {
         },
         myOrderlist_0() {
             this.$router.push({
-                path: '/buy-order-list'
+                path: '/orderlist/0'
             });
         },
         myOrderlist_1() {
@@ -147,6 +137,7 @@ export default {
         height: 100%;
     }
 }
+
 .font_size {
     font-size: 14px;
 }

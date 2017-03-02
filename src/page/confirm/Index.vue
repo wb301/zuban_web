@@ -185,7 +185,7 @@ export default {
                 cartList: [{
                     product_sys_code: this.productInfo.product_sys_code,
                     num: this.quantity
-                }],
+                }]
             };
             param.paymentAry = JSON.stringify(param.paymentAry);
             param.cartList = JSON.stringify(param.cartList)
