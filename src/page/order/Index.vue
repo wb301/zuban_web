@@ -9,10 +9,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="dropload-wapper">
-            <div>
-                <list-item v-for="(item,index) in orderList" :item="item"></list-item>
+            <div class="dropload-wapper">
+                <div>
+                    <list-item v-for="(item,index) in orderList" :item="item"></list-item>
+                </div>
             </div>
         </div>
     </div>
