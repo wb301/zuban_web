@@ -10,6 +10,11 @@
                 </div>
             </div>
         </div>
+        <div class="dropload-wapper">
+            <div>
+                <list-item v-for="(item,index) in orderList" :item="item"></list-item>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -20,7 +25,7 @@ import ListItem from './item'
 var dropload = '';
 export default {
     components: {
-        ListItem
+        ListItem 
     },
     data() {
         return {

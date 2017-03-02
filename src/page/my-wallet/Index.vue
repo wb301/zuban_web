@@ -18,15 +18,15 @@
                 </div>
             </div>
             <div class="weui-cells">
-                <div class="weui-cell" href="javascript:;">
-                    <label class="weui-label class_font_size_hd" @click='toWithdraw'>申请提现</label>
+                <div class="weui-cell" href="javascript:;" @click='toWithdraw'>
+                    <label class="weui-label class_font_size_hd">申请提现</label>
                     <input class="weui-input disabled-input class_font_size_bd" type="text" />
-                    <div><router-link :to="{path:'/money'}"><img :src="arrow" style="width:15px;height:15px;" /></router-link></div>
+                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
                 </div>
-                <div class="weui-cell" href="javascript:;">
-                    <label class="weui-label class_font_size_hd" @click='toMoneyHistroy'>收支明细</label>
+                <div class="weui-cell" href="javascript:;" @click='toMoneyHistroy'>
+                    <label class="weui-label class_font_size_hd">收支明细</label>
                     <input class="weui-input disabled-input class_font_size_bd" type="text" />
-                    <div><router-link to="{path:'/detail'}"><img :src="arrow" style="width:15px;height:15px;" /></router-link></div>
+                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
                 </div>
             </div>
             <div></div>
@@ -72,8 +72,6 @@
 </style>
 <script>
 import jiantou from './image/jiantou1.png'
-// import 'src/lib/js/dropload.min.js'
-// import 'src/lib/css/dropload.css'
 export default {
     components: {},
     data() {
@@ -109,16 +107,14 @@ export default {
             AjaxHelper.PostRequest(p_obj);
         },
         toWithdraw() {
-            console.log("申请提现");
-            // this.$router.push({
-            //     path: '/my-wallet'
-            // });
+            this.$router.push({
+                path: '/money'
+            });
         },
         toMoneyHistroy() {
-            console.log("收支明细");
-            // this.$router.push({
-            //     path: '/my-wallet'
-            // });
+            this.$router.push({
+                path: '/detail'
+            });
         }
     }
 }
