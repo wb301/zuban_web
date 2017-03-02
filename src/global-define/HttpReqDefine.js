@@ -11,9 +11,9 @@
 export default function(request, next) {
     var userToken =  NormalHelper.userInfo().token;
     if (userToken) {
-        if (request.method == 'GET') {
+        if (request.method == 'GET' && !request.params.token) {
             request.params.token = userToken;
-        } else if (request.method == 'POST') {
+        } else if (request.method == 'POST' && !request.body.token) {
             request.body.token = userToken;
         }
     }
