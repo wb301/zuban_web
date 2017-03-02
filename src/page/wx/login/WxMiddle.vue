@@ -14,9 +14,8 @@ export default {
         }
     },
     mounted() {
-        alert(JSON.stringify(this.userInfo));
         //如果account存在 则 获取用户信息并提供经纬度  跳转 找服务列表
-        if(this.userInfo.account && this.userInfo.token){
+        if(this.userInfo.account && this.userInfo.account.length > 0 && this.userInfo.token){
             this.getUserInfo();
         }else{
             this.bangdingIphone();
@@ -47,11 +46,11 @@ export default {
             AjaxHelper.PostRequest(p_obj);
         },
         bangdingIphone() {
-            NormalHelper.setUserInfo({
-                wx_middle_open_id: this.userInfo.openid
-            });
+            var userInfo = NormalHelper.userInfo()
+            userInfo.wx_middle_open_id = this.userInfo.openid;
+            NormalHelper.setUserInfo(userInfo);
             this.$router.push({
-                    path: '/registered/'+this.userInfo.openid
+                    path: '/registered'
                 });
         }
     },

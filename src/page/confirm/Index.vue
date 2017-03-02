@@ -107,6 +107,7 @@ export default {
             },
             quantity: 1,
             contact_information: NormalHelper.userInfo().account,
+            openid: NormalHelper.userInfo().wx_open_id,
             memo: '',
             type: this.$route.params.type,
             productCode: this.$route.params.productCode,
@@ -168,40 +169,44 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         createOrder() {
-            var param = {
-                memo: this.memo,
-                phone: this.contact_information,
-                allPrice: this.allPrice,
-                order_type: this.type == 1 ? 0 : 1,
-                //地区code
-                source: NormalHelper.userInfo().region_code,
-                receiver: NormalHelper.userInfo().nick_name,
-                //时间戳
-                check_code: Date.parse(new Date()),
-                paymentAry: {
-                    payment: 'ON_LINE',
-                    pay_type: 'WX'
-                },
-                cartList: [{
-                    product_sys_code: this.productInfo.product_sys_code,
-                    num: this.quantity
-                }]
-            };
-            param.paymentAry = JSON.stringify(param.paymentAry);
-            param.cartList = JSON.stringify(param.cartList)
-            var p_obj = {
-                action: 'c=Zb&m=Order&a=createOrder',
-                param: param,
-                success: (response) => {
-                    this.order_no = response.order_no;
-                    this.order_price = response.price;
-                    this.prePay();
-                },
-                fail: (response) => {
-                    weui.alert(response.msg)
-                }
-            };
-            AjaxHelper.PostRequest(p_obj);
+            if(this.openid.length > 0){ //TODO:并且微信浏览器打开
+                var param = {
+                    memo: this.memo,
+                    phone: this.contact_information,
+                    allPrice: this.allPrice,
+                    order_type: this.type == 1 ? 0 : 1,
+                    //地区code
+                    source: NormalHelper.userInfo().region_code,
+                    receiver: NormalHelper.userInfo().nick_name,
+                    //时间戳
+                    check_code: Date.parse(new Date()),
+                    paymentAry: {
+                        payment: 'ON_LINE',
+                        pay_type: 'WX'
+                    },
+                    cartList: [{
+                        product_sys_code: this.productInfo.product_sys_code,
+                        num: this.quantity
+                    }]
+                };
+                param.paymentAry = JSON.stringify(param.paymentAry);
+                param.cartList = JSON.stringify(param.cartList)
+                var p_obj = {
+                    action: 'c=Zb&m=Order&a=createOrder',
+                    param: param,
+                    success: (response) => {
+                        this.order_no = response.order_no;
+                        this.order_price = response.price;
+                        this.prePay();
+                    },
+                    fail: (response) => {
+                        weui.alert(response.msg)
+                    }
+                };
+                AjaxHelper.PostRequest(p_obj);
+            }else{
+                //弹出 关注公众号二维码 并提示
+            }
         },
         prePay() {
             console.log(NormalHelper.isWeixin());
@@ -211,7 +216,7 @@ export default {
                     param: {
                         out_trade_no: this.order_no,
                         total_fee: parseFloat(this.order_price) * 100,
-                        openid: 'oAnh1wZJm5gxyIk0OrzYJjAUUCVw'
+                        openid: this.openid
                     }
                 };
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;

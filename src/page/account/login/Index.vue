@@ -38,10 +38,10 @@ export default {
         }
     },
     beforeRouteEnter(to, from, next) {
-        if (NormalHelper.userInfo().token == 1) {
-            next();
-        } else {
+        if (NormalHelper.userInfo().token) {
             next('/list');
+        }else{
+            next();
         }
     },
     mounted() {},
