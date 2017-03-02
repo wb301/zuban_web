@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="container-body">
+            <div content="product">
             <div class="user-information">
                 <div class="user-portrait">
                     <img :src="img_meinv">
@@ -13,40 +14,65 @@
                 </div>
             </div>
             <div class="service-information">
-                <div>
-                    <div>陪逛街</div>
-                    <div>
-                        <span>￥</span>
-                        <span>179</span>
-                        <span>/小时</span>
-                    </div>
+                <div class="product_img">
+                    <img :src="img_meinv">
                 </div>
-                <div>
-                    <img :src="quantity>0?btn_less[1]:btn_less[2]">
-                    <span> {{quantity}} </span>
-                    <img :src="quantity<9999?btn_plus[1]:btn_plus[2]">
+                <div class="product_content">陪逛街</div>
+                <div class="product_price">
+                    <span>179</span>
+                    <span>/小时</span>
+                </div>
+                <div class="product_num">
+                    <span>x2</span>
                 </div>
             </div>
             <div>
+            </div>
+
+                <div content="order">
+                <div class="weui-cell time">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">2017-02-23 22:43:34</label>
+                    </div>
+                    <div class="weui-cell__bd"></div>
+                    <div class="weui-cell__ft">
+                        <span>合计：</span>
+                        <span>350</span>
+                        <span>元</span>
+                    </div>
+
+                </div>
                 <div class="weui-cell phone">
                     <div class="weui-cell__hd">
                         <label class="weui-label">您的联系方式</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="test" v-model="contact_information" placeholder="请输入联系方式" />
+                       13761094580
                     </div>
+                    <div class="weui-cell__bd"></div>
+                    <div class="weui-cell__ft">
+                        <span><img :src="lxmj"></span>
+                    </div>
+                </div>
                 </div>
                 <div class="message">
                     <div>留言</div>
-                    <div>
-                        <textarea class="weui-textarea" placeholder="请输入文本" rows="5"></textarea>
+                    <div content="liuyan">
+                        dfsldk;fksdlkf;slkdf;lks;dkf;skldf;ks;dfsd
+                        sdfsdmf.sdfssdfsdfsdfsdfsad是东方航空技术方式开发圣诞节福克斯是东方开始的方式决定了房间
+                    </div>
+                </div>
+                <div class="weui-cell order_no">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">订单编号</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        13761094580
                     </div>
                 </div>
             </div>
         </div>
         <div class="button-wapper">
-            <div class="button-buy">
-                <label>ca</label>合计：<span>15元</span></div>
             <div class="button-confirm">确认支付</div>
         </div>
     </div>
@@ -60,6 +86,7 @@ import nv from '../product/image/nv.png'
 import meinv from '../service-list/release/image/Artboard6.jpg'
 
 import less_1 from './image/less_1.png'
+import lxmj from './image/lxmj.png'
 import less_2 from './image/less_2.png'
 import plus_1 from './image/plus_1.png'
 import plus_2 from './image/plus_2.png'
@@ -87,6 +114,7 @@ export default {
                 1: plus_1,
                 2: plus_2
             },
+            lxmj: lxmj,
             quantity: 9999,
             contact_information: 13672888888
 
@@ -145,7 +173,6 @@ export default {
     .service-information {
         border-bottom: 1px solid #E2E2E2;
     }
-
     .user-information {
         height: 40px;
         position: relative;
@@ -217,92 +244,124 @@ export default {
     }
     }
     .service-information {
-        height: 70px;
+        height: 117.5px;
         position: relative;
-
-    >
-    div {
-
-    >
-    div:nth-child(1) {
-        margin-top: 7.5px;
-        font-size: 13px;
-        color: #333;
-    }
-
-    >
-    div:nth-child(2) {
-        color: #A878E5;
-        margin-top: 5px;
-
-    span:nth-child(1) {
-        font-size: 12px;
-    }
-
-    span:nth-child(2) {
-        font-size: 17px;
-    }
-
-    span:nth-child(3) {
-        font-size: 10px;
-    }
-
-    }
-    }
-    >
-    div:nth-child(2) {
+    .product_price {
+        color: #8760BA;
         width: 100px;
         position: absolute;
-        right: 20px;
-        top: 0;
+        right: 15px;
+        top: 15px;
         bottom: 7.5px;
-        line-height: 60px;
+        line-height: 14px;
         text-align: right;
 
     span {
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 1px;
         vertical-align: middle;
     }
-
-    img {
-        vertical-align: middle;
-        width: 14px;
-        height: 14px;
     }
+    .product_num {
+         color: #000000;
+         width: 40px;
+         position: absolute;
+         right: 15px;
 
+         bottom: 16px;
+         line-height: 14px;
+         text-align: right;
+    span {
+        font-size: 14px;
+        margin-bottom: 1px;
+        vertical-align: middle;
+    }
+    }
+    .product_img{
+        width: 100px;
+        height: 100px;
+        left:5px;
+        margin-top: 15.5px;
+        float:left;
+    img {
+        width: 90px;
+        height: 90px;
+    }
+    }
+    .product_content{
+        color: #333;
+        font-size: 14px;
+        width: 110px;
+        height: 28px;
+        overflow: auto;
+        float: left;
+        margin-top: 14px;
+        margin-left: 5px;
     }
     }
     .weui-cell.phone {
         padding-left: 0;
         font-size: 14px;
         border-bottom: 1px solid #E2E2E2;
-
-    .weui-input {
+    .weui-label{
         text-align: right;
-        color: #666666;
+        width: 85px;
+    }
+    .weui-cell__bd{
+        text-align: left;
+       margin-left: 10px;
+    }
+    .weui-cell__ft{
+        img{
+            height: 35px;
+            width: 50px;
+        }
+    }
     }
 
+    .weui-cell.time {
+        padding-left: 0;
+        font-size: 14px;
+        border-bottom: 1px solid #E2E2E2;
+    .weui-label{
+        width: 150px;
     }
-    .weui-cell.phone:before {
-        border: 0;
+    .weui-cell__ft{
+        color: #333;
+
+       span:nth-child(2) {
+            color: #8760BA;
+        }
+    span:nth-child(3) {
+        color: #8760BA;
+    }
+    }
+    }
+
+    .weui-cell.order_no {
+        padding-left: 0;
+        font-size: 14px;
+        border-bottom: 1px solid #E2E2E2;
+        text-align: left;
+        .weui-cell__bd{
+            text-align: right;
+        }
+
     }
 
     .message {
+        margin-bottom: 16px;
 
     div:first-child {
         font-size: 14px;
         color: #666;
-        margin: 15px 0;
+        margin: 15px 0px 15px;
     }
 
     div:last-child {
         margin-right: 15px;
-
-    textarea {
         font-size: 13px;
         color: #BBBBBB;
-    }
 
     }
     }
@@ -317,23 +376,7 @@ export default {
     >
     div {
         width: 50%;
-        float: left;
-    }
-
-    .button-buy {
-        font-size: 14px;
-        background-color: #FFFFFF;
-        line-height: 50px;
-        color: #333333;
-
-    label {
-        visibility: hidden;
-    }
-
-    span {
-        color: #8760BA;
-    }
-
+        float: right;
     }
     .button-confirm {
         font-size: 16px;
