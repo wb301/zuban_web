@@ -3,16 +3,17 @@
         <div class="container-body">
             <div class="weui-cells" style="margin-top: 0px">
                 <div class="weui-cell" href="javascript:;">
-                    <label class="class_font_size_hd">支付宝账号</label>
+                    <label class="weui-label">支付宝账号</label>
                     <input class="weui-input" v-model="alipay_account" type="text" placeholder="请输入支付宝账号" />
                 </div>
                 <div class="weui-cell" href="javascript:;">
                     <label class="label">金额</label>
                     <input class="weui-input" v-model="money_model" type="text" placeholder="请输入提现金额" />
-                    <label class="label" style="width: 70px" @click="allWithdraw">全部提现</label>
+                    <label class="label" @click="allWithdraw">全部提现</label>
                 </div>
                 <div class="weui-cell" href="javascript:;">
-                    <label class="weui-label" style="width: 100%">可提现金额(元):{{userInfo.money.available}}</label>
+                    <label class="class_font_size_hd">可提现金额(元):</label>
+                    <label class="weui-input disabled-input">{{userInfo.money.available}}</label>
                     <input class="weui-input" v-model="categor" type="text" />
                 </div>
             </div>
@@ -25,11 +26,14 @@
     .weui-cell {
         height: 40px;
         font-size: 13px;
+        .weui-label{
+            width:30%;
+        }
         .class_font_size_hd{
-            width:25%;
+            width:80%;
         }
         .label {
-            width: 12%;
+            width: 20%;
         }
         input {
             width: 68%;
