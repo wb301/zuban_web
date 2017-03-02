@@ -27,12 +27,15 @@
                 </div>
                 <div class="weui-cell"></div>
                 <a href="javascript:;" class="weui-btn weui-btn_primary" @click="registered">提交</a>
-                <label for="weuiAgree" class="weui-agree">
-                    <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
-                    <span class="weui-agree__text">
-                        同意<a href="javascript:void(0);">《相关条款》</a>
-                    </span>
-                </label>
+                <div for="weuiAgree" class="weui-agree">
+                    <div class="weui-agree__item">
+                        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"  v-model="is_agree" >同意
+                        <router-link :to="{path: '/agree/registered'}">《相关条款》</router-link>
+                    </div>
+                    <div class="weui-agree__item">
+                        <router-link :to="{path: '/login'}">手机号已注册?</router-link>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -48,11 +51,14 @@ export default {
             region: '',
             regionList: [],
             region_code: 0,
+            is_agree: 1,
             codeBtn: {
                 prompt: '获取验证码',
                 disabled: ''
             },
-            mobileCode: ''
+            mobileCode: '',
+            pos: NormalHelper.getPostion(),
+            openid: NormalHelper.getOpenId()
         }
     },
     mounted() {
@@ -81,6 +87,12 @@ export default {
         AjaxHelper.GetRequest(p_obj);
     },
     methods: {
+        checkAgree(){
+            if(this.is_agree <= 0){
+                weui.alert("请先阅读《相关条款》");
+                return;
+            }
+        },
         selectRegion() {
             var _self = this;
             weui.picker(this.regionList, {
@@ -88,15 +100,17 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.region_code = result[2].value;
-                    _self.region = result[0].label + " " + result[1].label + " " + result[2].label
+                    _self.region = result[0].label + " " + result[1].label + " " + result[2].label;
                 },
                 id: 'doubleLinePicker'
             });
         },
         getCode() {
+            this.checkAgree();
             if (this.codeBtn.disabled == "") {
                 var param = {
-                    mobile: this.mobile
+                    mobile: this.mobile,
+                    from: 1
                 };
                 if (!(/^1(3|4|5|7|8)\d{9}$/.test(param.mobile))) {
                     weui.alert("手机号码有误，请重填");
@@ -133,27 +147,55 @@ export default {
 
         },
         registered() {
+            this.checkAgree();
             var param = {
                 account: this.mobile,
                 password: this.password,
                 code: this.code,
-                region_code: this.region_code
+                region_code: this.region_code,
+                region_name: this.region,
+                latitude: this.pos.latitude,
+                logitude: this.pos.logitude
             };
-           var str = /^(\d){6,20}$/;
+            if(this.openid != ''){
+                param.openId = this.openid;
+            }
+           var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
-                return
-            } 
+                return;
+            }
+            var _self = this;
             var p_obj = {
                 action: 'c=Zb&m=Register&a=registerByMobile',
                 param: param,
                 success: (response) => {
-                    this.$router.push({
-                        path: 'login'
-                    });
+                    this.login();
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        },
+        login() {
+            var param = {
+                account: this.mobile,
+                password: this.password,
+                latitude: this.pos.latitude,
+                logitude: this.pos.logitude
+            };
+            var p_obj = {
+                action: 'c=Zb&m=Login&a=login',
+                param: param,
+                success: (response) => {
+                    NormalHelper.setUserInfo(response);
+                    this.$router.push({
+                        path: '/list'
+                    });
+                },
+                fail: (response) => {
+                    weui.alert(response.msg);
                 }
             };
             AjaxHelper.PostRequest(p_obj);
@@ -186,8 +228,20 @@ export default {
         width: 16px;
         height: 16px;
     }
-    .weui-agree {
-        font-size: 16px;
+    .weui-agree{
+        font-size: 14px;
+        color: #4990E2;
+        a:link ,a:visited{
+            font-size: 14px;
+            color: #4990E2;
+        }
+        >.weui-agree__item:nth-child(1) {
+            text-align: left;
+            float: left;
+        }
+        >.weui-agree__item:nth-child(2) {
+            text-align: right;
+        }
     }
 }
 </style>

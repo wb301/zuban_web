@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry">
+        <div class="item-entry" @click="toProductInfo()">
             <div class="wapper">
                 <div class="img-wapper"><img :src="item.product_image"></div>
                 <div class="info-wapper">
@@ -37,16 +37,21 @@ export default {
         return {}
     },
     created: function() {
-
-    },
-    mounted() {
         this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
         this.item.danwei = "小时";
-        if(this.item.price_type == 2){
+        if (this.item.price_type == 2) {
             this.item.danwei = "天";
+        } else if (this.item.price_type == 3) {
+            this.item.danwei = "次";
         }
     },
-    methods: {},
+    methods: {
+        toProductInfo() {
+            this.$router.push({
+                path: '/product/' + this.item.product_sys_code
+            });
+        }
+    },
     destroyed() {}
 }
 </script>
@@ -74,7 +79,7 @@ export default {
             position: absolute;
             left: 100px;
             right: 0;
-            top: 12.5px;
+            top: 13.5px;
             bottom: 15px;
             >div {
                 height: 45px;
@@ -84,7 +89,7 @@ export default {
                     line-height: 15px;
                 }
                 .title {
-                    font-size: 13px;
+                    font-size: 14px;
                     color: #333;
                 }
                 .name {
@@ -99,12 +104,13 @@ export default {
                 }
             }
             .info-bottom {
+                margin-top: 13px;
                 >div {
                     line-height: 15px;
                 }
                 .price {
                     color: #A878E5;
-                    span:nth-child(2)(1) {
+                    span:nth-child(1) {
                         font-size: 12px;
                     }
                     span:nth-child(2) {

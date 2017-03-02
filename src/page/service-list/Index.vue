@@ -22,15 +22,18 @@ export default {
             tabbarList: [{
                 title: '服务',
                 path: 'list',
-                img: fuwu
+                img: fuwu,
+                check: false
             }, {
                 title: '发布',
                 path: 'release',
-                img: fabu
+                img: fabu,
+                check: true
             }, {
                 title: '我的',
                 path: 'my',
-                img: wode
+                img: wode,
+                check: false
             }]
         }
     },

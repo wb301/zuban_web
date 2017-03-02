@@ -23,7 +23,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/zuban': {
-                target: "http://localhost/sihuo/zuban_server/index.php?",
+                target: "http://localhost/zuban_server/index.php?",
                 changeOrigin: true
             }
         },

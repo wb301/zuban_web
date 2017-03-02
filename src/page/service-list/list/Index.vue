@@ -23,6 +23,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </template>
 <script>
 import xiala from './image/xiala.png'
@@ -42,10 +43,11 @@ export default {
             regionList: [],
             categoryList: [],
             productList: [],
-            page: 1,
+            page: 0,
             orderBy: '',
             categoryId: '',
             regionCode: '',
+            pos: NormalHelper.getPostion(),
             name: {
                 region: '地区',
                 category: '分类',
@@ -171,8 +173,6 @@ export default {
                 c: 'Zb',
                 m: 'Product',
                 a: 'getShowProductList',
-                logitude: 1,
-                latitude: 12,
                 page: this.page,
                 row: 5
             };
@@ -185,6 +185,8 @@ export default {
             if (this.regionCode != "") {
                 param.regionCode = this.regionCode;
             }
+            param.latitude = this.pos.latitude;
+            param.logitude = this.pos.logitude;
             var p_obj = {
                 action: '',
                 param: param,
@@ -243,8 +245,8 @@ export default {
                     _self.getShowProductList(me);
                 },
                 loadDownFn: function(me) {
-                    _self.getShowProductList(me);
                     _self.page++;
+                    _self.getShowProductList(me);
                 }
             });
         }

@@ -22,5 +22,5 @@ GlobalModel.COOKIE_PREFIX = 'ZU_BAN'; //cookie的工程前缀，避免不同项�
 GlobalModel.COOKIE_USER_INFO = GlobalModel.COOKIE_PREFIX + 'COOKIE_USER_INFO';
 
 GlobalModel.RootVue = null;
-
+GlobalModel.CDN_BASE_URL = "https://odu358hnp.qnssl.com/";
 module.exports = GlobalModel;

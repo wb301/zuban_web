@@ -27,8 +27,4 @@ body {
     padding: 0;
     margin: 0;
 }
-
-.font-bold {
-    font-weight: bold;
-}
 </style>

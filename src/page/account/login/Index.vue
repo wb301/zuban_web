@@ -19,7 +19,7 @@
                         <router-link :to="{path: '/registered'}">手机快速注册</router-link>
                     </div>
                     <div class="weui-flex__item">
-                        <a href="">忘记密码</a>
+                        <router-link :to="{path: '/password/list'}">忘记/重置密码</router-link>
                     </div>
                 </div>
             </div>
@@ -32,24 +32,36 @@ export default {
     data() {
         return {
             mobile: '',
-            password: ''
+            password: '',
+            pos: NormalHelper.getPostion(),
+            openid: NormalHelper.getOpenId()
         }
     },
-    mounted() {
-
+    beforeRouteEnter(to, from, next) {
+        if (NormalHelper.userInfo().token) {
+            next('/list');
+        }else{
+            next();
+        }
     },
+    mounted() {},
     methods: {
         login() {
             var param = {
                 account: this.mobile,
-                password: this.password
+                password: this.password,
+                latitude: this.pos.latitude,
+                logitude: this.pos.logitude
             };
+            if(this.openid != ''){
+                param.openId = this.openid;
+            }
             var mobile = param.account;
             if (!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))) {
-                    weui.alert("手机号码有误，请重填");
-                    return false;
-                };
-                var str = /^(\d){6,20}$/;
+                weui.alert("手机号码有误，请重填");
+                return false;
+            };
+            var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return
@@ -58,11 +70,10 @@ export default {
                 action: 'c=Zb&m=Login&a=login',
                 param: param,
                 success: (response) => {
-
-                    // NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, response);
-                    // this.$router.push({
-                    //     path: '/dashboard'
-                    // });
+                    NormalHelper.setUserInfo(response);
+                    this.$router.push({
+                        path: '/list'
+                    });
                 },
                 fail: (response) => {
                     weui.alert(response.msg);
@@ -79,7 +90,8 @@ export default {
     margin-top: 20px;
     .weui-flex {
         margin: 21.5px 15px;
-        a:link ,a:visited{
+        a:link,
+        a:visited {
             font-size: 14px;
             color: #4990E2;
         }
