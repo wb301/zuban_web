@@ -36,8 +36,14 @@ export default {
             pos: NormalHelper.getPostion()
         }
     },
-    mounted() {
+    beforeRouteEnter(to, from, next) {
+        if (NormalHelper.userInfo().token == 1) {
+            next();
+        } else {
+            next('/list');
+        }
     },
+    mounted() {},
     methods: {
         login() {
             var param = {
@@ -48,10 +54,10 @@ export default {
             };
             var mobile = param.account;
             if (!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))) {
-                    weui.alert("手机号码有误，请重填");
-                    return false;
-                };
-                var str = /^(\w){6,20}$/;
+                weui.alert("手机号码有误，请重填");
+                return false;
+            };
+            var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return
@@ -80,7 +86,8 @@ export default {
     margin-top: 20px;
     .weui-flex {
         margin: 21.5px 15px;
-        a:link ,a:visited{
+        a:link,
+        a:visited {
             font-size: 14px;
             color: #4990E2;
         }

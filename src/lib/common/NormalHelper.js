@@ -55,21 +55,21 @@ NormalHelper.delCookie = function(name) {
 
 //用户数据
 NormalHelper.userInfo = function() {
-    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: ' ', token: 1 }
+    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: '', token: 1 }
 }
 NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
 }
 
 //获取浏览器信息
-NormalHelper.getPhoneInfo = function(){
+NormalHelper.getPhoneInfo = function() {
     return JSON.stringify(navigator.userAgent);
 }
 
 //微信登录
 NormalHelper.wxLogin = function(redirect_url) {
-    redirect_url = JSON.stringify({"url": encodeURIComponent(redirect_url)});
-    window.location.href = GlobalModel.SERVER_URL+"c=Wechat&m=ThirdLogin&a=wxLogin&redirect_url="+redirect_url;;
+    redirect_url = JSON.stringify({ "url": encodeURIComponent(redirect_url) });
+    window.location.href = GlobalModel.SERVER_URL + "c=Wechat&m=ThirdLogin&a=wxLogin&redirect_url=" + redirect_url;;
 };
 
 //获取经纬度  默认 上海周边经纬度
