@@ -34,14 +34,6 @@ export default {
     methods: {
         toPath(item) {
 
-            if(item.check){
-                var userInfo = NormalHelper.userInfo();
-                if(userInfo.is_complete <= 0){
-                    weui.alert("完善信息后可发布");
-                    item.path = "my";
-                }
-            }
-
             this.$router.push({
                 path: '/' + item.path
             });
