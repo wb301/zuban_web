@@ -7,9 +7,11 @@ if (process.env.NODE_ENV === 'production') {
     GlobalModel.SERVER_PATH = 'zuban_server/index.php?';
 } else {
     GlobalModel.SERVER_DOMAIN = '';
-    GlobalModel.WAP_URL = 'https://weixin.zuban8.com/zuban_web';
+    GlobalModel.WAP_URL = 'http://weixin.zuban8.com/zuban_web';
 }
-GlobalModel.SERVER_URL = GlobalModel.SERVER_DOMAIN + GlobalModel.SERVER_PATH;
+// GlobalModel.SERVER_URL = GlobalModel.SERVER_DOMAIN + GlobalModel.SERVER_PATH;
+
+GlobalModel.SERVER_URL = "http://weixin.zuban8.com/zuban_server/index.php?";
 GlobalModel.WX_JS_SDK_CONFIG = GlobalModel.SERVER_DOMAIN + '/appsdk_wx_js/wx_config.php?callback=?';
 
 
