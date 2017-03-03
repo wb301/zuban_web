@@ -35,17 +35,17 @@
                     </div>
                 </div>
                 <div class="btn-wapper">
-                    <div>
+                    <div v-show="type==1" @click="phone">
                         <img :src="contactBuyer" />
                     </div>
                     <div>
-                        <div class="button-cancel" @click="cancel">取消订单</div>
-                        <div class="button-shut" @click="shut">关闭订单</div>
-                        <div class="button-confirm" @click="confirm">确认订单</div>
-                        <div class="button-customer" @click="customer">联系客服</div>
-                        <div class="button-refund" @click="refund">申请退款</div>
-                        <div class="button-complete" @click="complete">服务完成</div>
-                        <div class="button-payment" @click="payment" v-if="item.status==0">付款</div>
+                        <div class="button-cancel" v-if="(type==0&&(item.status==0))" @click="cancel">取消订单</div>
+                        <div class="button-shut" v-if="(type==1&&(item.status==1))" @click="shut">关闭订单</div>
+                        <div class="button-confirm" v-if="(type==1&&(item.status==1))" @click="confirm">确认订单</div>
+                        <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
+                        <div class="button-refund" v-if="(type==0&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
+                        <div class="button-complete" v-if="(type==0&&(item.status==5))" @click="complete">服务完成</div>
+                        <div class="button-payment" v-if="(type==0&&(item.status==0))" @click="payment">付款</div>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,18 @@
 import contactBuyer from './image/contact-the-buyer.png'
 export default {
     props: {
-        item: {}
+        item: {
+            type: Object,
+            default: function() {
+                return {};
+            }
+        },
+        type: {
+            type: String,
+            default: function() {
+                return 0;
+            }
+        }
     },
     data() {
         return {
@@ -79,6 +90,10 @@ export default {
         // status
     },
     methods: {
+        //联系客服
+        phone() {
+            window.location.href = 'tel://13671954663';
+        },
         payment() { //付款
 
         },

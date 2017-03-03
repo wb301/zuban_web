@@ -11,7 +11,7 @@
             </div>
             <div class="dropload-wapper">
                 <div>
-                    <list-item v-for="(item,index) in orderList" :item="item"></list-item>
+                    <list-item v-for="(item,index) in orderList" :item="item" :type="type"></list-item>
                 </div>
             </div>
         </div>
@@ -35,7 +35,8 @@ export default {
             status: 'ALL',
             name: {
                 status: "全部"
-            }
+            },
+            type: this.$route.params.type
         }
     },
     mounted() {
@@ -78,7 +79,7 @@ export default {
                 m: 'Order',
                 a: 'orderCommonFilter',
                 status: this.status,
-                type: 0,
+                type: this.type,
                 page: this.page,
                 row: 10
             };
