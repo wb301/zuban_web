@@ -4,26 +4,26 @@
             <div content="product">
             <div class="user-information">
                 <div class="user-portrait">
-                    <img :src="img_meinv">
+                    <img :src="head_img">
                 </div>
                 <div class="user-info">
-                    <div>Kyumi琪</div>
+                    <div>{{nick_name}}</div>
                 </div>
                 <div class="order-status">
-                    <div>已完成</div>
+                    <div>{{orderDetails.status_name}}</div>
                 </div>
             </div>
             <div class="service-information">
                 <div class="product_img">
-                    <img :src="img_meinv">
+                    <img :src="img_product">
                 </div>
-                <div class="product_content">陪逛街</div>
+                <div class="product_content">{{category_name}}</div>
                 <div class="product_price">
-                    <span>179</span>
-                    <span>/小时</span>
+                    <span></span>
+                    <span>/{{danwei}}</span>
                 </div>
                 <div class="product_num">
-                    <span>x2</span>
+                    <span>{{orderDetails.productList.product}}</span>
                 </div>
             </div>
             <div>
@@ -32,12 +32,12 @@
                 <div content="order">
                 <div class="weui-cell time">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">2017-02-23 22:43:34</label>
+                        <label class="weui-label">{{orderDetails.create_time}}</label>
                     </div>
                     <div class="weui-cell__bd"></div>
                     <div class="weui-cell__ft">
                         <span>合计：</span>
-                        <span>350</span>
+                        <span>{{orderDetails.price}}</span>
                         <span>元</span>
                     </div>
 
@@ -47,7 +47,7 @@
                         <label class="weui-label">您的联系方式</label>
                     </div>
                     <div class="weui-cell__bd">
-                       13761094580
+                        {{orderDetails.phone}}
                     </div>
                     <div class="weui-cell__bd"></div>
                     <div class="weui-cell__ft">
@@ -58,8 +58,7 @@
                 <div class="message">
                     <div>留言</div>
                     <div content="liuyan">
-                        dfsldk;fksdlkf;slkdf;lks;dkf;skldf;ks;dfsd
-                        sdfsdmf.sdfssdfsdfsdfsdfsad是东方航空技术方式开发圣诞节福克斯是东方开始的方式决定了房间
+                        {{orderDetails.memo}}
                     </div>
                 </div>
                 <div class="weui-cell order_no">
@@ -67,7 +66,7 @@
                         <label class="weui-label">订单编号</label>
                     </div>
                     <div class="weui-cell__bd">
-                        13761094580
+                        {{orderNo}}
                     </div>
                 </div>
             </div>
@@ -81,42 +80,25 @@
 import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 
-import nan from '../product/image/nan.png'
-import nv from '../product/image/nv.png'
-import meinv from '../service-list/release/image/Artboard6.jpg'
-
-import less_1 from './image/less_1.png'
 import lxmj from './image/lxmj.png'
-import less_2 from './image/less_2.png'
-import plus_1 from './image/plus_1.png'
-import plus_2 from './image/plus_2.png'
 export default {
     components: {
 
     },
     data() {
         return {
-            orderDetails: [],
+            orderDetails: {},
             type: 0, //0是买家查看订单 1 卖家查看订单
             orderNo: '',
             head_img: '',
             nick_name: '',
-            gender_icon: {
-                1: nan,
-                2: nv
-            },
-            img_meinv: meinv,
-            btn_less: {
-                1: less_1,
-                2: less_2
-            },
-            btn_plus: {
-                1: plus_1,
-                2: plus_2
-            },
+            img_product: '',
+            category_name: '',
+            status_name:'',
             lxmj: lxmj,
-            quantity: 9999,
-            contact_information: 13672888888
+            num:1,
+            price:0,
+            danwei:'小时'
 
         }
     },
@@ -143,9 +125,19 @@ export default {
                         weui.alert('网络异常！')
                     }
                     this.orderDetails = response;
+            console.log(this.orderDetails.productList.product);
                     //0是买家看卖家，1是卖家看买家
-                    this.head_img = response.seller.head_img;
-                    this.nick_name = response.seller.nick_name;
+                    if(this.type==0){
+                        this.head_img = response.seller.head_img;
+                        this.nick_name = response.seller.nick_name;
+                    }else {
+                        this.head_img = response.buyers.head_img;
+                        this.nick_name = response.buyers.nick_name;
+                    }
+//                    this.product_image=response.productList.product.product_image;
+                    this.category_name=response.productList.product.category_name;
+                    this.status_name=response.status_name;
+
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
