@@ -3,15 +3,15 @@
         <div class="container-body">
             <div class="wallet-hd">
                 <div class="title">账户余额（元）</div>
-                <div class="money" v-model="maxMoney">{{maxMoney}}</div>
+                <div class="money">{{maxMoney}}</div>
             </div>
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item weui-bar__item_on">
-                        <span v-model="available">可提现（元）：{{available}}</span>
+                        <span>可提现（元）：{{available}}</span>
                     </div>
                     <div class="weui-navbar__item">
-                        <span v-model="freeze">冻结中（元）：{{freeze}}</span>
+                        <span>冻结中（元）：{{freeze}}</span>
                     </div>
                 </div>
                 <div class="weui-tab__panel">

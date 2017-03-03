@@ -15,6 +15,7 @@
     "pace": "0.0.4",
     "vconsole": "^2.5.2",
     "vue": "^2.1.10",
+    "vue-amap": "^0.1.7",
     "vue-lazyload": "^0.9.2",
     "vue-resource": "^1.0.2",
     "vue-router": "^2.0.3",
