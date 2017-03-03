@@ -4,7 +4,7 @@
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item" @click="selectStatus">
-                        {{name.status}}
+                        <span>{{list.price_type}}</span>
                     </div>
                 </div>
             </div>
@@ -29,10 +29,10 @@ export default {
         return {
             list: [],
             page: 0,
-            status: '-1',
-            name: {
-                status: "全部"
-            }
+            status: '1',
+            // name: {
+            //     status: "全部"
+            // }
         }
     },
     mounted() {
@@ -45,10 +45,10 @@ export default {
                 value: '-1'
             }, {
                 label: "收款",
-                value: '1'
+                value: '3'
             }, {
                 label: "提现",
-                value: '2'
+                value: '5'
             }];
             var _self = this;
             weui.picker(arr, {
@@ -56,7 +56,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.status = result[0].value;
-                    _self.name.status = result[0].label;
+                    _self.list.price_type = result[0].label;
                     _self.page = 1;
                     _self.getUserMoneyHistoryList(dropload);
                 },
