@@ -2,58 +2,56 @@
     <div>
         <div class="container-body">
             <div content="product">
-            <div class="user-information">
-                <div class="user-portrait">
-                    <img :src="head_img">
+                <div class="user-information">
+                    <div class="user-portrait">
+                        <img :src="head_img">
+                    </div>
+                    <div class="user-info">
+                        <div>{{nick_name}}</div>
+                    </div>
+                    <div class="order-status">
+                        <div>{{orderDetails.status_name}}</div>
+                    </div>
                 </div>
-                <div class="user-info">
-                    <div>{{nick_name}}</div>
+                <div class="service-information">
+                    <div class="product_img">
+                        <img :src="img_product">
+                    </div>
+                    <div class="product_content">{{product.category_name}}</div>
+                    <div class="product_price">
+                        <span></span>
+                        <span>/{{danwei}}</span>
+                    </div>
+                    <div class="product_num">
+                        <span>{{product.price}}</span>
+                    </div>
                 </div>
-                <div class="order-status">
-                    <div>{{orderDetails.status_name}}</div>
+                <div>
                 </div>
-            </div>
-            <div class="service-information">
-                <div class="product_img">
-                    <img :src="img_product">
-                </div>
-                <div class="product_content">{{category_name}}</div>
-                <div class="product_price">
-                    <span></span>
-                    <span>/{{danwei}}</span>
-                </div>
-                <div class="product_num">
-                    <span>{{orderDetails.productList.product}}</span>
-                </div>
-            </div>
-            <div>
-            </div>
-
                 <div content="order">
-                <div class="weui-cell time">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">{{orderDetails.create_time}}</label>
+                    <div class="weui-cell time">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">{{orderDetails.create_time}}</label>
+                        </div>
+                        <div class="weui-cell__bd"></div>
+                        <div class="weui-cell__ft">
+                            <span>合计：</span>
+                            <span>{{orderDetails.price}}</span>
+                            <span>元</span>
+                        </div>
                     </div>
-                    <div class="weui-cell__bd"></div>
-                    <div class="weui-cell__ft">
-                        <span>合计：</span>
-                        <span>{{orderDetails.price}}</span>
-                        <span>元</span>
+                    <div class="weui-cell phone">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">您的联系方式</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            {{orderDetails.phone}}
+                        </div>
+                        <div class="weui-cell__bd"></div>
+                        <div class="weui-cell__ft">
+                            <span><img :src="lxmj"></span>
+                        </div>
                     </div>
-
-                </div>
-                <div class="weui-cell phone">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">您的联系方式</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        {{orderDetails.phone}}
-                    </div>
-                    <div class="weui-cell__bd"></div>
-                    <div class="weui-cell__ft">
-                        <span><img :src="lxmj"></span>
-                    </div>
-                </div>
                 </div>
                 <div class="message">
                     <div>留言</div>
@@ -88,17 +86,17 @@ export default {
     data() {
         return {
             orderDetails: {},
+            product: {},
             type: 0, //0是买家查看订单 1 卖家查看订单
             orderNo: '',
             head_img: '',
             nick_name: '',
             img_product: '',
-            category_name: '',
-            status_name:'',
+            status_name: '',
             lxmj: lxmj,
-            num:1,
-            price:0,
-            danwei:'小时'
+            num: 1,
+            price: 0,
+            danwei: '小时'
 
         }
     },
@@ -125,18 +123,17 @@ export default {
                         weui.alert('网络异常！')
                     }
                     this.orderDetails = response;
-            console.log(this.orderDetails.productList.product);
+                    this.product = response.productList;
+
                     //0是买家看卖家，1是卖家看买家
-                    if(this.type==0){
+                    if (this.type == 0) {
                         this.head_img = response.seller.head_img;
                         this.nick_name = response.seller.nick_name;
-                    }else {
+                    } else {
                         this.head_img = response.buyers.head_img;
                         this.nick_name = response.buyers.nick_name;
                     }
-//                    this.product_image=response.productList.product.product_image;
-                    this.category_name=response.productList.product.category_name;
-                    this.status_name=response.status_name;
+                    this.status_name = response.status_name;
 
                 },
                 fail: (response) => {
@@ -150,17 +147,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    .container-body {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 50px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        margin-left: 15px;
-
+.container-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    margin-left: 15px;
     .user-information,
     .service-information {
         border-bottom: 1px solid #E2E2E2;
@@ -168,76 +164,60 @@ export default {
     .user-information {
         height: 40px;
         position: relative;
+        > div {
+            display: inline-block;
+        }
+        .user-portrait {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 10px 0;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .user-info {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: 10px;
+            > div:nth-child(1) {
+                font-size: 12px;
+                color: #333;
+                margin-top: 15.5px;
+            }
+            > div:nth-child(2) {
+                height: 15.1px;
+                width: 15.7px;
+                > img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .order-status {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 20px;
+            > div:nth-child(1) {
+                font-size: 12px;
+                color: #333;
+                margin-top: 15.5px;
+            }
+            > div:nth-child(2) {
+                height: 15.1px;
+                width: 15.7px;
+            }
+        }
+    }
+}
 
-    >
-    div {
-        display: inline-block;
-    }
-
-    .user-portrait {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 10px 0;
-
-    img {
-        width: 100%;
-        height: 100%;
-    }
-
-    }
-    .user-info {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin-left: 10px;
-
-    >
-    div:nth-child(1) {
-        font-size: 12px;
-        color: #333;
-        margin-top: 15.5px;
-    }
-
-    >
-    div:nth-child(2) {
-        height: 15.1px;
-        width: 15.7px;
-
-    >
-    img {
-        width: 100%;
-        height: 100%;
-    }
-
-    }
-    }
-    .order-status {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 20px;
-
-    >
-    div:nth-child(1) {
-        font-size: 12px;
-        color: #333;
-        margin-top: 15.5px;
-    }
-
-    >
-    div:nth-child(2) {
-        height: 15.1px;
-        width: 15.7px;
-    }
-
-    }
-    }
-    }
-    .service-information {
-        height: 117.5px;
-        position: relative;
+.service-information {
+    height: 117.5px;
+    position: relative;
     .product_price {
         color: #8760BA;
         width: 100px;
@@ -247,40 +227,38 @@ export default {
         bottom: 7.5px;
         line-height: 14px;
         text-align: right;
-
-    span {
-        font-size: 14px;
-        margin-bottom: 1px;
-        vertical-align: middle;
-    }
+        span {
+            font-size: 14px;
+            margin-bottom: 1px;
+            vertical-align: middle;
+        }
     }
     .product_num {
-         color: #000000;
-         width: 40px;
-         position: absolute;
-         right: 15px;
-
-         bottom: 16px;
-         line-height: 14px;
-         text-align: right;
-    span {
-        font-size: 14px;
-        margin-bottom: 1px;
-        vertical-align: middle;
+        color: #000000;
+        width: 40px;
+        position: absolute;
+        right: 15px;
+        bottom: 16px;
+        line-height: 14px;
+        text-align: right;
+        span {
+            font-size: 14px;
+            margin-bottom: 1px;
+            vertical-align: middle;
+        }
     }
-    }
-    .product_img{
+    .product_img {
         width: 100px;
         height: 100px;
-        left:5px;
+        left: 5px;
         margin-top: 15.5px;
-        float:left;
-    img {
-        width: 90px;
-        height: 90px;
+        float: left;
+        img {
+            width: 90px;
+            height: 90px;
+        }
     }
-    }
-    .product_content{
+    .product_content {
         color: #333;
         font-size: 14px;
         width: 110px;
@@ -290,83 +268,77 @@ export default {
         margin-top: 14px;
         margin-left: 5px;
     }
-    }
-    .weui-cell.phone {
-        padding-left: 0;
-        font-size: 14px;
-        border-bottom: 1px solid #E2E2E2;
-    .weui-label{
+}
+
+.weui-cell.phone {
+    padding-left: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #E2E2E2;
+    .weui-label {
         text-align: right;
         width: 85px;
     }
-    .weui-cell__bd{
+    .weui-cell__bd {
         text-align: left;
-       margin-left: 10px;
+        margin-left: 10px;
     }
-    .weui-cell__ft{
-        img{
+    .weui-cell__ft {
+        img {
             height: 35px;
             width: 50px;
         }
     }
-    }
+}
 
-    .weui-cell.time {
-        padding-left: 0;
-        font-size: 14px;
-        border-bottom: 1px solid #E2E2E2;
-    .weui-label{
+.weui-cell.time {
+    padding-left: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #E2E2E2;
+    .weui-label {
         width: 150px;
     }
-    .weui-cell__ft{
+    .weui-cell__ft {
         color: #333;
-
-       span:nth-child(2) {
+        span:nth-child(2) {
             color: #8760BA;
         }
-    span:nth-child(3) {
-        color: #8760BA;
-    }
-    }
-    }
-
-    .weui-cell.order_no {
-        padding-left: 0;
-        font-size: 14px;
-        border-bottom: 1px solid #E2E2E2;
-        text-align: left;
-        .weui-cell__bd{
-            text-align: right;
+        span:nth-child(3) {
+            color: #8760BA;
         }
-
     }
+}
 
-    .message {
-        margin-bottom: 16px;
+.weui-cell.order_no {
+    padding-left: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #E2E2E2;
+    text-align: left;
+    .weui-cell__bd {
+        text-align: right;
+    }
+}
 
+.message {
+    margin-bottom: 16px;
     div:first-child {
         font-size: 14px;
         color: #666;
         margin: 15px 0px 15px;
     }
-
     div:last-child {
         margin-right: 15px;
         font-size: 13px;
         color: #BBBBBB;
-
     }
-    }
+}
 
-    .button-wapper {
-        height: 50px;
-        position: absolute;
-        bottom: 0px;
-        left: 0;
-        right: 0;
-
-    >
-    div {
+.button-wapper {
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    > div {
         width: 50%;
         float: right;
     }
@@ -377,6 +349,5 @@ export default {
         text-align: center;
         color: #FFFFFF;
     }
-
-    }
+}
 </style>
