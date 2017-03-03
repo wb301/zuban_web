@@ -34,7 +34,7 @@
                         <span>{{item.total_price}}元</span>
                     </div>
                 </div>
-                <div class="btn-wapper">
+                <div class="btn-wapper" v-if="item.order_type==1">
                     <div v-show="type==1" @click="phone">
                         <img :src="contactBuyer" />
                     </div>
