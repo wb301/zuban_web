@@ -19,11 +19,11 @@
                     </div>
                     <div class="product_content">{{product.category_name}}</div>
                     <div class="product_price">
-                        <span></span>
+                        <span>{{product.price}}</span>
                         <span>/{{danwei}}</span>
                     </div>
                     <div class="product_num">
-                        <span>{{product.price}}</span>
+                        <span>x{{product.num}}</span>
                     </div>
                 </div>
                 <div>
@@ -70,7 +70,15 @@
             </div>
         </div>
         <div class="button-wapper">
-            <div class="button-confirm">确认支付</div>
+            <div>
+                <div class="button-cancel" v-if="(type==0&&(orderDetails.status==0))" @click="cancel">取消订单</div>
+                <div class="button-shut" v-if="(type==1&&(orderDetails.status==0||orderDetails.status==1||orderDetails.status==5))" @click="shut">关闭订单</div>
+                <div class="button-confirm" v-if="(type==1&&(orderDetails.status==1))" @click="confirm">确认订单</div>
+                <div class="button-customer" v-if="(type==1&&(orderDetails.status==6||orderDetails.status==10))" @click="customer">联系客服</div>
+                <div class="button-refund" v-if="(type==0&&(orderDetails.status==6||orderDetails.status==10||orderDetails.status==1||orderDetails.status==5))" @click="refund">申请退款</div>
+                <div class="button-complete" v-if="(type==0&&(orderDetails.status==5))" @click="complete">服务完成</div>
+                <div class="button-payment" v-if="(type==0&&(orderDetails.status==0))" @click="payment">付款</div>
+            </div>
         </div>
     </div>
 </template>
@@ -96,7 +104,7 @@ export default {
             lxmj: lxmj,
             num: 1,
             price: 0,
-            danwei: '小时'
+            danwei: ''
 
         }
     },
@@ -134,6 +142,16 @@ export default {
                         this.nick_name = response.buyers.nick_name;
                     }
                     this.status_name = response.status_name;
+                    this.img_product=response.productList.product.product_image;
+            if(response.productList.product.price_type==1){
+                this.danwei='小时';
+            }
+            if(response.productList.product.price_type==2){
+                this.danwei='天';
+            }
+            if(response.productList.product.price_type==3){
+                this.danwei='次';
+            }
 
                 },
                 fail: (response) => {
@@ -142,6 +160,28 @@ export default {
             };
             AjaxHelper.GetRequest(p_obj);
         },
+
+        payment() { //付款
+
+        },
+        cancel() { //取消订单
+
+        },
+        shut() { //关闭订单
+
+        },
+        customer() { //联系客服
+
+        },
+        confirm() { //确认订单
+
+        },
+        refund() { //申请退款
+
+        },
+        complete() { //服务完成
+
+        }
     },
     destroyed() {}
 }
@@ -342,12 +382,54 @@ export default {
         width: 50%;
         float: right;
     }
-    .button-confirm {
+    .button-complete {
         font-size: 16px;
         background-color: #A877E6;
         line-height: 50px;
         text-align: center;
         color: #FFFFFF;
     }
+.button-refund {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.button-customer {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.button-confirm {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.button-shut {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.button-cancel {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.button-payment {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
 }
 </style>
