@@ -90,30 +90,117 @@ export default {
         // status
     },
     methods: {
-        //联系客服
+        //联系买家
         phone() {
             window.location.href = 'tel://13671954663';
         },
         payment() { //付款
-
+            this.$router.push({
+                path: '/confirm/2/' + this.item.productList[0].product.product_sys_code
+            });
         },
         cancel() { //取消订单
-
+            // var param = {
+            //     c: 'Zb',
+            //     m: 'Order',
+            //     a: 'updateOrderStatus',
+            //     orderNo: this.item.order_no,
+            //     checkStatus: this.item.status,
+            //     status: 9
+            // };
+            // var p_obj = {
+            //     action: '',
+            //     param: param,
+            //     success: (response) => {
+            //         this.item.status = 9;
+            //     },
+            //     fail: (response) => {
+            //         weui.alert(response.msg)
+            //     }
+            // };
+            // AjaxHelper.GetRequest(p_obj);
         },
         shut() { //关闭订单
-
+            // var param = {
+            //     c: 'Zb',
+            //     m: 'Order',
+            //     a: 'updateOrderStatus',
+            //     orderNo: this.item.order_no,
+            //     checkStatus: this.item.status,
+            //     status: 15
+            // };
+            // var p_obj = {
+            //     action: '',
+            //     param: param,
+            //     success: (response) => {
+            //         this.item.status = 15;
+            //     },
+            //     fail: (response) => {
+            //         weui.alert(response.msg)
+            //     }
+            // };
+            // AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
-
+            window.location.href = 'tel://13671954663';
         },
         confirm() { //确认订单
-
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'deliveryOrder',
+                orderNo: this.item.order_no
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    weui.alert("确认订单");
+                    // this.item.status = 5;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         refund() { //申请退款
-
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderReturn',
+                orderNo: this.item.order_no
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    weui.alert("申请退款成功");
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
-
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderConfirm',
+                orderNo: this.item.order_no
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    weui.alert("服务完成");
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         }
     },
     destroyed() {}
