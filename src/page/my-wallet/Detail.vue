@@ -4,7 +4,8 @@
             <div class="weui-tab">
                 <div class="weui-navbar">
                     <div class="weui-navbar__item" @click="selectStatus">
-                        <span>{{list.price_type}}</span>
+                        {{name.price_type}}
+                        <img :src="image" />
                     </div>
                 </div>
             </div>
@@ -17,17 +18,23 @@
     </div>
 </template>
 <script>
+import xiala from '../service-list/list/image/xiala.png'
 import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
-import HistoryList from './item'
+import ListItem from './item'
 var dropload = '';
 export default {
     components: {
-        HistoryList
+        ListItem
     },
     data() {
         return {
-            list: [],
+            image: xiala,
+            HistoryList: [],
+            name: {
+                price_type: "全部",
+                value: '-1'
+            },
             page: 0,
             status: '1',
             // name: {
@@ -56,7 +63,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.status = result[0].value;
-                    _self.list.price_type = result[0].label;
+                    _self.name.price_type = result[0].label;
                     _self.page = 1;
                     _self.getUserMoneyHistoryList(dropload);
                 },
