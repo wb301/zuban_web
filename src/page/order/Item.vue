@@ -40,7 +40,7 @@
                     </div>
                     <div>
                         <div class="button-cancel" v-if="(type==0&&(item.status==0))" @click="cancel">取消订单</div>
-                        <div class="button-shut" v-if="(type==1&&(item.status==1))" @click="shut">关闭订单</div>
+                        <div class="button-shut" v-if="(type==1&&(item.status==0||item.status==1||item.status==5))" @click="shut">关闭订单</div>
                         <div class="button-confirm" v-if="(type==1&&(item.status==1))" @click="confirm">确认订单</div>
                         <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
                         <div class="button-refund" v-if="(type==0&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
