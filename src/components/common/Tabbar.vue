@@ -4,10 +4,10 @@
             <div class="weui-tab__panel">
             </div>
             <div class="weui-tabbar">
-                <div active-class='weui-bar__item_on' class="weui-tabbar__item" tag="a" @click="toPath(item)" v-for="(item,index) in sideList">
+                <router-link active-class='weui-bar__item_on' class="weui-tabbar__item" tag="div" :to="{path: '/'+item.path}" v-for="(item,index) in sideList">
                     <img :src="item.img" alt="" class="weui-tabbar__icon">
                     <p class="weui-tabbar__label">{{item.title}}</p>
-                </div>
+                </router-link>
             </div>
         </div>
     </div>
@@ -25,15 +25,10 @@ export default {
     data() {
         return {}
     },
-    created: function() {
-
-    },
-    mounted() {
-
-    },
+    created: function() {},
+    mounted() {},
     methods: {
         toPath(item) {
-
             this.$router.push({
                 path: '/' + item.path
             });
@@ -43,4 +38,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.weui-bar__item_on .weui-tabbar__label {
+    color: #8760BA;
+}
 </style>
