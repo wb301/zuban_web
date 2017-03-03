@@ -119,15 +119,19 @@ export default {
                 param: param,
                 success: (response) => {
                     this.productInfo = response;
-                    this.imageList = [this.productInfo.product_image];
-                    for (var i = 0; i < this.productInfo.image_list.length; i++) {
-                        this.imageList.push(this.productInfo.image_list[i]);
+                    this.imageList = response.image_list;
+
+                    var userInfo = NormalHelper.userInfo();
+                    if(response.user_id == userInfo.user_id){
+                        this.userInfo = userInfo;
+                        this.members = 1;
+                    }else{
+                        this.userInfo = response.user_info;
                     }
-                    this.userInfo = this.productInfo.user_info;
                     if (this.userInfo) {
                         this.gender_icon = this.userInfo.sex == 'M' ? nan : nv;
                     }
-                    if (response.vip_level > 0)
+                    if (response.vip_level > 0 && this.members <= 0)
                         this.members = 1;
                 },
                 fail: (response) => {
