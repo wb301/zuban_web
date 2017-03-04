@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry">
+        <div class="item-entry" @click="toDetails(item)">
             <div class="wapper">
                 <div class="head-wapper">
                     <div class="img-head">
@@ -25,7 +25,8 @@
                         <span>购买联系方式</span>
                         <span>{{item.price}}元</span>
                     </div>
-                    <div>支付后再次进入服务详情页即可查看联系方式</div>
+                    <div v-if="item.status==10">手机号码:{{item.seller.account}}</div>
+                    <div v-if="item.status==0">支付后即可查看联系方式</div>
                 </div>
                 <div class="time-wapper">
                     <span class="time">{{item.create_time}}</span>
@@ -45,7 +46,7 @@
                         <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
                         <div class="button-refund" v-if="(type==0&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
                         <div class="button-complete" v-if="(type==0&&(item.status==5))" @click="complete">服务完成</div>
-                        <div class="button-payment" v-if="(type==0&&(item.status==0))" @click="payment">付款</div>
+                        <div class="button-payment" v-if="item.status==0" @click="payment">付款</div>
                     </div>
                 </div>
             </div>
@@ -201,6 +202,13 @@ export default {
                 }
             };
             AjaxHelper.GetRequest(p_obj);
+        },
+        toDetails(item){
+            if(item.order_type==1){
+                this.$router.push({
+                    path: '/order-details/'+item.order_no+'/'+this.type
+                });
+            }
         }
     },
     destroyed() {}
