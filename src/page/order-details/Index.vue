@@ -42,14 +42,14 @@
                     </div>
                     <div class="weui-cell phone">
                         <div class="weui-cell__hd">
-                            <label class="weui-label">您的联系方式</label>
+                            <label class="weui-label">买家联系方式</label>
                         </div>
                         <div class="weui-cell__bd">
                             {{orderDetails.phone}}
                         </div>
                         <div class="weui-cell__bd"></div>
-                        <div class="weui-cell__ft">
-                            <span><img :src="lxmj"></span>
+                        <div class="weui-cell__ft" v-if="(type==1)">
+                            <span><img :src="lxmj" @click="customer"></span>
                         </div>
                     </div>
                 </div>
@@ -95,6 +95,7 @@ export default {
         return {
             orderDetails: {},
             product: {},
+            openid: NormalHelper.userInfo().wx_open_id,
             type: 0, //0是买家查看订单 1 卖家查看订单
             orderNo: '',
             head_img: '',
@@ -162,25 +163,142 @@ export default {
         },
 
         payment() { //付款
-
+            console.log(NormalHelper.isWeixin());
+            if (NormalHelper.isWeixin()) {
+                var p_obj = {
+                    action: 'c=Zb&m=Order&a=prePay',
+                    param: {
+                        out_trade_no: this.orderNo,
+                        total_fee: parseFloat(this.orderDetails.price) * 100,
+                        openid: this.openid
+                    }
+                };
+                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
+                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
+                    emulateJSON: true
+                }).then((response) => {
+                    console.log(response);
+                var payJson = {
+                    appId: response.body.appid,
+                    timeStamp: response.body.timeStamp + "",
+                    nonceStr: response.body.nonceStr,
+                    package: response.body.package,
+                    signType: "MD5",
+                    paySign: response.body.sign
+                };
+                WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                        function(res) {
+                            console.log(res);
+                            //TODO:订单回调  自己跳去
+                        }
+                );
+            }, (response) => {
+                    //请求异常
+                })
+            }
         },
         cancel() { //取消订单
-
+             var param = {
+                 c: 'Zb',
+                 m: 'Order',
+                 a: 'orderCancel',
+                 orderNo: this.orderNo
+             };
+             var p_obj = {
+                 action: '',
+                 param: param,
+                 success: (response) => {
+                     this.orderDetails.status = 9;
+                     this.orderDetails.status_name='已取消';
+                 },
+                 fail: (response) => {
+                     weui.alert(response.msg)
+                 }
+             };
+             AjaxHelper.GetRequest(p_obj);
         },
         shut() { //关闭订单
-
-        },
-        customer() { //联系客服
-
+             var param = {
+                 c: 'Zb',
+                 m: 'Order',
+                 a: 'orderShut',
+                 orderNo: this.orderNo,
+                 check:this.orderDetails.status
+             };
+             var p_obj = {
+                 action: '',
+                 param: param,
+                 success: (response) => {
+                     this.orderDetails.status = 15;
+                     this.orderDetails.status_name='交易关闭';
+                 },
+                 fail: (response) => {
+                     weui.alert(response.msg)
+                 }
+             };
+             AjaxHelper.GetRequest(p_obj);
         },
         confirm() { //确认订单
-
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'deliveryOrder',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+                        this.orderDetails.status = 5;
+                        this.orderDetails.status_name='进行中';
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
         },
         refund() { //申请退款
-
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderReturn',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+                        weui.alert("已提交申请等待后台审核");
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
-
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderConfirm',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+                        this.orderDetails.status = 6;
+                        this.orderDetails.status_name='已完成';
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        customer() { //联系买家
+            window.location.href = 'tel://'+this.orderDetails.phone;
         }
     },
     destroyed() {}
@@ -379,8 +497,8 @@ export default {
     left: 0;
     right: 0;
     > div {
-        width: 50%;
-        float: right;
+        width: 100%;
+
     }
     .button-complete {
         font-size: 16px;
@@ -388,6 +506,8 @@ export default {
         line-height: 50px;
         text-align: center;
         color: #FFFFFF;
+        float: right;
+        width:50%;
     }
 .button-refund {
     font-size: 16px;
@@ -395,6 +515,8 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+    float: right;
+    width:50%;
 }
 .button-customer {
     font-size: 16px;
@@ -402,6 +524,8 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+    float: right;
+    width:50%;
 }
 .button-confirm {
     font-size: 16px;
@@ -409,6 +533,8 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+    float: right;
+    width:50%;
 }
 .button-shut {
     font-size: 16px;
@@ -416,6 +542,8 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+    float: right;
+    width:50%;
 }
 .button-cancel {
     font-size: 16px;
@@ -423,6 +551,8 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+    float: right;
+    width:50%;
 }
 .button-payment {
     font-size: 16px;
@@ -430,6 +560,8 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #FFFFFF;
+    width:50%;
+    float: right;
 }
 }
 </style>

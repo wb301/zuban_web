@@ -100,46 +100,45 @@ export default {
             });
         },
         cancel() { //取消订单
-            // var param = {
-            //     c: 'Zb',
-            //     m: 'Order',
-            //     a: 'updateOrderStatus',
-            //     orderNo: this.item.order_no,
-            //     checkStatus: this.item.status,
-            //     status: 9
-            // };
-            // var p_obj = {
-            //     action: '',
-            //     param: param,
-            //     success: (response) => {
-            //         this.item.status = 9;
-            //     },
-            //     fail: (response) => {
-            //         weui.alert(response.msg)
-            //     }
-            // };
-            // AjaxHelper.GetRequest(p_obj);
+             var param = {
+                 c: 'Zb',
+                 m: 'Order',
+                 a: 'orderCancel',
+                 orderNo: this.item.order_no,
+             };
+             var p_obj = {
+                 action: '',
+                 param: param,
+                 success: (response) => {
+                     this.item.status = 9;
+                     this.item.status_name = '已取消';
+                 },
+                 fail: (response) => {
+                     weui.alert(response.msg)
+                 }
+             };
+             AjaxHelper.GetRequest(p_obj);
         },
         shut() { //关闭订单
-            // var param = {
-            //     c: 'Zb',
-            //     m: 'Order',
-            //     a: 'updateOrderStatus',
-            //     orderNo: this.item.order_no,
-            //     checkStatus: this.item.status,
-            //     status: 15
-            // };
-            // var p_obj = {
-            //     action: '',
-            //     param: param,
-            //     success: (response) => {
-            //         this.item.status = 15;
-            //     },
-            //     fail: (response) => {
-            //         weui.alert(response.msg)
-            //     }
-            // };
-            // AjaxHelper.GetRequest(p_obj);
+             var param = {
+                 c: 'Zb',
+                 m: 'Order',
+                 a: 'orderShut',
+                 check:this.item.status,
+                 orderNo: this.item.order_no
+             };
+             var p_obj = {
+                 action: '',
+                 param: param,
+                 success: (response) => {
+                     this.item.status = 15;
+                     this.item.status_name = '交易关闭';
+                 },
+                 fail: (response) => {
+                     weui.alert(response.msg)
+                 }
+             };
+             AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
             window.location.href = 'tel://13671954663';
@@ -155,8 +154,8 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                    weui.alert("确认订单");
-                    // this.item.status = 5;
+                    this.item.status = 5;
+                    this.item.status_name = '进行中';
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -175,7 +174,7 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                    weui.alert("申请退款成功");
+                    weui.alert("已提交申请等待后台审核");
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -194,7 +193,8 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                    weui.alert("服务完成");
+                this.item.status = 6;
+                this.item.status_name = '已完成';
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
