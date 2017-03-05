@@ -140,7 +140,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         createOrder() {
-            if (this.openid.length > 0) { //TODO:并且微信浏览器打开
+            if (this.openid.length > 0 && NormalHelper.isWeixin()) {
                 var param = {
                     memo: this.memo,
                     phone: this.contact_information,
@@ -180,7 +180,6 @@ export default {
             }
         },
         prePay() {
-            console.log(NormalHelper.isWeixin());
             if (NormalHelper.isWeixin()) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
@@ -211,6 +210,7 @@ export default {
                     );
                 }, (response) => {
                     //请求异常
+                    weui.alert(response.msg)
                 })
             }
         }

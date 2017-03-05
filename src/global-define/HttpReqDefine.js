@@ -20,8 +20,10 @@ export default function(request, next) {
     //当用到当前组件对象时, 使用 GlobalModel.RootVue
     next((res) => {
         var body = res.body;
-        if (body.status != 1) {
-            weui.alert(body.msg);
+        if (body.status && body.status != 1) {
+            if(body.msg.length > 0){
+                weui.alert(body.msg);
+            }
             if(body.code == -999){
                 NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
                 GlobalModel.RootVue.$router.push({
