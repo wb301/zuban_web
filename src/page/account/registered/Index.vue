@@ -62,7 +62,6 @@ export default {
         }
     },
     mounted() {
-        NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
         $("#region").focus(function() {
             document.activeElement.blur();
         });

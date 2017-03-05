@@ -13,7 +13,8 @@ export default {
         }
     },
     mounted() {
-        this.next = this.$route.params.next
+        this.next = this.$route.params.next;
+        NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
         NormalHelper.wxLogin("https://test.guleshop.com/youfan/web/console/#/wx-middle/"+this.next);
     },
     methods: {
