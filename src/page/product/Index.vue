@@ -145,13 +145,17 @@ export default {
             window.location.href = 'tel://' + this.userInfo.account;
         },
         buyContact() {
+            NormalHelper.Set("confirm_type",1);
+            NormalHelper.Set("confirm_code",this.productInfo.product_sys_code);
             this.$router.push({
-                path: '/confirm/1/' + this.productInfo.product_sys_code
+                path: '/confirm'
             });
         },
         rentImmediately() {
+            NormalHelper.Set("confirm_type",2);
+            NormalHelper.Set("confirm_code",this.productInfo.product_sys_code);
             this.$router.push({
-                path: '/confirm/2/' + this.productInfo.product_sys_code
+                path: '/confirm'
             });
         }
 

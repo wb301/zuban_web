@@ -70,7 +70,7 @@ const router = new Router({
             require(['./page/vip/Index.vue'], resolve)
         }
     }, {
-        path: '/confirm/:type/:productCode',
+        path: '/confirm',
         component: function(resolve) {
             require(['./page/confirm/Index.vue'], resolve)
         }

@@ -63,14 +63,17 @@ NormalHelper.setUserInfo = function(response) {
 
 NormalHelper.Set = function(key,value){
     var userInfo = NormalHelper.userInfo();
-    userInfo[key] = value;
+    if(!userInfo.common){
+        userInfo.common = {};
+    }
+    userInfo.common[key] = value;
     NormalHelper.setUserInfo(userInfo);
 }
 
 NormalHelper.Get = function(key){
     var userInfo = NormalHelper.userInfo();
-    if(userInfo && userInfo[key]){
-        return userInfo[key]
+    if(userInfo && userInfo.common && userInfo.common[key]){
+        return userInfo.common[key]
     }else{
         return '';
     }
