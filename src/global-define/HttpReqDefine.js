@@ -25,7 +25,7 @@ export default function(request, next) {
         //
         //}
         if (res.status == 200) {
-            var codes = ['-999'];
+            // var codes = ['-999'];
             // if (codes.indexOf(res.data.code + '') > -1) {
             //     sweetAlert(res.data.msg);
             //     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
@@ -44,6 +44,12 @@ export default function(request, next) {
             // } else {
             //     sweetAlert(res.data.msg);
             // }
+            if(res.code == -999){
+                NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
+                GlobalModel.RootVue.$router.push({
+                        path: '/login'
+                    });
+            }
         }
         //  console.log('after ajax')
         if (res.status === 0) {
