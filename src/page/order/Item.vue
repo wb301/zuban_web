@@ -240,7 +240,7 @@ export default {
                 NormalHelper.Set("order_type",this.type);
                 NormalHelper.Set("order_no",item.order_no);
                 this.$router.push({
-                    path: '/order-details/'
+                    path: '/order-details'
                 });
             }
         }
