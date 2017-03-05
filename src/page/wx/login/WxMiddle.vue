@@ -48,9 +48,7 @@ export default {
             AjaxHelper.PostRequest(p_obj);
         },
         bangdingIphone() {
-            var userInfo = NormalHelper.userInfo()
-            userInfo.wx_middle_open_id = this.userInfo.openid;
-            NormalHelper.setUserInfo(userInfo);
+            NormalHelper.Set("wx_middle_open_id", this.userInfo.openid);
             this.$router.push({
                     path: '/registered'
                 });
