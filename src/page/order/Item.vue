@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry" @click="toDetails(item)">
+        <div class="item-entry">
             <div class="wapper">
                 <div class="head-wapper">
                     <div class="img-head">
@@ -10,7 +10,7 @@
                     <div class="status" style="color:#E35257" v-if="item.status==0">{{item.status_name}}</div>
                     <div class="status" style="color:#4990E2" v-if="item.status==1||item.status==5||item.status==6||item.status==10">{{item.status_name}}</div>
                 </div>
-                <div class="info-wapper" v-if="item.order_type==1">
+                <div class="info-wapper" v-if="item.order_type==1" @click="toDetails(item)">
                     <span class="img-info">
                         <img :src="item.productList[0].product.product_image">
                     </span>
@@ -106,6 +106,7 @@ export default {
                         openid: this.openid
                     }
                 };
+                console.log(param);
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
