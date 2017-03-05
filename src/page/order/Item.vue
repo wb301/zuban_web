@@ -102,8 +102,8 @@ export default {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
                     param: {
-                        out_trade_no: this.order_no,
-                        total_fee: parseFloat(this.order_price) * 100,
+                        out_trade_no: this.item.order_no,
+                        total_fee: parseFloat(this.item.order_price) * 100,
                         openid: openid
                     }
                 };
