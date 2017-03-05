@@ -96,22 +96,23 @@ export default {
             window.location.href = 'tel://13671954663';
         },
         payment() { //付款
-            console.log(NormalHelper.isWeixin());
+            // console.log(NormalHelper.isWeixin());
             var openid = NormalHelper.userInfo().wx_openid;
             if (NormalHelper.isWeixin() && openid) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
                     param: {
                         out_trade_no: this.item.order_no,
-                        total_fee: parseFloat(this.item.order_price) * 100,
+                        total_fee: parseFloat(this.item.price) * 100,
                         openid: openid
                     }
                 };
+                                    // console.log(JSON.stringify(p_obj.param));
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
                 }).then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     var payJson = {
                         appId: response.body.appid,
                         timeStamp: response.body.timeStamp + "",
@@ -120,6 +121,7 @@ export default {
                         signType: "MD5",
                         paySign: response.body.sign
                     };
+                    // alert(JSON.stringify(payJson));
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);

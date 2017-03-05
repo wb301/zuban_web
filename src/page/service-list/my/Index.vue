@@ -118,12 +118,12 @@ export default {
         },
         myOrderlist_0() {
             this.$router.push({
-                path: '/orderlist/0'
+                path: '/buy_orderlist'
             });
         },
         myOrderlist_1() {
             this.$router.push({
-                path: '/orderlist/1'
+                path: '/my_orderlist'
             });
         },
         myWallet() {

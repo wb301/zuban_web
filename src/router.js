@@ -50,12 +50,17 @@ const router = new Router({
             require(['./page/product/Index.vue'], resolve)
         }
     }, {
-        path: '/orderlist/:type',
+        path: '/buy_orderlist',
         component: function(resolve) {
-            require(['./page/order/Index.vue'], resolve)
+            require(['./page/order/BuyIndex.vue'], resolve)
         }
     }, {
-        path: '/order-details/',
+        path: '/my_orderlist',
+        component: function(resolve) {
+            require(['./page/order/MyIndex.vue'], resolve)
+        }
+    }, {
+        path: '/order-details',
         component: function(resolve) {
             require(['./page/order-details/Index.vue'], resolve)
         }
