@@ -95,7 +95,7 @@ export default {
         return {
             orderDetails: {},
             product: {},
-            openid: NormalHelper.userInfo().wx_open_id,
+            openid: NormalHelper.userInfo().wx_openid,
             type: 0, //0是买家查看订单 1 卖家查看订单
             orderNo: '',
             head_img: '',

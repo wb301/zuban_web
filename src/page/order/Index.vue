@@ -36,6 +36,7 @@ export default {
             name: {
                 status: "全部"
             },
+            openid: NormalHelper.userInfo().wx_openid,
             type: this.$route.params.type
         }
     },
