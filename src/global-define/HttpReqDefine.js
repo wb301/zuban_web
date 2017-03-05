@@ -24,6 +24,14 @@ export default function(request, next) {
         //  let data = JSON.parse(res.data);
         //
         //}
+        res = res.body;
+        if(res.code == -999){
+            weui.alert(res.msg);
+            NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
+            GlobalModel.RootVue.$router.push({
+                    path: '/login'
+                });
+        }
         if (res.status == 200) {
             // var codes = ['-999'];
             // if (codes.indexOf(res.data.code + '') > -1) {
@@ -44,12 +52,6 @@ export default function(request, next) {
             // } else {
             //     sweetAlert(res.data.msg);
             // }
-            if(res.code == -999){
-                NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
-                GlobalModel.RootVue.$router.push({
-                        path: '/login'
-                    });
-            }
         }
         //  console.log('after ajax')
         if (res.status === 0) {
@@ -59,12 +61,13 @@ export default function(request, next) {
                 // })
         }
 
-        if (res.data.status == -1) {}
+        if (res.status == -1) {}
         // if (!data.success) {
         //   // setTip(store, {
         //   //   text: data.error_msg
         //   // })
         // }
+
         return res;
     })
 }
