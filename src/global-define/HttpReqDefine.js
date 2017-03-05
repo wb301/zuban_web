@@ -19,54 +19,16 @@ export default function(request, next) {
     }
     //当用到当前组件对象时, 使用 GlobalModel.RootVue
     next((res) => {
-        // setLoading(store, false)
-        //if(res.data){
-        //  let data = JSON.parse(res.data);
-        //
-        //}
-        res = res.body;
-        if(res.code == -999){
-            weui.alert(res.msg);
-            NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
-            GlobalModel.RootVue.$router.push({
-                    path: '/login'
-                });
+        var body = res.body;
+        if (body.status != 1) {
+            weui.alert(body.msg);
+            if(body.code == -999){
+                NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
+                GlobalModel.RootVue.$router.push({
+                        path: '/login'
+                    });
+            }
         }
-        if (res.status == 200) {
-            // var codes = ['-999'];
-            // if (codes.indexOf(res.data.code + '') > -1) {
-            //     sweetAlert(res.data.msg);
-            //     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
-            //     var goRouterName = GlobalModel.RootVue.$route.path;
-            //     var id = GlobalModel.RootVue.$route.params.id ? GlobalModel.RootVue.$route.params.id : 0;
-            //     if (goRouterName.indexOf('login') < 0) {
-            //         GlobalModel.RootVue.$router.push({
-            //             path: 'Login',
-            //             params: {
-            //                 from: goRouterName,
-            //                 id: id
-            //             }
-            //         })
-            //         return;
-            //     }
-            // } else {
-            //     sweetAlert(res.data.msg);
-            // }
-        }
-        //  console.log('after ajax')
-        if (res.status === 0) {
-            console.log('网络不给力')
-                // setTip(store, {
-                //   text: '网络不给力，请稍后再试'
-                // })
-        }
-
-        if (res.status == -1) {}
-        // if (!data.success) {
-        //   // setTip(store, {
-        //   //   text: data.error_msg
-        //   // })
-        // }
 
         return res;
     })
