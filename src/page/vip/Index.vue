@@ -146,13 +146,14 @@ export default {
             AjaxHelper.PostRequest(p_obj);
         },
         prePay(order_no, order_price) {
+            var that = this;
             if (NormalHelper.isWeixin()) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
                     param: {
                         out_trade_no: order_no,
                         total_fee: parseFloat(order_price) * 100,
-                        openid: this.userInfo.wx_open_id
+                        openid: this.userInfo.wx_openid
                     }
                 };
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
@@ -168,11 +169,12 @@ export default {
                         signType: "MD5",
                         paySign: response.body.sign
                     };
+                    console.log(JSON.stringify(payJson));
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
-                            this.getUserInfo();
+                            that.getUserInfo();
                         }
                     );
                 }, (response) => {
