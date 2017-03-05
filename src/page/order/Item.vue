@@ -106,7 +106,6 @@ export default {
                         openid: this.openid
                     }
                 };
-                console.log(param);
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
