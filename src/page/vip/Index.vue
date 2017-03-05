@@ -174,34 +174,13 @@ export default {
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
-                            that.getUserInfo();
+                            that.getVipInfo();
                         }
                     );
                 }, (response) => {
                     //请求异常
                 })
             }
-        },
-        getUserInfo() {
-
-            var param = {
-                token: this.userInfo.token
-            };
-            var p_obj = {
-                action: 'c=Zb&m=User&a=getUserInfo',
-                param: param,
-                success: (response) => {
-                    response["token"] = this.userInfo.token;
-                    NormalHelper.setUserInfo(response);
-                    this.userInfo = response;
-                    this.vipInfo = this.userInfo.vip;
-                    this.is_vip = true;
-                },
-                fail: (response) => {
-                    weui.alert(response.msg)
-                }
-            };
-            AjaxHelper.PostRequest(p_obj);
         }
     },
     destroyed() {}
