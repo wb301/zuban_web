@@ -192,6 +192,8 @@ export default {
                     response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
+                    this.vipInfo = this.userInfo.vip;
+                    this.is_vip = true;
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
