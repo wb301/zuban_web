@@ -107,7 +107,7 @@ const router = new Router({
         }
     }, {
         path: '/detail',
-        componment: function(resolve) {
+        component: function(resolve) {
             require(['./page/my-wallet/Detail.vue'], resolve)
         }
     }, {

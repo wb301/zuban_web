@@ -67,11 +67,12 @@
             </div>
         </div>
         <div class="button-wapper">
-            <div v-if="members!=1">
+            <div v-if="members!=1 && type==0">
                 <div class="button-buy" @click="buyContact">购买联系方式</div>
                 <div class="button-immediately" @click="rentImmediately">立即租</div>
             </div>
-            <div class="button-immediately" @click="rentImmediately" v-else>立即租</div>
+            <div class="button-immediately" v-if="members==1 && type<1" @click="rentImmediately">立即租</div>
+            <div class="button-buy" v-if="type>0">我的发布</div>
         </div>
     </div>
 </template>
@@ -95,6 +96,7 @@ export default {
             gender_icon: nan,
             icon: boda,
             members: 2,
+            type: 0,
             productCode: this.$route.params.productCode,
             productInfo: {
                 category: {}
@@ -119,15 +121,18 @@ export default {
                 param: param,
                 success: (response) => {
                     this.productInfo = response;
-                    this.imageList = [this.productInfo.product_image];
-                    for (var i = 0; i < this.productInfo.image_list.length; i++) {
-                        this.imageList.push(this.productInfo.image_list[i]);
+                    this.imageList = response.image_list;
+                    var userInfo = NormalHelper.userInfo();
+                    if (response.user_id == userInfo.user_id) {
+                        this.userInfo = userInfo;
+                        this.type = 1;
+                    } else {
+                        this.userInfo = response.user_info;
                     }
-                    this.userInfo = this.productInfo.user_info;
                     if (this.userInfo) {
                         this.gender_icon = this.userInfo.sex == 'M' ? nan : nv;
                     }
-                    if (response.vip_level > 0)
+                    if (response.vip_level > 0 || parseFloat(response.look_price) <= 0)
                         this.members = 1;
                 },
                 fail: (response) => {

@@ -1,53 +1,84 @@
 <template>
     <div>
         <div class="container-body">
-            <div class="user-information">
-                <div class="user-portrait">
-                    <img :src="img_meinv">
+            <div content="product">
+                <div class="user-information">
+                    <div class="user-portrait">
+                        <img :src="head_img">
+                    </div>
+                    <div class="user-info">
+                        <div>{{nick_name}}</div>
+                    </div>
+                    <div class="order-status">
+                        <div>{{orderDetails.status_name}}</div>
+                    </div>
                 </div>
-                <div class="user-info">
-                    <div>Kyumi琪</div>
-                </div>
-                <div class="order-status">
-                    <div>已完成</div>
-                </div>
-            </div>
-            <div class="service-information">
-                <div>
-                    <div>陪逛街</div>
-                    <div>
-                        <span>￥</span>
-                        <span>179</span>
-                        <span>/小时</span>
+                <div class="service-information">
+                    <div class="product_img">
+                        <img :src="img_product">
+                    </div>
+                    <div class="product_content">{{product.category_name}}</div>
+                    <div class="product_price">
+                        <span>{{product.price}}</span>
+                        <span>/{{danwei}}</span>
+                    </div>
+                    <div class="product_num">
+                        <span>x{{product.num}}</span>
                     </div>
                 </div>
                 <div>
-                    <img :src="quantity>0?btn_less[1]:btn_less[2]">
-                    <span> {{quantity}} </span>
-                    <img :src="quantity<9999?btn_plus[1]:btn_plus[2]">
                 </div>
-            </div>
-            <div>
-                <div class="weui-cell phone">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">您的联系方式</label>
+                <div content="order">
+                    <div class="weui-cell time">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">{{orderDetails.create_time}}</label>
+                        </div>
+                        <div class="weui-cell__bd"></div>
+                        <div class="weui-cell__ft">
+                            <span>合计：</span>
+                            <span>{{orderDetails.price}}</span>
+                            <span>元</span>
+                        </div>
                     </div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" type="test" v-model="contact_information" placeholder="请输入联系方式" />
+                    <div class="weui-cell phone">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">买家联系方式</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            {{orderDetails.phone}}
+                        </div>
+                        <div class="weui-cell__bd"></div>
+                        <div class="weui-cell__ft" v-if="(type==1)">
+                            <span><img :src="lxmj" @click="customer"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="message">
                     <div>留言</div>
-                    <div>
-                        <textarea class="weui-textarea" placeholder="请输入文本" rows="5"></textarea>
+                    <div content="liuyan">
+                        {{orderDetails.memo}}
+                    </div>
+                </div>
+                <div class="weui-cell order_no">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">订单编号</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        {{orderNo}}
                     </div>
                 </div>
             </div>
         </div>
         <div class="button-wapper">
-            <div class="button-buy">
-                <label>ca</label>合计：<span>15元</span></div>
-            <div class="button-confirm">确认支付</div>
+            <div>
+                <div class="button-cancel" v-if="(type==0&&(orderDetails.status==0))" @click="cancel">取消订单</div>
+                <div class="button-shut" v-if="(type==1&&(orderDetails.status==0||orderDetails.status==1||orderDetails.status==5))" @click="shut">关闭订单</div>
+                <div class="button-confirm" v-if="(type==1&&(orderDetails.status==1))" @click="confirm">确认订单</div>
+                <div class="button-customer" v-if="(type==1&&(orderDetails.status==6||orderDetails.status==10))" @click="customer">联系客服</div>
+                <div class="button-refund" v-if="(type==0&&(orderDetails.status==6||orderDetails.status==10||orderDetails.status==1||orderDetails.status==5))" @click="refund">申请退款</div>
+                <div class="button-complete" v-if="(type==0&&(orderDetails.status==5))" @click="complete">服务完成</div>
+                <div class="button-payment" v-if="(type==0&&(orderDetails.status==0))" @click="payment">付款</div>
+            </div>
         </div>
     </div>
 </template>
@@ -55,40 +86,26 @@
 import 'src/lib/js/dropload.min.js'
 import 'src/lib/css/dropload.css'
 
-import nan from '../product/image/nan.png'
-import nv from '../product/image/nv.png'
-import meinv from '../service-list/release/image/Artboard6.jpg'
-
-import less_1 from './image/less_1.png'
-import less_2 from './image/less_2.png'
-import plus_1 from './image/plus_1.png'
-import plus_2 from './image/plus_2.png'
+import lxmj from './image/lxmj.png'
 export default {
     components: {
 
     },
     data() {
         return {
-            orderDetails: [],
+            orderDetails: {},
+            product: {},
+            openid: NormalHelper.userInfo().wx_open_id,
             type: 0, //0是买家查看订单 1 卖家查看订单
             orderNo: '',
             head_img: '',
             nick_name: '',
-            gender_icon: {
-                1: nan,
-                2: nv
-            },
-            img_meinv: meinv,
-            btn_less: {
-                1: less_1,
-                2: less_2
-            },
-            btn_plus: {
-                1: plus_1,
-                2: plus_2
-            },
-            quantity: 9999,
-            contact_information: 13672888888
+            img_product: '',
+            status_name: '',
+            lxmj: lxmj,
+            num: 1,
+            price: 0,
+            danwei: ''
 
         }
     },
@@ -115,9 +132,28 @@ export default {
                         weui.alert('网络异常！')
                     }
                     this.orderDetails = response;
+                    this.product = response.productList;
+
                     //0是买家看卖家，1是卖家看买家
-                    this.head_img = response.seller.head_img;
-                    this.nick_name = response.seller.nick_name;
+                    if (this.type == 0) {
+                        this.head_img = response.seller.head_img;
+                        this.nick_name = response.seller.nick_name;
+                    } else {
+                        this.head_img = response.buyers.head_img;
+                        this.nick_name = response.buyers.nick_name;
+                    }
+                    this.status_name = response.status_name;
+                    this.img_product=response.productList.product.product_image;
+            if(response.productList.product.price_type==1){
+                this.danwei='小时';
+            }
+            if(response.productList.product.price_type==2){
+                this.danwei='天';
+            }
+            if(response.productList.product.price_type==3){
+                this.danwei='次';
+            }
+
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -125,223 +161,407 @@ export default {
             };
             AjaxHelper.GetRequest(p_obj);
         },
+
+        payment() { //付款
+            console.log(NormalHelper.isWeixin());
+            if (NormalHelper.isWeixin()) {
+                var p_obj = {
+                    action: 'c=Zb&m=Order&a=prePay',
+                    param: {
+                        out_trade_no: this.orderNo,
+                        total_fee: parseFloat(this.orderDetails.price) * 100,
+                        openid: this.openid
+                    }
+                };
+                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
+                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
+                    emulateJSON: true
+                }).then((response) => {
+                    console.log(response);
+                var payJson = {
+                    appId: response.body.appid,
+                    timeStamp: response.body.timeStamp + "",
+                    nonceStr: response.body.nonceStr,
+                    package: response.body.package,
+                    signType: "MD5",
+                    paySign: response.body.sign
+                };
+                WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                        function(res) {
+                            console.log(res);
+                            //TODO:订单回调  自己跳去
+                        }
+                );
+            }, (response) => {
+                    //请求异常
+                })
+            }
+        },
+        cancel() { //取消订单
+             var param = {
+                 c: 'Zb',
+                 m: 'Order',
+                 a: 'orderCancel',
+                 orderNo: this.orderNo
+             };
+             var p_obj = {
+                 action: '',
+                 param: param,
+                 success: (response) => {
+                     this.orderDetails.status = 9;
+                     this.orderDetails.status_name='已取消';
+                 },
+                 fail: (response) => {
+                     weui.alert(response.msg)
+                 }
+             };
+             AjaxHelper.GetRequest(p_obj);
+        },
+        shut() { //关闭订单
+             var param = {
+                 c: 'Zb',
+                 m: 'Order',
+                 a: 'orderShut',
+                 orderNo: this.orderNo,
+                 check:this.orderDetails.status
+             };
+             var p_obj = {
+                 action: '',
+                 param: param,
+                 success: (response) => {
+                     this.orderDetails.status = 15;
+                     this.orderDetails.status_name='交易关闭';
+                 },
+                 fail: (response) => {
+                     weui.alert(response.msg)
+                 }
+             };
+             AjaxHelper.GetRequest(p_obj);
+        },
+        confirm() { //确认订单
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'deliveryOrder',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+                        this.orderDetails.status = 5;
+                        this.orderDetails.status_name='进行中';
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        refund() { //申请退款
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderReturn',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+                        weui.alert("已提交申请等待后台审核");
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        complete() { //服务完成
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderConfirm',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                        action: '',
+                        param: param,
+                        success: (response) => {
+                        this.orderDetails.status = 6;
+                        this.orderDetails.status_name='已完成';
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        customer() { //联系买家
+            window.location.href = 'tel://'+this.orderDetails.phone;
+        }
     },
     destroyed() {}
 }
 </script>
 <style lang="less" scoped>
-    .container-body {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 50px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        margin-left: 15px;
-
+.container-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    margin-left: 15px;
     .user-information,
     .service-information {
         border-bottom: 1px solid #E2E2E2;
     }
-
     .user-information {
         height: 40px;
         position: relative;
-
-    >
-    div {
-        display: inline-block;
+        > div {
+            display: inline-block;
+        }
+        .user-portrait {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 10px 0;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .user-info {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: 10px;
+            > div:nth-child(1) {
+                font-size: 12px;
+                color: #333;
+                margin-top: 15.5px;
+            }
+            > div:nth-child(2) {
+                height: 15.1px;
+                width: 15.7px;
+                > img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .order-status {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 20px;
+            > div:nth-child(1) {
+                font-size: 12px;
+                color: #333;
+                margin-top: 15.5px;
+            }
+            > div:nth-child(2) {
+                height: 15.1px;
+                width: 15.7px;
+            }
+        }
     }
+}
 
-    .user-portrait {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 10px 0;
-
-    img {
-        width: 100%;
-        height: 100%;
-    }
-
-    }
-    .user-info {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin-left: 10px;
-
-    >
-    div:nth-child(1) {
-        font-size: 12px;
-        color: #333;
-        margin-top: 15.5px;
-    }
-
-    >
-    div:nth-child(2) {
-        height: 15.1px;
-        width: 15.7px;
-
-    >
-    img {
-        width: 100%;
-        height: 100%;
-    }
-
-    }
-    }
-    .order-status {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 20px;
-
-    >
-    div:nth-child(1) {
-        font-size: 12px;
-        color: #333;
-        margin-top: 15.5px;
-    }
-
-    >
-    div:nth-child(2) {
-        height: 15.1px;
-        width: 15.7px;
-    }
-
-    }
-    }
-    }
-    .service-information {
-        height: 70px;
-        position: relative;
-
-    >
-    div {
-
-    >
-    div:nth-child(1) {
-        margin-top: 7.5px;
-        font-size: 13px;
-        color: #333;
-    }
-
-    >
-    div:nth-child(2) {
-        color: #A878E5;
-        margin-top: 5px;
-
-    span:nth-child(1) {
-        font-size: 12px;
-    }
-
-    span:nth-child(2) {
-        font-size: 17px;
-    }
-
-    span:nth-child(3) {
-        font-size: 10px;
-    }
-
-    }
-    }
-    >
-    div:nth-child(2) {
+.service-information {
+    height: 117.5px;
+    position: relative;
+    .product_price {
+        color: #8760BA;
         width: 100px;
         position: absolute;
-        right: 20px;
-        top: 0;
+        right: 15px;
+        top: 15px;
         bottom: 7.5px;
-        line-height: 60px;
+        line-height: 14px;
         text-align: right;
-
-    span {
-        font-size: 16px;
-        margin-bottom: 1px;
-        vertical-align: middle;
+        span {
+            font-size: 14px;
+            margin-bottom: 1px;
+            vertical-align: middle;
+        }
     }
-
-    img {
-        vertical-align: middle;
-        width: 14px;
-        height: 14px;
+    .product_num {
+        color: #000000;
+        width: 40px;
+        position: absolute;
+        right: 15px;
+        bottom: 16px;
+        line-height: 14px;
+        text-align: right;
+        span {
+            font-size: 14px;
+            margin-bottom: 1px;
+            vertical-align: middle;
+        }
     }
-
+    .product_img {
+        width: 100px;
+        height: 100px;
+        left: 5px;
+        margin-top: 15.5px;
+        float: left;
+        img {
+            width: 90px;
+            height: 90px;
+        }
     }
-    }
-    .weui-cell.phone {
-        padding-left: 0;
+    .product_content {
+        color: #333;
         font-size: 14px;
-        border-bottom: 1px solid #E2E2E2;
+        width: 110px;
+        height: 28px;
+        overflow: auto;
+        float: left;
+        margin-top: 14px;
+        margin-left: 5px;
+    }
+}
 
-    .weui-input {
+.weui-cell.phone {
+    padding-left: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #E2E2E2;
+    .weui-label {
         text-align: right;
-        color: #666666;
+        width: 85px;
     }
-
+    .weui-cell__bd {
+        text-align: left;
+        margin-left: 10px;
     }
-    .weui-cell.phone:before {
-        border: 0;
+    .weui-cell__ft {
+        img {
+            height: 35px;
+            width: 50px;
+        }
     }
+}
 
-    .message {
+.weui-cell.time {
+    padding-left: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #E2E2E2;
+    .weui-label {
+        width: 150px;
+    }
+    .weui-cell__ft {
+        color: #333;
+        span:nth-child(2) {
+            color: #8760BA;
+        }
+        span:nth-child(3) {
+            color: #8760BA;
+        }
+    }
+}
 
+.weui-cell.order_no {
+    padding-left: 0;
+    font-size: 14px;
+    border-bottom: 1px solid #E2E2E2;
+    text-align: left;
+    .weui-cell__bd {
+        text-align: right;
+    }
+}
+
+.message {
+    margin-bottom: 16px;
     div:first-child {
         font-size: 14px;
         color: #666;
-        margin: 15px 0;
+        margin: 15px 0px 15px;
     }
-
     div:last-child {
         margin-right: 15px;
-
-    textarea {
         font-size: 13px;
         color: #BBBBBB;
     }
+}
+
+.button-wapper {
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    > div {
+        width: 100%;
 
     }
-    }
-
-    .button-wapper {
-        height: 50px;
-        position: absolute;
-        bottom: 0px;
-        left: 0;
-        right: 0;
-
-    >
-    div {
-        width: 50%;
-        float: left;
-    }
-
-    .button-buy {
-        font-size: 14px;
-        background-color: #FFFFFF;
-        line-height: 50px;
-        color: #333333;
-
-    label {
-        visibility: hidden;
-    }
-
-    span {
-        color: #8760BA;
-    }
-
-    }
-    .button-confirm {
+    .button-complete {
         font-size: 16px;
         background-color: #A877E6;
         line-height: 50px;
         text-align: center;
         color: #FFFFFF;
+        float: right;
+        width:50%;
     }
-
-    }
+.button-refund {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    float: right;
+    width:50%;
+}
+.button-customer {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    float: right;
+    width:50%;
+}
+.button-confirm {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    float: right;
+    width:50%;
+}
+.button-shut {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    float: right;
+    width:50%;
+}
+.button-cancel {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    float: right;
+    width:50%;
+}
+.button-payment {
+    font-size: 16px;
+    background-color: #A877E6;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    width:50%;
+    float: right;
+}
+}
 </style>

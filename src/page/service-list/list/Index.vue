@@ -174,7 +174,7 @@ export default {
                 m: 'Product',
                 a: 'getShowProductList',
                 page: this.page,
-                row: 5
+                row: 10
             };
             if (this.orderBy != "") {
                 param.orderBy = this.orderBy;

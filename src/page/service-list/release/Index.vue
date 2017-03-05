@@ -120,14 +120,27 @@ export default {
         $(".disabled-input").focus(function() {
             document.activeElement.blur();
         });
-        this.getCategoryList();
-        this.getRegionList();
-        this.$nextTick(function() {
-
-        });
+        this.checkIsComplete();
     },
     watch: {},
     methods: {
+        checkIsComplete() {
+            var userInfo = NormalHelper.userInfo();
+            var that = this;
+            if(userInfo.is_complete <= 0){
+                weui.alert("完善信息后可发布",function(){
+                    that.$router.push({
+                        path: '/my'
+                    });
+                });
+            }else{
+                this.getCategoryList();
+                this.getRegionList();
+                this.$nextTick(function() {
+
+                });
+            }
+        },
         selectUnitPrice() {
             var _self = this;
             weui.picker(unitPriceArr, {

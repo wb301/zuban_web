@@ -6,21 +6,13 @@
                     <div>
                         <div class="info-top">
                             <div>
-                                <span class="title">{{item.category_name}}</span>
-                                <span class="status">{{item.statusName}}</span>
+                                <span class="title">{{item.remark}}</span>
+                                <span class="status">{{item.create_time}}</span>
                             </div>
                             <div>
-                                <span class="region">{{item.region_name}}</span>
+                                <span class="region">{{item.price}}</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="info-bottom">
-                        <div class="price">
-                            <span>{{}}</span>
-                            <span>{{item.price}}</span>
-                            <span>元</span>
-                        </div>
-                        <div class="content">{{item.product_info}}</div>
                     </div>
                 </div>
             </div>
@@ -35,27 +27,21 @@ export default {
     data() {
         return {}
     },
-    created: function() {
-        // this.item.danwei = "小时";
-        // if (this.item.price_type == 2) {
-        //     this.item.danwei = "天";
-        // } else if (this.item.price_type == 3) {
-        //     this.item.danwei = "次";
-        // }
-        var map = {
-            "1": "收款",
-            "2": "提现"
-        };
-        this.item.statusName = map[this.item.price_type];
-    },
+    // created: function() {
+    //     var map = {
+    //         "3": "收款",
+    //         "5": "提现"
+    //     };
+    //     this.item.statusName = map[this.item.price_type];
+    // },
     methods: {
-        toProductInfo(item){
-            this.$router.push({
-                path: '/product/'+item.product_sys_code
-            });
-        }
+        // toProductInfo(item){
+        //     this.$router.push({
+        //         path: '/product/'+item.product_sys_code
+        //     });
+        // }
     },
-    destroyed() {}
+    // destroyed() {}
 }
 </script>
 <style lang="less" scoped>
