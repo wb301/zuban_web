@@ -97,13 +97,14 @@ export default {
         },
         payment() { //付款
             console.log(NormalHelper.isWeixin());
-            if (NormalHelper.isWeixin()) {
+            var openid = NormalHelper.userInfo().wx_openid;
+            if (NormalHelper.isWeixin() && openid) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
                     param: {
-                        out_trade_no: this.item.order_no,
-                        total_fee: parseFloat(this.item.price) * 100,
-                        openid: this.openid
+                        out_trade_no: this.order_no,
+                        total_fee: parseFloat(this.order_price) * 100,
+                        openid: openid
                     }
                 };
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
@@ -111,22 +112,23 @@ export default {
                     emulateJSON: true
                 }).then((response) => {
                     console.log(response);
-                var payJson = {
-                    appId: response.body.appid,
-                    timeStamp: response.body.timeStamp + "",
-                    nonceStr: response.body.nonceStr,
-                    package: response.body.package,
-                    signType: "MD5",
-                    paySign: response.body.sign
-                };
-                WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                    var payJson = {
+                        appId: response.body.appid,
+                        timeStamp: response.body.timeStamp + "",
+                        nonceStr: response.body.nonceStr,
+                        package: response.body.package,
+                        signType: "MD5",
+                        paySign: response.body.sign
+                    };
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
                         }
-                );
-            }, (response) => {
+                    );
+                }, (response) => {
                     //请求异常
+                    weui.alert("支付异常!")
                 })
             }
         },

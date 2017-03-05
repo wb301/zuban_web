@@ -210,7 +210,7 @@ export default {
                     );
                 }, (response) => {
                     //请求异常
-                    weui.alert(response.msg)
+                    weui.alert("支付异常!")
                 })
             }
         }
