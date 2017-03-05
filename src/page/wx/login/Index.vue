@@ -14,7 +14,7 @@ export default {
     },
     mounted() {
         this.next = this.$route.params.next
-        NormalHelper.wxLogin("http://weixin.zuban8.com/zuban_web/console/#/wx-middle/"+this.next);
+        NormalHelper.wxLogin("https://weixin.zuban8.com/zuban_web/console/#/wx-middle/"+this.next);
     },
     methods: {
     },
