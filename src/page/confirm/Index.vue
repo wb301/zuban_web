@@ -79,7 +79,7 @@ export default {
             },
             quantity: 1,
             contact_information: NormalHelper.userInfo().account,
-            openid: NormalHelper.userInfo().wx_open_id,
+            openid: NormalHelper.userInfo().wx_openid,
             memo: '',
             type: this.$route.params.type,
             productCode: this.$route.params.productCode,
@@ -90,7 +90,6 @@ export default {
         }
     },
     mounted() {
-        // console.log(NormalHelper.userInfo());
         this.getProductInfo();
         this.getOderPrice();
     },
