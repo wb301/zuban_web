@@ -9,7 +9,10 @@
                             <label class="weui-label class_font_size_hd">当前等级</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <label class="weui-label class_font_size_bd" name="vip_level">{{this.vip_level}}</label>
+                            <label class="weui-label class_font_size_bd" style="float: left;" name="vip_level">{{this.vip_level}}</label>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <label class="weui-label class_font_size_bd" style="color: #4990E2" v-if="is_vip == true">{{vip_date}}</label>
                         </div>
                     </div>
                     <div class="weui-cell class_height">
@@ -80,6 +83,7 @@ export default {
             image: vip,
             vip_level: '注册会员',
             vip_info: '无',
+            vip_date: "",
             userInfo: NormalHelper.userInfo(),
             is_vip: NormalHelper.userInfo()["vip"] ? true : false,
             vipList: [],
@@ -109,6 +113,12 @@ export default {
                     for (var i = 0; i < this.vipConfig.length; i++) {
                         if (this.vipInfo && this.vipInfo["vip_type"] == this.vipConfig[i]["level"]) {
 
+                            var date1 = new Date(response["nowTime"]);  //现在时间
+                            var date2 = new Date(this.vipInfo["end_time"]);     //结束时间
+                            var date3 = date2.getTime() - date1.getTime();   //时间差的毫秒数
+                            var days = Math.floor(date3 / (24 * 3600 * 1000));
+
+                            this.vip_date = "(还有" + days + "天到期)";
                             this.is_vip = true;
                             this.vip_level = this.vipConfig[i]["name"];
                             this.vip_info = "可在" + this.vipInfo["start_time"] + "至" + this.vipInfo["end_time"] + "内免费查看出租人的联系方式";
@@ -160,7 +170,6 @@ export default {
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
                 }).then((response) => {
-                    console.log(response);
                     var payJson = {
                         appId: response.body.appid,
                         timeStamp: response.body.timeStamp + "",
@@ -169,17 +178,18 @@ export default {
                         signType: "MD5",
                         paySign: response.body.sign
                     };
-                    console.log(JSON.stringify(payJson));
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
-                            console.log(res);
-                            //TODO:订单回调  自己跳去
                             that.getVipInfo();
                         }
                     );
                 }, (response) => {
                     //请求异常
+                    weui.alert("支付失败");
                 })
+            }else{
+                // TODO:沈冬旭  加二维码
+
             }
         }
     },
