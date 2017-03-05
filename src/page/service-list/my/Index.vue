@@ -65,6 +65,15 @@
                     </div>
                 </a>
             </div>
+            <div class="weui-cells" style="margin-top:8px;" v-if="is_weixin === false">
+                <a class="weui-cell weui-cell_access" href="javascript:;" @click='toLogin'>
+                    <div class="weui-cell__bd">
+                        <p class="font_size">注销登录</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -79,11 +88,12 @@ export default {
         return {
             image: xiala,
             shouji: shouji,
+            is_weixin: NormalHelper.isWeixin(),
             userInfo: NormalHelper.userInfo()
         }
     },
     mounted() {
-        console.log();
+
     },
     methods: {
         myInfo() {
@@ -108,17 +118,23 @@ export default {
         },
         myOrderlist_0() {
             this.$router.push({
-                path: '/orderlist/0'
+                path: '/buy_orderlist'
             });
         },
         myOrderlist_1() {
             this.$router.push({
-                path: '/orderlist/1'
+                path: '/my_orderlist'
             });
         },
         myWallet() {
             this.$router.push({
                 path: '/my-wallet'
+            });
+        },
+        toLogin() {
+            NormalHelper.setUserInfo({});
+            this.$router.push({
+                path: '/login'
             });
         }
     },

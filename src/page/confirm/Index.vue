@@ -79,10 +79,10 @@ export default {
             },
             quantity: 1,
             contact_information: NormalHelper.userInfo().account,
-            openid: NormalHelper.userInfo().wx_open_id,
+            openid: NormalHelper.userInfo().wx_openid,
             memo: '',
-            type: this.$route.params.type,
-            productCode: this.$route.params.productCode,
+            type: NormalHelper.Get("confirm_type"),
+            productCode: NormalHelper.Get("confirm_code"),
             productInfo: {},
             allPrice: 0,
             order_no: '',
@@ -90,7 +90,6 @@ export default {
         }
     },
     mounted() {
-        // console.log(NormalHelper.userInfo());
         this.getProductInfo();
         this.getOderPrice();
     },
@@ -141,7 +140,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         createOrder() {
-            if (this.openid.length > 0) { //TODO:并且微信浏览器打开
+            if (this.openid.length > 0 && NormalHelper.isWeixin()) {
                 var param = {
                     memo: this.memo,
                     phone: this.contact_information,
@@ -181,7 +180,6 @@ export default {
             }
         },
         prePay() {
-            console.log(NormalHelper.isWeixin());
             if (NormalHelper.isWeixin()) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
@@ -212,6 +210,7 @@ export default {
                     );
                 }, (response) => {
                     //请求异常
+                    weui.alert("支付异常!")
                 })
             }
         }

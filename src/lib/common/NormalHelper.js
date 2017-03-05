@@ -61,14 +61,27 @@ NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
 }
 
-//微信转存专用
-NormalHelper.getOpenId = function() {
+NormalHelper.Set = function(key,value){
     var userInfo = NormalHelper.userInfo();
-    if(userInfo && userInfo.wx_middle_open_id){
-        return userInfo.wx_middle_open_id;
+    if(!userInfo.common){
+        userInfo.common = {};
+    }
+    userInfo.common[key] = value;
+    NormalHelper.setUserInfo(userInfo);
+}
+
+NormalHelper.Get = function(key){
+    var userInfo = NormalHelper.userInfo();
+    if(userInfo && userInfo.common && userInfo.common[key]){
+        return userInfo.common[key]
     }else{
         return '';
     }
+}
+
+//微信转存专用
+NormalHelper.getOpenId = function() {
+    return NormalHelper.Get("wx_middle_open_id");
 }
 
 //获取浏览器信息

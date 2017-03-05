@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry" @click="toDetails(item)">
+        <div class="item-entry">
             <div class="wapper">
                 <div class="head-wapper">
                     <div class="img-head">
@@ -10,7 +10,7 @@
                     <div class="status" style="color:#E35257" v-if="item.status==0">{{item.status_name}}</div>
                     <div class="status" style="color:#4990E2" v-if="item.status==1||item.status==5||item.status==6||item.status==10">{{item.status_name}}</div>
                 </div>
-                <div class="info-wapper" v-if="item.order_type==1">
+                <div class="info-wapper" v-if="item.order_type==1" @click="toDetails(item)">
                     <span class="img-info">
                         <img :src="item.productList[0].product.product_image">
                     </span>
@@ -96,37 +96,41 @@ export default {
             window.location.href = 'tel://13671954663';
         },
         payment() { //付款
-            console.log(NormalHelper.isWeixin());
-            if (NormalHelper.isWeixin()) {
+            // console.log(NormalHelper.isWeixin());
+            var openid = NormalHelper.userInfo().wx_openid;
+            if (NormalHelper.isWeixin() && openid) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
                     param: {
                         out_trade_no: this.item.order_no,
                         total_fee: parseFloat(this.item.price) * 100,
-                        openid: this.openid
+                        openid: openid
                     }
                 };
+                                    // console.log(JSON.stringify(p_obj.param));
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
                 }).then((response) => {
-                    console.log(response);
-                var payJson = {
-                    appId: response.body.appid,
-                    timeStamp: response.body.timeStamp + "",
-                    nonceStr: response.body.nonceStr,
-                    package: response.body.package,
-                    signType: "MD5",
-                    paySign: response.body.sign
-                };
-                WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                    // console.log(response);
+                    var payJson = {
+                        appId: response.body.appid,
+                        timeStamp: response.body.timeStamp + "",
+                        nonceStr: response.body.nonceStr,
+                        package: response.body.package,
+                        signType: "MD5",
+                        paySign: response.body.sign
+                    };
+                    // alert(JSON.stringify(payJson));
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
                         }
-                );
-            }, (response) => {
+                    );
+                }, (response) => {
                     //请求异常
+                    weui.alert("支付异常!")
                 })
             }
         },
@@ -235,8 +239,10 @@ export default {
         },
         toDetails(item){
             if(item.order_type==1){
+                NormalHelper.Set("order_type",this.type);
+                NormalHelper.Set("order_no",item.order_no);
                 this.$router.push({
-                    path: '/order-details/'+item.order_no+'/'+this.type
+                    path: '/order-details'
                 });
             }
         }
