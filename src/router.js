@@ -55,7 +55,7 @@ const router = new Router({
             require(['./page/order/Index.vue'], resolve)
         }
     }, {
-        path: '/order-details/:orderNo/:type',
+        path: '/order-details/',
         component: function(resolve) {
             require(['./page/order-details/Index.vue'], resolve)
         }

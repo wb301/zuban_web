@@ -235,8 +235,10 @@ export default {
         },
         toDetails(item){
             if(item.order_type==1){
+                NormalHelper.Set("order_type",this.type);
+                NormalHelper.Set("order_no",item.order_no);
                 this.$router.push({
-                    path: '/order-details/'+item.order_no+'/'+this.type
+                    path: '/order-details/'
                 });
             }
         }

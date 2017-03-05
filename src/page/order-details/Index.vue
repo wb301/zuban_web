@@ -110,8 +110,8 @@ export default {
         }
     },
     mounted() {
-        this.type = this.$route.params.type
-        this.orderNo = this.$route.params.orderNo
+        this.type = NormalHelper.Get("order_type")
+        this.orderNo = NormalHelper.Get("order_no")
         this.getOrderDetails();
     },
     methods: {
