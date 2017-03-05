@@ -105,6 +105,7 @@ export default {
                     this.userInfo.vip = this.vipInfo;
                     NormalHelper.setUserInfo(this.userInfo);
 
+                    this.vipList = [];
                     for (var i = 0; i < this.vipConfig.length; i++) {
                         if (this.vipInfo && this.vipInfo["vip_type"] == this.vipConfig[i]["level"]) {
 
@@ -124,7 +125,7 @@ export default {
         payVip(item) {
 
             var param = {
-                token: NormalHelper.userInfo()["token"],
+                token: this.userInfo.token,
                 vip: item.level,
                 source: 1,
                 allPrice: item.price,
@@ -132,13 +133,65 @@ export default {
                     "pay_type": "WX"
                 })
             };
-            console.log(JSON.stringify(param));
             var p_obj = {
                 action: 'c=Zb&m=Order&a=createMembersOrder',
                 param: param,
                 success: (response) => {
+                    this.prePay(response.order_no, response.price);
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
+        },
+        prePay(order_no, order_price) {
+            if (NormalHelper.isWeixin()) {
+                var p_obj = {
+                    action: 'c=Zb&m=Order&a=prePay',
+                    param: {
+                        out_trade_no: order_no,
+                        total_fee: parseFloat(order_price) * 100,
+                        openid: this.userInfo.wx_open_id
+                    }
+                };
+                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
+                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
+                    emulateJSON: true
+                }).then((response) => {
+                    console.log(response);
+                    var payJson = {
+                        appId: response.body.appid,
+                        timeStamp: response.body.timeStamp + "",
+                        nonceStr: response.body.nonceStr,
+                        package: response.body.package,
+                        signType: "MD5",
+                        paySign: response.body.sign
+                    };
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                        function(res) {
+                            console.log(res);
+                            //TODO:订单回调  自己跳去
+                            this.getUserInfo();
+                        }
+                    );
+                }, (response) => {
+                    //请求异常
+                })
+            }
+        },
+        getUserInfo() {
 
-                    alert("下单成功!" + JSON.stringify(response));
+            var param = {
+                token: this.userInfo.token
+            };
+            var p_obj = {
+                action: 'c=Zb&m=User&a=getUserInfo',
+                param: param,
+                success: (response) => {
+                    response["token"] = this.userInfo.token;
+                    NormalHelper.setUserInfo(response);
+                    this.userInfo = response;
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
