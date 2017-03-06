@@ -163,6 +163,7 @@ export default {
         },
 
         payment() { //付款
+            var that = this;
             console.log(NormalHelper.isWeixin());
             if (NormalHelper.isWeixin()) {
                 var p_obj = {
@@ -190,6 +191,9 @@ export default {
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
+                            that.$router.push({
+                                path: '/buy_orderlist'
+                            });
                         }
                 );
             }, (response) => {
