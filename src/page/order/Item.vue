@@ -125,8 +125,12 @@ export default {
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
-                            that.item.status = 1;
-                            weui.alert("付款成功!");
+                            if(res == "get_brand_wcpay_request:ok"){
+                                that.item.status = 1;
+                                weui.alert("支付成功");
+                            }else{
+                                weui.alert("支付失败");
+                            }
                         }
                     );
                 }, (response) => {

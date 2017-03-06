@@ -190,10 +190,14 @@ export default {
                 WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
-                            //TODO:订单回调  自己跳去
-                            that.$router.push({
-                                path: '/buy_orderlist'
-                            });
+                            if(res == "get_brand_wcpay_request:ok"){
+                                weui.alert("支付成功");
+                                that.$router.push({
+                                    path: '/buy_orderlist'
+                                });
+                            }else{
+                                weui.alert("支付失败");
+                            }
                         }
                 );
             }, (response) => {
