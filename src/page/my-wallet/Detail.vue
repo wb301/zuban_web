@@ -75,7 +75,6 @@ export default {
                 c: 'Zb',
                 m: 'User',
                 a: 'getUserMoneyHistoryList',
-                token: '4a03812ccc71e558ec4344be6484fa64',
                 page: this.page,
                 row: 5
             };
