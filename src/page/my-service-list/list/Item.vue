@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item-entry" @click="toProductInfo(item)">
+        <div class="item-entry" @click="toProductInfo()">
             <div class="wapper">
                 <div class="img-wapper"><img :src="item.product_image"></div>
                 <div class="info-wapper">
@@ -22,6 +22,8 @@
                             <span>/{{item.danwei}}</span>
                         </div>
                         <div class="content">{{item.product_info}}</div>
+                        <div class="btn-remove" @click.stop="updateProductInfo(1)" v-if="item.status==0">上架</div>
+                        <div class="btn-remove" @click.stop="updateProductInfo(0)" v-if="item.status==1">下架</div>
                     </div>
                 </div>
             </div>
@@ -51,10 +53,28 @@ export default {
         this.item.statusName = map[this.item.status];
     },
     methods: {
-        toProductInfo(item) {
+        toProductInfo() {
             this.$router.push({
-                path: '/service-edit/' + item.product_sys_code
+                path: '/service-edit/' + this.item.product_sys_code
             });
+        },
+        updateProductInfo(status) {
+            var p_obj = {
+                action: 'c=Zb&m=Product&a=updateProductInfo',
+                param: {
+                    productInfo: {
+                        status: status,
+                        product_sys_code: this.item.product_sys_code
+                    }
+                },
+                success: (response) => {
+                    this.item.status = status;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.PostRequest(p_obj);
         }
     },
     destroyed() {}
@@ -109,7 +129,8 @@ export default {
                 }
             }
             .info-bottom {
-                >div {
+                position: relative;
+                >div:not(.btn-remove) {
                     line-height: 15px;
                 }
                 .price {
@@ -127,6 +148,19 @@ export default {
                 .content {
                     font-size: 10px;
                     color: #999;
+                }
+                .btn-remove {
+                    position: absolute;
+                    right: 10px;
+                    bottom: 10px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    text-align: center;
+                    width: 63px;
+                    height: 26px;
+                    line-height: 26px;
+                    color: #8760BA;
+                    border: 1px solid #A878E5;
                 }
             }
         }
