@@ -312,8 +312,8 @@ export default {
     color: #FFFFFF;
 }
 .user-portrait {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     margin: 3px 0;
