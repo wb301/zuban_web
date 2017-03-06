@@ -177,6 +177,9 @@ export default {
                 AjaxHelper.PostRequest(p_obj);
             } else {
                 //弹出 关注公众号二维码 并提示
+                this.$router.push({
+                    path: '/QrCode'
+                });
             }
         },
         prePay() {
@@ -214,9 +217,6 @@ export default {
                     //请求异常
                     weui.alert("支付异常!")
                 })
-            }else{
-                //添加二维码
-
             }
         }
     },

@@ -70,6 +70,11 @@ const router = new Router({
             require(['./page/my-info/Index.vue'], resolve)
         }
     }, {
+        path: '/QrCode',
+        component: function(resolve) {
+            require(['./page/my-info/QrCode.vue'], resolve)
+        }
+    }, {
         path: '/vip',
         component: function(resolve) {
             require(['./page/vip/Index.vue'], resolve)
