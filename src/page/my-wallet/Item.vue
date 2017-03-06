@@ -3,7 +3,7 @@
         <div class="item-entry">
             <div class="wapper">
                 <div class="info-wapper">
-                    <div><span class="title">{{item.remark}}</sapn></div>
+                    <div><span class="title">{{item.remark}}</span></div>
                     <span class="time">{{item.create_time}}</span>
                 <span v-if="item.price_type == 1 || item.price_type == 3 || item.price_type == 4" class="price">{{item.price}}元</span>
                 <span v-if="item.price_type == 2 || item.price_type == 5 || item.price_type == 6" class="price2">{{item.price}}元</span>
