@@ -64,7 +64,7 @@ export default {
             }
         },
         type: {
-            type: String,
+            type: Number,
             default: function() {
                 return 0;
             }
@@ -107,7 +107,7 @@ export default {
                         openid: openid
                     }
                 };
-                                    console.log(JSON.stringify(p_obj.param));
+                console.log(JSON.stringify(p_obj.param));
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
@@ -134,51 +134,51 @@ export default {
                     //请求异常
                     weui.alert("支付异常!")
                 })
-            }else{
+            } else {
                 //添加二维码
 
             }
         },
         cancel() { //取消订单
-             var param = {
-                 c: 'Zb',
-                 m: 'Order',
-                 a: 'orderCancel',
-                 orderNo: this.item.order_no,
-             };
-             var p_obj = {
-                 action: '',
-                 param: param,
-                 success: (response) => {
-                     this.item.status = 9;
-                     this.item.status_name = '已取消';
-                 },
-                 fail: (response) => {
-                     weui.alert(response.msg)
-                 }
-             };
-             AjaxHelper.GetRequest(p_obj);
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderCancel',
+                orderNo: this.item.order_no,
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.item.status = 9;
+                    this.item.status_name = '已取消';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         shut() { //关闭订单
-             var param = {
-                 c: 'Zb',
-                 m: 'Order',
-                 a: 'orderShut',
-                 check:this.item.status,
-                 orderNo: this.item.order_no
-             };
-             var p_obj = {
-                 action: '',
-                 param: param,
-                 success: (response) => {
-                     this.item.status = 15;
-                     this.item.status_name = '交易关闭';
-                 },
-                 fail: (response) => {
-                     weui.alert(response.msg)
-                 }
-             };
-             AjaxHelper.GetRequest(p_obj);
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderShut',
+                check: this.item.status,
+                orderNo: this.item.order_no
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.item.status = 15;
+                    this.item.status_name = '交易关闭';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
             window.location.href = 'tel://13671954663';
@@ -214,9 +214,9 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                this.item.status = 11;
-                this.item.status_name = '退款中';
-                weui.alert("已提交申请等待后台审核");
+                    this.item.status = 11;
+                    this.item.status_name = '退款中';
+                    weui.alert("已提交申请等待后台审核");
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -235,8 +235,8 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                this.item.status = 6;
-                this.item.status_name = '已完成';
+                    this.item.status = 6;
+                    this.item.status_name = '已完成';
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -244,10 +244,10 @@ export default {
             };
             AjaxHelper.GetRequest(p_obj);
         },
-        toDetails(item){
-            if(item.order_type==1){
-                NormalHelper.Set("order_type",this.type);
-                NormalHelper.Set("order_no",item.order_no);
+        toDetails(item) {
+            if (item.order_type == 1) {
+                NormalHelper.Set("order_type", this.type);
+                NormalHelper.Set("order_no", item.order_no);
                 this.$router.push({
                     path: '/order-details'
                 });
