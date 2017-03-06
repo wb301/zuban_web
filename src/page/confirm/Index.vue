@@ -177,6 +177,9 @@ export default {
                 AjaxHelper.PostRequest(p_obj);
             } else {
                 //弹出 关注公众号二维码 并提示
+                this.$router.push({
+                    path: '/QrCode'
+                });
             }
         },
         prePay() {
@@ -204,8 +207,10 @@ export default {
                     };
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
-                            console.log(res);
                             //TODO:订单回调  自己跳去
+                            this.$router.push({
+                                path: '/buy_orderlist'
+                            });
                         }
                     );
                 }, (response) => {

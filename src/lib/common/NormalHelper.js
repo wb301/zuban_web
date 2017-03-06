@@ -186,7 +186,7 @@ function initBase64QiniuToken(upImage, func) {
  七牛base64图片上传
  */
 function putb64(p_qiniuToken, upImage, func) {
-    var url = "http://up.qiniu.com/putb64/" + "-1";
+    var url = "https://up.qiniu.com/putb64/" + "-1";
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = func;
     xhr.open("POST", url, true);

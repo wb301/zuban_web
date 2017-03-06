@@ -188,8 +188,10 @@ export default {
                     weui.alert("支付失败");
                 })
             }else{
-                // TODO:沈冬旭  加二维码
-
+                //弹出 关注公众号二维码 并提示
+                this.$router.push({
+                    path: '/QrCode'
+                });
             }
         }
     },
