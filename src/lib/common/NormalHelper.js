@@ -61,20 +61,20 @@ NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
 }
 
-NormalHelper.Set = function(key,value){
+NormalHelper.Set = function(key, value) {
     var userInfo = NormalHelper.userInfo();
-    if(!userInfo.common){
+    if (!userInfo.common) {
         userInfo.common = {};
     }
     userInfo.common[key] = value;
     NormalHelper.setUserInfo(userInfo);
 }
 
-NormalHelper.Get = function(key){
+NormalHelper.Get = function(key) {
     var userInfo = NormalHelper.userInfo();
-    if(userInfo && userInfo.common && userInfo.common[key]){
+    if (userInfo && userInfo.common && userInfo.common[key]) {
         return userInfo.common[key]
-    }else{
+    } else {
         return '';
     }
 }
@@ -155,7 +155,7 @@ NormalHelper.uploadBase64 = function(p_sel, callback) {
                     if (this.readyState == 4) {
                         var picName = JSON.parse(this.response)["hash"];
                         var wh = ary.wh;
-                        var url = GlobalModel.CDN_BASE_URL + picName+"?imageView2/1/w/"+wh+"/h/"+wh;
+                        var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh;
                         if (typeof callback == 'function') {
                             callback(url);
                         }
@@ -166,26 +166,29 @@ NormalHelper.uploadBase64 = function(p_sel, callback) {
     })
 }
 
-function quality(src){
-    var img = new Image,canvas = document.createElement("canvas"),drawer = canvas.getContext("2d");img.src = src;
+function quality(src) {
+    var img = new Image,
+        canvas = document.createElement("canvas"),
+        drawer = canvas.getContext("2d");
+    img.src = src;
     var width = img.width;
     var height = img.height;
     // 按比例压缩4倍
-    var rate = (width<height ? width/height : height/width)/4;
-    canvas.width = width*rate;
-    canvas.height = height*rate;
-    drawer.drawImage(img,0,0,width,height,0,0,canvas.width,canvas.height);
+    var rate = (width < height ? width / height : height / width) / 4;
+    canvas.width = width * rate;
+    canvas.height = height * rate;
+    drawer.drawImage(img, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
     var format = "image/png";
     img.src = canvas.toDataURL(format);
-    var base64 = img.src.replace("data:image/png;base64,","");
+    var base64 = img.src.replace("data:image/png;base64,", "");
 
     var wh = canvas.width;
-    if(canvas.width > canvas.height){
+    if (canvas.width > canvas.height) {
         wh = canvas.height;
     }
     return {
-        base64:base64,
-        wh:wh
+        base64: base64,
+        wh: wh
     };
 }
 
