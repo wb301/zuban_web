@@ -214,7 +214,9 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                    weui.alert("已提交申请等待后台审核");
+                this.item.status = 11;
+                this.item.status_name = '退款中';
+                weui.alert("已提交申请等待后台审核");
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
