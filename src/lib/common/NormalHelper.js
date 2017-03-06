@@ -142,20 +142,20 @@ NormalHelper.isWeixin = function() {
     return ua.match(/MicroMessenger/i) == "micromessenger";
 };
 
-NormalHelper.uploadBase64 = function(p_sel, callback,wh) {
+NormalHelper.uploadBase64 = function(p_sel, callback) {
     p_sel.on('change', function() {
         var file = this.files[0];
         if (window.FileReader && file) {
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function() {
-                var image = quality(this.result);
+                var ary = quality(this.result);
+                var image = ary.base64;
                 initBase64QiniuToken(image, function() {
                     if (this.readyState == 4) {
                         var picName = JSON.parse(this.response)["hash"];
-                        var w = wh.width;
-                        var h = wh.height;
-                        var url = GlobalModel.CDN_BASE_URL + picName+"?imageView2/1/w/"+w+"/h/"+h;
+                        var wh = ary.wh;
+                        var url = GlobalModel.CDN_BASE_URL + picName+"?imageView2/1/w/"+wh+"/h/"+wh;
                         if (typeof callback == 'function') {
                             callback(url);
                         }
@@ -166,20 +166,27 @@ NormalHelper.uploadBase64 = function(p_sel, callback,wh) {
     })
 }
 
-
 function quality(src){
     var img = new Image,canvas = document.createElement("canvas"),drawer = canvas.getContext("2d");img.src = src;
     var width = img.width;
     var height = img.height;
     // 按比例压缩4倍
-    var rate = (width<height ? width/height : height/width)/5;
-    canvas.width = width*rate; 
-    canvas.height = height*rate; 
-    drawer.drawImage(img,0,0,width,height,0,0,width*rate,height*rate);
+    var rate = (width<height ? width/height : height/width)/4;
+    canvas.width = width*rate;
+    canvas.height = height*rate;
+    drawer.drawImage(img,0,0,width,height,0,0,canvas.width,canvas.height);
     var format = "image/png";
     img.src = canvas.toDataURL(format);
     var base64 = img.src.replace("data:image/png;base64,","");
-    return base64;
+
+    var wh = canvas.width;
+    if(canvas.width > canvas.height){
+        wh = canvas.height;
+    }
+    return {
+        base64:base64,
+        wh:wh
+    };
 }
 
 function initBase64QiniuToken(upImage, func) {

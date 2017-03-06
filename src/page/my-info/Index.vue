@@ -185,9 +185,6 @@ export default {
             NormalHelper.uploadBase64($(".imgupload "), function(img) {
                 _self.img_list = [img]
                 $(".imgupload ").val('');
-            },{
-                width:150,
-                height:150
             });
         },
         getUserInfo() {
