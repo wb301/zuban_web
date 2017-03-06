@@ -183,6 +183,7 @@ export default {
             }
         },
         prePay() {
+            var that = this;
             if (NormalHelper.isWeixin()) {
                 var p_obj = {
                     action: 'c=Zb&m=Order&a=prePay',
@@ -208,7 +209,7 @@ export default {
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             //TODO:订单回调  自己跳去
-                            this.$router.push({
+                            that.$router.push({
                                 path: '/buy_orderlist'
                             });
                         }

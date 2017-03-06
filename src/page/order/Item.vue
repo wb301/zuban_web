@@ -97,6 +97,7 @@ export default {
         },
         payment() { //付款
             // console.log(NormalHelper.isWeixin());
+            var that = this;
             var openid = NormalHelper.userInfo().wx_openid;
             if (NormalHelper.isWeixin() && openid) {
                 var p_obj = {
@@ -107,7 +108,6 @@ export default {
                         openid: openid
                     }
                 };
-                console.log(JSON.stringify(p_obj.param));
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
@@ -121,12 +121,11 @@ export default {
                         signType: "MD5",
                         paySign: response.body.sign
                     };
-                    weui.alert(JSON.stringify(payJson));
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
-                            this.item.status = 1;
+                            that.item.status = 1;
                             weui.alert("付款成功!");
                         }
                     );
