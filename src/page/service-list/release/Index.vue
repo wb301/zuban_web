@@ -246,6 +246,9 @@ export default {
                     _self.img_list.splice(_self.img_list.length - 1, 1);
                 }
                 $(".imgupload").val('');
+            },{
+                width:750,
+                height:750
             });
         },
         createProductInfo() {

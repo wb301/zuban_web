@@ -142,17 +142,20 @@ NormalHelper.isWeixin = function() {
     return ua.match(/MicroMessenger/i) == "micromessenger";
 };
 
-NormalHelper.uploadBase64 = function(p_sel, callback) {
+NormalHelper.uploadBase64 = function(p_sel, callback,wh) {
     p_sel.on('change', function() {
-        if (window.FileReader && this.files[0]) {
+        var file = this.files[0];
+        if (window.FileReader && file) {
             var reader = new FileReader();
-            reader.readAsDataURL(this.files[0]);
+            reader.readAsDataURL(file);
             reader.onload = function() {
-                var image = this.result.split("base64,")[1];
+                var image = quality(this.result);
                 initBase64QiniuToken(image, function() {
                     if (this.readyState == 4) {
                         var picName = JSON.parse(this.response)["hash"];
-                        var url = GlobalModel.CDN_BASE_URL + picName;
+                        var w = wh.width;
+                        var h = wh.height;
+                        var url = GlobalModel.CDN_BASE_URL + picName+"?imageView2/1/w/"+w+"/h/"+h;
                         if (typeof callback == 'function') {
                             callback(url);
                         }
@@ -161,6 +164,22 @@ NormalHelper.uploadBase64 = function(p_sel, callback) {
             }
         }
     })
+}
+
+
+function quality(src){
+    var img = new Image,canvas = document.createElement("canvas"),drawer = canvas.getContext("2d");img.src = src;
+    var width = img.width;
+    var height = img.height;
+    // 按比例压缩4倍
+    var rate = (width<height ? width/height : height/width)/5;
+    canvas.width = width*rate; 
+    canvas.height = height*rate; 
+    drawer.drawImage(img,0,0,width,height,0,0,width*rate,height*rate);
+    var format = "image/png";
+    img.src = canvas.toDataURL(format);
+    var base64 = img.src.replace("data:image/png;base64,","");
+    return base64;
 }
 
 function initBase64QiniuToken(upImage, func) {
@@ -186,7 +205,7 @@ function initBase64QiniuToken(upImage, func) {
  七牛base64图片上传
  */
 function putb64(p_qiniuToken, upImage, func) {
-    var url = "https://up.qiniu.com/putb64/" + "-1";
+    var url = "http://up.qiniu.com/putb64/" + "-1";
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = func;
     xhr.open("POST", url, true);
