@@ -129,7 +129,7 @@ export default {
             if(userInfo.is_complete <= 0){
                 weui.alert("完善信息后可发布",function(){
                     that.$router.push({
-                        path: '/my'
+                        path: '/my-info'
                     });
                 });
             }else{
