@@ -135,8 +135,10 @@ export default {
                     weui.alert("支付异常!")
                 })
             } else {
-                //添加二维码
-
+                //弹出 关注公众号二维码 并提示
+                this.$router.push({
+                    path: '/QrCode'
+                });
             }
         },
         cancel() { //取消订单
