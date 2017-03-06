@@ -253,7 +253,7 @@ export default {
                 action: 'c=Zb&m=User&a=updUserInfo',
                 param: param,
                 success: (response) => {
-                    weui.alert("修改成功")；
+                    weui.alert("修改成功");
                     response["token"] = this.userInfo.token;
                     JSON.stringify(response);
                     NormalHelper.setUserInfo(response);
