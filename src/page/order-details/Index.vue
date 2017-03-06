@@ -269,6 +269,8 @@ export default {
                         action: '',
                         param: param,
                         success: (response) => {
+                        this.orderDetails.status = 11;
+                        this.orderDetails.status_name='退款中';
                         weui.alert("已提交申请等待后台审核");
         },
             fail: (response) => {

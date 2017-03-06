@@ -45,6 +45,11 @@ const router = new Router({
             require(['./page/my-service-list/list/Index.vue'], resolve)
         }
     }, {
+        path: '/service-edit/:productCode',
+        component: function(resolve) {
+            require(['./page/my-service-list/edit/Index.vue'], resolve)
+        }
+    }, {
         path: '/product/:productCode',
         component: function(resolve) {
             require(['./page/product/Index.vue'], resolve)
@@ -68,6 +73,11 @@ const router = new Router({
         path: '/my-info',
         component: function(resolve) {
             require(['./page/my-info/Index.vue'], resolve)
+        }
+    }, {
+        path: '/QrCode',
+        component: function(resolve) {
+            require(['./page/my-info/QrCode.vue'], resolve)
         }
     }, {
         path: '/vip',

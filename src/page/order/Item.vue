@@ -8,7 +8,7 @@
                         <span>{{item.seller.nick_name}}</span>
                     </div>
                     <div class="status" style="color:#E35257" v-if="item.status==0">{{item.status_name}}</div>
-                    <div class="status" style="color:#4990E2" v-if="item.status==1||item.status==5||item.status==6||item.status==10">{{item.status_name}}</div>
+                    <div class="status" style="color:#4990E2" v-else>{{item.status_name}}</div>
                 </div>
                 <div class="info-wapper" v-if="item.order_type==1" @click="toDetails(item)">
                     <span class="img-info">
@@ -35,7 +35,7 @@
                         <span>{{item.total_price}}元</span>
                     </div>
                 </div>
-                <div class="btn-wapper" v-if="item.order_type==1">
+                <div class="btn-wapper" v-if="item.order_type==1||(item.order_type==0&&item.status==0)">
                     <div v-show="type==1" @click="phone">
                         <img :src="contactBuyer" />
                     </div>
@@ -46,7 +46,7 @@
                         <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
                         <div class="button-refund" v-if="(type==0&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
                         <div class="button-complete" v-if="(type==0&&(item.status==5))" @click="complete">服务完成</div>
-                        <div class="button-payment" v-if="item.status==0" @click="payment">付款</div>
+                        <div class="button-payment" v-if="type==0&&item.status==0" @click="payment">付款</div>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@ export default {
             }
         },
         type: {
-            type: String,
+            type: Number,
             default: function() {
                 return 0;
             }
@@ -107,7 +107,7 @@ export default {
                         openid: openid
                     }
                 };
-                                    // console.log(JSON.stringify(p_obj.param));
+                console.log(JSON.stringify(p_obj.param));
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
@@ -121,59 +121,66 @@ export default {
                         signType: "MD5",
                         paySign: response.body.sign
                     };
-                    // alert(JSON.stringify(payJson));
+                    weui.alert(JSON.stringify(payJson));
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
+                            this.item.status = 1;
+                            weui.alert("付款成功!");
                         }
                     );
                 }, (response) => {
                     //请求异常
                     weui.alert("支付异常!")
                 })
+            } else {
+                //弹出 关注公众号二维码 并提示
+                this.$router.push({
+                    path: '/QrCode'
+                });
             }
         },
         cancel() { //取消订单
-             var param = {
-                 c: 'Zb',
-                 m: 'Order',
-                 a: 'orderCancel',
-                 orderNo: this.item.order_no,
-             };
-             var p_obj = {
-                 action: '',
-                 param: param,
-                 success: (response) => {
-                     this.item.status = 9;
-                     this.item.status_name = '已取消';
-                 },
-                 fail: (response) => {
-                     weui.alert(response.msg)
-                 }
-             };
-             AjaxHelper.GetRequest(p_obj);
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderCancel',
+                orderNo: this.item.order_no,
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.item.status = 9;
+                    this.item.status_name = '已取消';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         shut() { //关闭订单
-             var param = {
-                 c: 'Zb',
-                 m: 'Order',
-                 a: 'orderShut',
-                 check:this.item.status,
-                 orderNo: this.item.order_no
-             };
-             var p_obj = {
-                 action: '',
-                 param: param,
-                 success: (response) => {
-                     this.item.status = 15;
-                     this.item.status_name = '交易关闭';
-                 },
-                 fail: (response) => {
-                     weui.alert(response.msg)
-                 }
-             };
-             AjaxHelper.GetRequest(p_obj);
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'orderShut',
+                check: this.item.status,
+                orderNo: this.item.order_no
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.item.status = 15;
+                    this.item.status_name = '交易关闭';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
             window.location.href = 'tel://13671954663';
@@ -209,6 +216,8 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
+                    this.item.status = 11;
+                    this.item.status_name = '退款中';
                     weui.alert("已提交申请等待后台审核");
                 },
                 fail: (response) => {
@@ -228,8 +237,8 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                this.item.status = 6;
-                this.item.status_name = '已完成';
+                    this.item.status = 6;
+                    this.item.status_name = '已完成';
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -237,10 +246,10 @@ export default {
             };
             AjaxHelper.GetRequest(p_obj);
         },
-        toDetails(item){
-            if(item.order_type==1){
-                NormalHelper.Set("order_type",this.type);
-                NormalHelper.Set("order_no",item.order_no);
+        toDetails(item) {
+            if (item.order_type == 1) {
+                NormalHelper.Set("order_type", this.type);
+                NormalHelper.Set("order_no", item.order_no);
                 this.$router.push({
                     path: '/order-details'
                 });

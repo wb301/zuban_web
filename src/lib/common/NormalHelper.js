@@ -61,20 +61,20 @@ NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
 }
 
-NormalHelper.Set = function(key,value){
+NormalHelper.Set = function(key, value) {
     var userInfo = NormalHelper.userInfo();
-    if(!userInfo.common){
+    if (!userInfo.common) {
         userInfo.common = {};
     }
     userInfo.common[key] = value;
     NormalHelper.setUserInfo(userInfo);
 }
 
-NormalHelper.Get = function(key){
+NormalHelper.Get = function(key) {
     var userInfo = NormalHelper.userInfo();
-    if(userInfo && userInfo.common && userInfo.common[key]){
+    if (userInfo && userInfo.common && userInfo.common[key]) {
         return userInfo.common[key]
-    }else{
+    } else {
         return '';
     }
 }
@@ -144,23 +144,51 @@ NormalHelper.isWeixin = function() {
 
 NormalHelper.uploadBase64 = function(p_sel, callback) {
     p_sel.on('change', function() {
-        if (window.FileReader && this.files[0]) {
+        var file = this.files[0];
+        if (window.FileReader && file) {
             var reader = new FileReader();
-            reader.readAsDataURL(this.files[0]);
+            reader.readAsDataURL(file);
             reader.onload = function() {
-                var image = this.result.split("base64,")[1];
-                initBase64QiniuToken(image, function() {
-                    if (this.readyState == 4) {
-                        var picName = JSON.parse(this.response)["hash"];
-                        var url = GlobalModel.CDN_BASE_URL + picName;
-                        if (typeof callback == 'function') {
-                            callback(url);
-                        }
-                    }
-                });
+                var ary = quality(this.result, callback);
             }
         }
     })
+}
+
+function quality(src, callback) {
+    var img = new Image,
+        canvas = document.createElement("canvas"),
+        drawer = canvas.getContext("2d");
+    img.src = src;
+
+    img.onload = function(){
+        img.onload = null;
+        var width = this.width;
+        var height = this.height;
+        // 按比例压缩4倍
+        var rate = (width < height ? width / height : height / width) / 4;
+        canvas.width = width * rate;
+        canvas.height = height * rate;
+        drawer.drawImage(this, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
+        var format = "image/png";
+        this.src = canvas.toDataURL(format);
+        var base64 = this.src.replace("data:image/png;base64,", "");
+
+        var wh = canvas.width;
+        if (canvas.width > canvas.height) {
+            wh = canvas.height;
+        }
+
+        initBase64QiniuToken(base64, function() {
+            if (this.readyState == 4) {
+                var picName = JSON.parse(this.response)["hash"];
+                var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh;
+                if (typeof callback == 'function') {
+                    callback(url);
+                }
+            }
+        });
+    }
 }
 
 function initBase64QiniuToken(upImage, func) {

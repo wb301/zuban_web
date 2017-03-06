@@ -3,7 +3,7 @@
         <div class="container-body">
             <div class="user-information">
                 <div class="user-portrait">
-                    <img :src="img_meinv">
+                    <img :src="userInfo.head_img">
                 </div>
                 <div class="user-info">
                     <div>Kyumi琪</div>
@@ -53,7 +53,6 @@
 <script>
 import nan from '../product/image/nan.png'
 import nv from '../product/image/nv.png'
-import meinv from '../service-list/release/image/Artboard6.jpg'
 
 import less_1 from './image/less_1.png'
 import less_2 from './image/less_2.png'
@@ -68,7 +67,6 @@ export default {
                 1: nan,
                 2: nv
             },
-            img_meinv: meinv,
             btn_less: {
                 1: less_1,
                 2: less_2
@@ -84,6 +82,7 @@ export default {
             type: NormalHelper.Get("confirm_type"),
             productCode: NormalHelper.Get("confirm_code"),
             productInfo: {},
+            userInfo: {},
             allPrice: 0,
             order_no: '',
             order_price: ''
@@ -111,6 +110,7 @@ export default {
                 param: param,
                 success: (response) => {
                     this.productInfo = response;
+                    this.userInfo = response.user_info;
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -177,6 +177,9 @@ export default {
                 AjaxHelper.PostRequest(p_obj);
             } else {
                 //弹出 关注公众号二维码 并提示
+                this.$router.push({
+                    path: '/QrCode'
+                });
             }
         },
         prePay() {
@@ -204,8 +207,10 @@ export default {
                     };
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
-                            console.log(res);
                             //TODO:订单回调  自己跳去
+                            this.$router.push({
+                                path: '/buy_orderlist'
+                            });
                         }
                     );
                 }, (response) => {

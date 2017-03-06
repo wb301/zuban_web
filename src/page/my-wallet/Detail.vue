@@ -37,9 +37,6 @@ export default {
             },
             page: 0,
             status: '1',
-            // name: {
-            //     status: "全部"
-            // }
         }
     },
     mounted() {
@@ -75,7 +72,6 @@ export default {
                 c: 'Zb',
                 m: 'User',
                 a: 'getUserMoneyHistoryList',
-                token: '4a03812ccc71e558ec4344be6484fa64',
                 page: this.page,
                 row: 5
             };
