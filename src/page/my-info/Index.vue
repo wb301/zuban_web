@@ -208,8 +208,7 @@ export default {
         updUserInfo() {
 
             var param = {
-                "token ": this.userInfo.token,
-                "sex ": this.sex
+                "sex": this.sex
             };
             if (this.img_list) {
                 param["head_img"] = this.img_list[0];
