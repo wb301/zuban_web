@@ -107,7 +107,7 @@ export default {
                         openid: openid
                     }
                 };
-                                    // console.log(JSON.stringify(p_obj.param));
+                                    console.log(JSON.stringify(p_obj.param));
                 var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
@@ -121,17 +121,22 @@ export default {
                         signType: "MD5",
                         paySign: response.body.sign
                     };
-                    // alert(JSON.stringify(payJson));
+                    weui.alert(JSON.stringify(payJson));
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
+                            this.item.status = 1;
+                            weui.alert("付款成功!");
                         }
                     );
                 }, (response) => {
                     //请求异常
                     weui.alert("支付异常!")
                 })
+            }else{
+                //添加二维码
+
             }
         },
         cancel() { //取消订单

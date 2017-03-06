@@ -204,14 +204,19 @@ export default {
                     };
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
-                            console.log(res);
                             //TODO:订单回调  自己跳去
+                            this.$router.push({
+                                path: '/buy_orderlist'
+                            });
                         }
                     );
                 }, (response) => {
                     //请求异常
                     weui.alert("支付异常!")
                 })
+            }else{
+                //添加二维码
+
             }
         }
     },
