@@ -181,8 +181,10 @@ function quality(src, callback) {
 
         initBase64QiniuToken(base64, function() {
             if (this.readyState == 4) {
+                console.log(this.response);
                 var picName = JSON.parse(this.response)["hash"];
                 var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh;
+                console.log(url);
                 if (typeof callback == 'function') {
                     callback(url);
                 }
@@ -201,6 +203,8 @@ function initBase64QiniuToken(upImage, func) {
         action: '',
         param: param,
         success: (response) => {
+            console.log("response"+response);
+            console.log("upImage"+upImage);
             putb64(response, upImage, func);
         },
         fail: (response) => {
