@@ -8,7 +8,7 @@
                         <span>{{item.seller.nick_name}}</span>
                     </div>
                     <div class="status" style="color:#E35257" v-if="item.status==0">{{item.status_name}}</div>
-                    <div class="status" style="color:#4990E2" v-if="item.status==1||item.status==5||item.status==6||item.status==10">{{item.status_name}}</div>
+                    <div class="status" style="color:#4990E2" v-else>{{item.status_name}}</div>
                 </div>
                 <div class="info-wapper" v-if="item.order_type==1" @click="toDetails(item)">
                     <span class="img-info">
