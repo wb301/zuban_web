@@ -2,18 +2,20 @@
     <div>
         <div class="container-body">
             <div><span>扫描下方二维码，关注租伴网公众号</span></div>
-            <img :src="xiala" />
+            <img :src="qrcode" />
         </div>
     </div>
 </template>
 <script>
-import xiala from '../service-list/list/image/xiala.png'
+import qrcode from './image/qrcode.jpg'
 export default {
     components: {
 
     },
     data() {
-        return {}
+        return {
+            qrcode: qrcode
+        }
     },
     mounted() {
 
