@@ -66,13 +66,13 @@
                     </div>
                 </div>
             </div>
-            <div class="button-release" @click="createProductInfo">发布</div>
+            <div class="button-release" @click="createProductInfo">修改</div>
         </div>
         <div id="toast" style="display: none;">
             <div class="weui-mask_transparent"></div>
             <div class="weui-toast">
                 <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-                <p class="weui-toast__content">已发布</p>
+                <p class="weui-toast__content">已修改</p>
             </div>
         </div>
     </div>
@@ -107,38 +107,62 @@ export default {
             categor: '',
             categoryList: [],
             categor_id: 0,
-            img_list: [{
-                img_url: addImg,
-                type: 'add'
-            }],
+            img_list: [],
             product_info: '',
-            price: ''
+            price: '',
+            productCode: this.$route.params.productCode
         }
     },
     mounted() {
         $(".disabled-input").focus(function() {
             document.activeElement.blur();
         });
-        this.checkIsComplete();
+        this.getCategoryList();
+        this.getRegionList();
+        this.getProductInfo();
     },
     watch: {},
     methods: {
-        checkIsComplete() {
-            var userInfo = NormalHelper.userInfo();
-            var that = this;
-            if(userInfo.is_complete <= 0){
-                weui.alert("完善信息后可发布",function(){
-                    that.$router.push({
-                        path: '/my'
-                    });
-                });
-            }else{
-                this.getCategoryList();
-                this.getRegionList();
-                this.$nextTick(function() {
-
-                });
-            }
+        getProductInfo() {
+            var param = {
+                c: 'Zb',
+                m: 'Product',
+                a: 'getProductInfo',
+                productCode: this.productCode
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    console.log(response);
+                    for (var i = 0; i < response.image_list.length; i++) {
+                        this.img_list.push({
+                            img_url: response.image_list[i],
+                            type: 'edit'
+                        });
+                    }
+                    this.img_list.push({
+                        img_url: addImg,
+                        type: 'add'
+                    })
+                    this.product_info = response.product_info;
+                    this.price = response.price;
+                    this.danweiValue = response.price_type;
+                    for (var i = 0; i < unitPriceArr.length; i++) {
+                        if (unitPriceArr[i].value == response.price_type) {
+                            this.danweiName = unitPriceArr[i].label;
+                        }
+                    }
+                    this.categor = response.category.category_name;
+                    this.categor_id = response.category.category_id;
+                    this.region = response.region_name;
+                    this.region_code = response.region_code;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
         },
         selectUnitPrice() {
             var _self = this;
@@ -245,9 +269,6 @@ export default {
                     _self.img_list.splice(_self.img_list.length - 1, 1);
                 }
                 $(".imgupload").val('');
-            },{
-                width:750,
-                height:750
             });
         },
         createProductInfo() {
@@ -261,7 +282,8 @@ export default {
                     region_code: this.region_code,
                     region_name: this.region.split(" ").join("-"),
                     category_id: this.categor_id,
-                    image_list: []
+                    image_list: [],
+                    product_sys_code: this.productCode
                 }
             };
             for (var i = 0; i < this.img_list.length; i++) {
@@ -295,7 +317,7 @@ export default {
             }
             var _self = this;
             var p_obj = {
-                action: 'c=Zb&m=Product&a=createProductInfo',
+                action: 'c=Zb&m=Product&a=updateProductInfo',
                 param: param,
                 success: (response) => {
                     var $toast = $('#toast');
@@ -304,7 +326,7 @@ export default {
                     setTimeout(function() {
                         $toast.fadeOut(100);
                         _self.$router.push({
-                            path: '/list'
+                            path: '/my-service-list'
                         });
                     }, 2000);
                 },

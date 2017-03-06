@@ -51,10 +51,9 @@ export default {
         this.item.statusName = map[this.item.status];
     },
     methods: {
-        toProductInfo(item){
-
+        toProductInfo(item) {
             this.$router.push({
-                path: '/product/'+item.product_sys_code
+                path: '/service-edit/' + item.product_sys_code
             });
         }
     },
