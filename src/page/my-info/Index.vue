@@ -228,24 +228,27 @@ export default {
                 param["professional"] = this.professional_model;
             }
             if (this.age_model) {
-                if (!(/^[1-9]\d$/.test(this.age_model)) || this.age_model > 100) {
+                this.age_model = parseInt(this.age_model);
+                if(this.age_model < 18 || this.age_model > 100){
                     weui.alert("年龄在1~100之间 ");
                     return false;
-                };
+                }
                 param["age"] = this.age_model;
             }
             if (this.height_model) {
-                if (!(/^[1-9]\d{2}$/.test(this.height_model)) || this.height_model > 500) {
-                    weui.alert("身高在0~260之间 ");
+                this.height_model = parseInt(this.height_model);
+                if(this.height_model <= 0 || this.height_model > 260){
+                    weui.alert("身高在1cm~260cm之间 ");
                     return false;
-                };
+                }
                 param["height"] = this.height_model;
             }
             if (this.weight_model) {
-                if (!(/^[1-9]\d{2}$/.test(this.weight_model)) || this.weight_model > 500) {
-                    weui.alert("体重在50~500之间 ");
+                this.weight_model = parseInt(this.weight_model);
+                if(this.weight_model < 50 || this.weight_model > 500){
+                    weui.alert("身高在0~260之间 ");
                     return false;
-                };
+                }
                 param["weight"] = this.weight_model;
             }
 
