@@ -35,7 +35,7 @@
                         <span>{{item.total_price}}元</span>
                     </div>
                 </div>
-                <div class="btn-wapper">
+                <div class="btn-wapper" v-if="item.order_type==1||(item.order_type==0&&item.status==0)">
                     <div v-show="type==1" @click="phone">
                         <img :src="contactBuyer" />
                     </div>
@@ -44,9 +44,9 @@
                         <div class="button-shut" v-if="(type==1&&(item.status==0||item.status==1||item.status==5))" @click="shut">关闭订单</div>
                         <div class="button-confirm" v-if="(type==1&&(item.status==1))" @click="confirm">确认订单</div>
                         <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
-                        <div class="button-refund" v-if="(type==0&&item.order_type==1&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
+                        <div class="button-refund" v-if="(type==0&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
                         <div class="button-complete" v-if="(type==0&&(item.status==5))" @click="complete">服务完成</div>
-                        <div class="button-payment" v-if="item.status==0" @click="payment">付款</div>
+                        <div class="button-payment" v-if="type==0&&item.status==0" @click="payment">付款</div>
                     </div>
                 </div>
             </div>
