@@ -6,13 +6,13 @@
                     <img :src="userInfo.head_img">
                 </div>
                 <div class="user-info">
-                    <div>Kyumi琪</div>
-                    <div><img :src="gender_icon[1]"></div>
+                    <div>{{userInfo.nick_name}}</div>
+                    <div><img :src="gender_icon_select"></div>
                 </div>
             </div>
             <div class="service-information">
                 <div>
-                    <div v-if="type==2">陪逛街</div>
+                    <div v-if="type==2">{{productInfo.category.category_name}}</div>
                     <div v-else>购买联系方式</div>
                     <div>
                         <span>￥</span>
@@ -64,8 +64,8 @@ export default {
     data() {
         return {
             gender_icon: {
-                1: nan,
-                2: nv
+                W: nan,
+                M: nv
             },
             btn_less: {
                 1: less_1,
@@ -75,6 +75,7 @@ export default {
                 1: plus_1,
                 2: plus_2
             },
+            gender_icon_select: nan,
             quantity: 1,
             contact_information: NormalHelper.userInfo().account,
             openid: NormalHelper.userInfo().wx_openid,
@@ -111,6 +112,7 @@ export default {
                 success: (response) => {
                     this.productInfo = response;
                     this.userInfo = response.user_info;
+                    this.gender_icon_select = this.gender_icon[this.userInfo.sex];
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
