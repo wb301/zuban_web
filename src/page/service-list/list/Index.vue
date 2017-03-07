@@ -58,7 +58,7 @@ export default {
     mounted() {
         this.orderBy = 'jl_0';
         this.name.order = '距离从近到远';
-        if (SaveDataHelper.getLocalStorage('RegionInfo')) {
+        if (SaveDataHelper.getLocalStorage('RegionInfo') != null) {
             this.regionCode = SaveDataHelper.getLocalStorage('RegionInfo').regionCode;
             this.name.region = SaveDataHelper.getLocalStorage('RegionInfo').region;
         } else {

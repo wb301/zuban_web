@@ -12,7 +12,7 @@
             </div>
             <div class="service-information">
                 <div>
-                    <div v-if="type==2">{{productInfo.category.category_name}}</div>
+                    <div v-if="type==2">{{category.category_name}}</div>
                     <div v-else>购买联系方式</div>
                     <div>
                         <span>￥</span>
@@ -83,6 +83,7 @@ export default {
             type: NormalHelper.Get("confirm_type"),
             productCode: NormalHelper.Get("confirm_code"),
             productInfo: {},
+            category:{},
             userInfo: {},
             allPrice: 0,
             order_no: '',
@@ -112,6 +113,7 @@ export default {
                 success: (response) => {
                     this.productInfo = response;
                     this.userInfo = response.user_info;
+                    this.category = response.category;
                     this.gender_icon_select = this.gender_icon[this.userInfo.sex];
                 },
                 fail: (response) => {
