@@ -1,26 +1,58 @@
 <template>
     <div>
         <div class="container-body">
-            <div>
-                <span>暂不支持浏览器付款</span><br>
+            <div class="pay-wapper">
+                <div class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <img :src="wx">
+                        <p class="font_size">微信支付</p>
+                        <p class="font_size">微信安全支付</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <img :src="zfb">
+                        <p class="font_size">支付宝支付</p>
+                        <p class="font_size">支付宝安全支付</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </div>
+            </div>
+            <div class="qrcode-wapper">
+                <p class="title">公众号二维码</p>
+                <div>
+                    <img :src="qrcode">
+                </div>
+                <p class="content">说明：暂不支持浏览器付款 扫描下方二维码，关注租伴网公众号</p>
+            </div>
+            <!--  <div>
+                <span>暂不支持浏览器付款</span>
+                <br>
                 <span>扫描下方二维码，关注租伴网公众号</span>
             </div>
-            <img :src="qrcode" />
+            <img :src="qrcode" /> -->
         </div>
     </div>
 </template>
 <script>
 import qrcode from '../my-info/image/qrcode.jpg'
+import wx from './image/wx.png'
+import zfb from './image/zfb.png'
 export default {
     components: {
 
     },
     data() {
         return {
+            zfb: zfb,
+            wx: wx,
             qrcode: qrcode,
-            order_no:'',
-            order_price:0,
-            orderType:1,
+            order_no: '',
+            order_price: 0,
+            orderType: 1,
             openid: NormalHelper.userInfo().wx_openid,
         }
     },
@@ -49,33 +81,33 @@ export default {
                     emulateJSON: true
                 }).then((response) => {
                     console.log(response);
-                var payJson = {
-                    appId: response.body.appid,
-                    timeStamp: response.body.timeStamp + "",
-                    nonceStr: response.body.nonceStr,
-                    package: response.body.package,
-                    signType: "MD5",
-                    paySign: response.body.sign
-                };
-                WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
+                    var payJson = {
+                        appId: response.body.appid,
+                        timeStamp: response.body.timeStamp + "",
+                        nonceStr: response.body.nonceStr,
+                        package: response.body.package,
+                        signType: "MD5",
+                        paySign: response.body.sign
+                    };
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
-                            if(res == "get_brand_wcpay_request:ok"){
+                            if (res == "get_brand_wcpay_request:ok") {
                                 weui.alert("支付成功");
-                            }else{
+                            } else {
                                 weui.alert("支付失败");
                             }
-                            if(this.pay_type==1){
+                            if (this.pay_type == 1) {
                                 that.$router.push({
                                     path: '/buy_orderlist'
                                 });
-                            }else {
+                            } else {
                                 this.$router.push({
                                     path: '/vip'
                                 });
                             }
                         }
-                );
-            }, (response) => {
+                    );
+                }, (response) => {
                     //请求异常
                     weui.alert("支付异常!")
                 })
@@ -87,19 +119,71 @@ export default {
 </script>
 <style lang="less" scoped>
 .container-body {
-    width: 100%;
-    text-align: center;
-    position: fixed;
-    top: 200px;
-    bottom: 300px;
-    span {
-        font-size: 14px;
-        color: #333;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .weui-cell:before {
+        border: 0;
     }
-    img {
-        margin-top: 20px;
-        width: 150px;
-        height: 150px;
+    .weui-cell {
+        border-bottom: 1px solid #d9d9d9;
     }
+    .weui-cell__bd {
+        >img {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 15px;
+        }
+        >p {
+            margin-left: 50px;
+        }
+        >p:nth-child(2) {
+            font-size: 14px;
+            color: #333333;
+        }
+        >p:nth-child(3) {
+            font-size: 12px;
+            color: #999999;
+        }
+    }
+    .qrcode-wapper {
+        padding-bottom: 5px;
+        border-bottom: 1px solid #d9d9d9;
+        >.title {
+            margin-left: 15px;
+            padding: 10px 0px;
+            font-size: 14px;
+            color: #666666;
+        }
+        >div:nth-child(2) {
+            text-align: center;
+            margin-top: 25px;
+            img {
+                height: 205px;
+                width: 205px;
+                background: #FFFFFF;
+                border: 1px solid #E2E2E2;
+            }
+        }
+        >.content {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #E35257;
+            line-height: 30px;
+        }
+    }
+    // span {
+    //     font-size: 14px;
+    //     color: #333;
+    // }
+    // img {
+    //     margin-top: 20px;
+    //     width: 150px;
+    //     height: 150px;
+    // }
 }
 </style>
