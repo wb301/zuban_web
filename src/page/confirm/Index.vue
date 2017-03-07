@@ -172,9 +172,12 @@ export default {
                     success: (response) => {
                         this.order_no = response.order_no;
                         this.order_price = response.price;
-                NormalHelper.Set("order_no", response.order_no);
-                NormalHelper.Set("all_price", response.price);
-                NormalHelper.Set("pay_type", 1);//1.购买下单 2.会员充值
+                var pay={
+                    order_no:response.order_no,
+                    all_price:response.price,
+                    pay_type:1
+                }
+                NormalHelper.Set("pay", pay);
                 this.$router.push({
                     path: '/payment'
                 });
