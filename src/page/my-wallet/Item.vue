@@ -5,11 +5,11 @@
                 <div class="info-wapper">
                     <div><span class="title">{{item.remark}}</span></div>
                     <span class="time">{{item.create_time}}</span>
-                <span v-if="item.price_type == 1 || item.price_type == 3 || item.price_type == 4" class="price">{{item.price}}元</span>
-                <span v-if="item.price_type == 2 || item.price_type == 5 || item.price_type == 6" class="price2">{{item.price}}元</span>
+                    <span v-if="item.price_type == 1 || item.price_type == 3 || item.price_type == 4" class="price">{{item.price}}元</span>
+                    <span v-if="item.price_type == 2 || item.price_type == 5 || item.price_type == 6" class="price2">{{item.price}}元</span>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 <script>
@@ -64,7 +64,7 @@ export default {
                 position: absolute;
                 right: 10px;
             }
-            .price2{
+            .price2 {
                 font-size: 14px;
                 color: #1CAC1B;
                 position: absolute;

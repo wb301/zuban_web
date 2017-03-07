@@ -33,24 +33,34 @@
 <script>
 export default {
     props: {
-        item: {}
+        item: {
+            type: Object,
+            default: function() {
+                return {};
+            }
+        }
     },
     data() {
         return {}
     },
-    created: function() {
-        this.item.danwei = "小时";
-        if (this.item.price_type == 2) {
-            this.item.danwei = "天";
-        } else if (this.item.price_type == 3) {
-            this.item.danwei = "次";
+    watch: {
+        item: {
+            handler: function() {
+                this.item.danwei = "小时";
+                if (this.item.price_type == 2) {
+                    this.item.danwei = "天";
+                } else if (this.item.price_type == 3) {
+                    this.item.danwei = "次";
+                }
+                var map = {
+                    "0": "已下架",
+                    "1": "已上架",
+                    "2": "出售中"
+                };
+                this.item.statusName = map[this.item.status];
+            },
+            immediate: true
         }
-        var map = {
-            "0": "已下架",
-            "1": "已上架",
-            "2": "出售中"
-        };
-        this.item.statusName = map[this.item.status];
     },
     methods: {
         toProductInfo() {

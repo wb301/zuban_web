@@ -147,7 +147,16 @@ export default {
                 action: 'c=Zb&m=Order&a=createMembersOrder',
                 param: param,
                 success: (response) => {
-                    this.prePay(response.order_no, response.price);
+                        var pay = {
+                            order_no: response.order_no,
+                            all_price: response.price,
+                            pay_type: 2
+                        }
+                        NormalHelper.Set("pay", pay);
+            this.$router.push({
+                path: '/payment'
+            });
+
                 },
                 fail: (response) => {
                     weui.alert(response.msg)

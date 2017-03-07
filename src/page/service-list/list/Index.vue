@@ -56,6 +56,20 @@ export default {
         }
     },
     mounted() {
+        this.orderBy = 'jl_0';
+        this.name.order = '距离从近到远';
+        if (SaveDataHelper.getLocalStorage('RegionInfo') != null) {
+            this.regionCode = SaveDataHelper.getLocalStorage('RegionInfo').regionCode;
+            this.name.region = SaveDataHelper.getLocalStorage('RegionInfo').region;
+        } else {
+            this.regionCode = NormalHelper.userInfo().region_code;
+            var region_name = NormalHelper.userInfo().region_name.split(" ");
+            var showName = region_name[0];
+            if(region_name.length>2){
+                showName = region_name[2];
+            }
+            this.name.region = showName;
+        }
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();
@@ -83,7 +97,7 @@ export default {
             }];
             var _self = this;
             weui.picker(arr, {
-                defaultValue: ['mr'],
+                defaultValue: ['jl_0'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.orderBy = result[0].value;
@@ -123,6 +137,10 @@ export default {
                 defaultValue: [1],
                 className: 'custom-classname',
                 onConfirm: function(result) {
+                    SaveDataHelper.setLocalStorage('RegionInfo', {
+                        regionCode: result[2].value,
+                        region: result[2].label
+                    });
                     _self.regionCode = result[2].value;
                     _self.name.region = result[2].label;
                     _self.page = 1;

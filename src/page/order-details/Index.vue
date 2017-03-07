@@ -163,39 +163,15 @@ export default {
         },
 
         payment() { //付款
-            console.log(NormalHelper.isWeixin());
-            if (NormalHelper.isWeixin()) {
-                var p_obj = {
-                    action: 'c=Zb&m=Order&a=prePay',
-                    param: {
-                        out_trade_no: this.orderNo,
-                        total_fee: parseFloat(this.orderDetails.price) * 100,
-                        openid: this.openid
-                    }
-                };
-                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
-                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
-                    emulateJSON: true
-                }).then((response) => {
-                    console.log(response);
-                var payJson = {
-                    appId: response.body.appid,
-                    timeStamp: response.body.timeStamp + "",
-                    nonceStr: response.body.nonceStr,
-                    package: response.body.package,
-                    signType: "MD5",
-                    paySign: response.body.sign
-                };
-                WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
-                        function(res) {
-                            console.log(res);
-                            //TODO:订单回调  自己跳去
-                        }
-                );
-            }, (response) => {
-                    //请求异常
-                })
+            var pay={
+                order_no:this.orderNo,
+                all_price:this.orderDetails.price,
+                pay_type:1
             }
+            NormalHelper.Set("pay", pay);
+            this.$router.push({
+                path: '/payment'
+            });
         },
         cancel() { //取消订单
              var param = {

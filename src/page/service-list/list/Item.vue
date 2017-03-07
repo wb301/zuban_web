@@ -31,31 +31,38 @@
 <script>
 export default {
     props: {
-        item: {}
+        item: {
+            type: Object,
+            default: function() {
+                return {};
+            }
+        }
     },
     data() {
         return {}
     },
-    created: function() {
-        this.getItemInfo();
+    watch: {
+        item: {
+            handler: function() {
+                this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
+                this.item.danwei = "小时";
+                if (this.item.price_type == 2) {
+                    this.item.danwei = "天";
+                } else if (this.item.price_type == 3) {
+                    this.item.danwei = "次";
+                }
+            },
+            immediate: true
+        }
     },
-    updated: function() {
-        this.getItemInfo();
+    mounted() {
+
     },
     methods: {
         toProductInfo() {
             this.$router.push({
                 path: '/product/' + this.item.product_sys_code
             });
-        },
-        getItemInfo() {
-            this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
-            this.item.danwei = "小时";
-            if (this.item.price_type == 2) {
-                this.item.danwei = "天";
-            } else if (this.item.price_type == 3) {
-                this.item.danwei = "次";
-            }
         }
     },
     destroyed() {}

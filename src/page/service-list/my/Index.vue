@@ -65,7 +65,14 @@
                     </div>
                 </div>
             </div>
-            <div class="weui-cells" style="margin-top:8px;" v-if="is_weixin === false">
+            <div class="weui-cells" style="margin-top:8px;">
+                <div class="weui-cell weui-cell_access" @click='toQrcode'>
+                    <div class="weui-cell__bd">
+                        <p class="font_size">关于我们</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </div>
                 <div class="weui-cell weui-cell_access" @click='toLogin'>
                     <div class="weui-cell__bd">
                         <p class="font_size">注销登录</p>
@@ -135,6 +142,11 @@ export default {
             NormalHelper.setUserInfo({});
             this.$router.push({
                 path: '/login'
+            });
+        },
+        toQrcode() {
+            this.$router.push({
+                path: '/QrCode'
             });
         }
     },

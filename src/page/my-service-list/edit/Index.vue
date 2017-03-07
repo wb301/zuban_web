@@ -110,6 +110,7 @@ export default {
             img_list: [],
             product_info: '',
             price: '',
+            pos: NormalHelper.getPostion(),
             productCode: this.$route.params.productCode
         }
     },
@@ -286,6 +287,10 @@ export default {
                     product_sys_code: this.productCode
                 }
             };
+            if(this.pos){
+                param.productInfo.latitude = this.pos.latitude;
+                param.productInfo.logitude = this.pos.logitude;
+            }
             for (var i = 0; i < this.img_list.length; i++) {
                 if (this.img_list[i].type != "add") {
                     param.productInfo.image_list.push(this.img_list[i].img_url);

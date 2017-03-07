@@ -6,13 +6,13 @@
                     <img :src="userInfo.head_img">
                 </div>
                 <div class="user-info">
-                    <div>Kyumi琪</div>
-                    <div><img :src="gender_icon[1]"></div>
+                    <div>{{userInfo.nick_name}}</div>
+                    <div><img :src="gender_icon_select"></div>
                 </div>
             </div>
             <div class="service-information">
                 <div>
-                    <div v-if="type==2">陪逛街</div>
+                    <div v-if="type==2">{{category.category_name}}</div>
                     <div v-else>购买联系方式</div>
                     <div>
                         <span>￥</span>
@@ -46,7 +46,7 @@
         <div class="button-wapper">
             <div class="button-buy">
                 <label>ca</label>合计：<span>{{allPrice}}元</span></div>
-            <div class="button-confirm" @click="createOrder">确认支付</div>
+            <div class="button-confirm" @click="createOrder">提交订单</div>
         </div>
     </div>
 </template>
@@ -64,8 +64,8 @@ export default {
     data() {
         return {
             gender_icon: {
-                1: nan,
-                2: nv
+                W: nan,
+                M: nv
             },
             btn_less: {
                 1: less_1,
@@ -75,6 +75,7 @@ export default {
                 1: plus_1,
                 2: plus_2
             },
+            gender_icon_select: nan,
             quantity: 1,
             contact_information: NormalHelper.userInfo().account,
             openid: NormalHelper.userInfo().wx_openid,
@@ -82,6 +83,7 @@ export default {
             type: NormalHelper.Get("confirm_type"),
             productCode: NormalHelper.Get("confirm_code"),
             productInfo: {},
+            category:{},
             userInfo: {},
             allPrice: 0,
             order_no: '',
@@ -111,6 +113,8 @@ export default {
                 success: (response) => {
                     this.productInfo = response;
                     this.userInfo = response.user_info;
+                    this.category = response.category;
+                    this.gender_icon_select = this.gender_icon[this.userInfo.sex];
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -168,7 +172,15 @@ export default {
                     success: (response) => {
                         this.order_no = response.order_no;
                         this.order_price = response.price;
-                        this.prePay();
+                        var pay={
+                            order_no:response.order_no,
+                            all_price:response.price,
+                            pay_type:1
+                        }
+                        NormalHelper.Set("pay", pay);
+                        this.$router.push({
+                            path: '/payment'
+                        });
                     },
                     fail: (response) => {
                         weui.alert(response.msg)
@@ -180,44 +192,6 @@ export default {
                 this.$router.push({
                     path: '/QrCode'
                 });
-            }
-        },
-        prePay() {
-            var that = this;
-            if (NormalHelper.isWeixin()) {
-                var p_obj = {
-                    action: 'c=Zb&m=Order&a=prePay',
-                    param: {
-                        out_trade_no: this.order_no,
-                        total_fee: parseFloat(this.order_price) * 100,
-                        openid: this.openid
-                    }
-                };
-                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
-                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
-                    emulateJSON: true
-                }).then((response) => {
-                    console.log(response);
-                    var payJson = {
-                        appId: response.body.appid,
-                        timeStamp: response.body.timeStamp + "",
-                        nonceStr: response.body.nonceStr,
-                        package: response.body.package,
-                        signType: "MD5",
-                        paySign: response.body.sign
-                    };
-                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
-                        function(res) {
-                            //TODO:订单回调  自己跳去
-                            that.$router.push({
-                                path: '/buy_orderlist'
-                            });
-                        }
-                    );
-                }, (response) => {
-                    //请求异常
-                    weui.alert("支付异常!")
-                })
             }
         }
     },
