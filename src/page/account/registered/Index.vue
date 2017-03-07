@@ -30,7 +30,7 @@
                 <div for="weuiAgree" class="weui-agree">
                     <div class="weui-agree__item">
                         <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"  v-model="is_agree" >同意
-                        <router-link :to="{path: '/agree/registered'}">《相关条款》</router-link>
+                        <router-link :to="{path: '/agree/registered'}">《租伴网入驻协议》</router-link>
                     </div>
                     <div class="weui-agree__item">
                         <router-link :to="{path: '/login'}">手机号已注册?</router-link>
