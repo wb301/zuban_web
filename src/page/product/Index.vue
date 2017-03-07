@@ -34,7 +34,7 @@
                 <div>
                     <div>
                         <div>联系方式</div>
-                        <div v-if="members!=1||type<1">{{productInfo.look_price}}元购买联系方式后可查看</div>
+                        <div v-if="members!=1&&type<1">{{productInfo.look_price}}元购买联系方式后可查看</div>
                     </div>
                     <div class="specific">
                         <div>手机号：
