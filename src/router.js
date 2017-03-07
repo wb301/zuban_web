@@ -89,7 +89,14 @@ const router = new Router({
         component: function(resolve) {
             require(['./page/confirm/Index.vue'], resolve)
         }
-    }, {
+    },
+        {
+            path: '/payment',
+            component: function(resolve) {
+                require(['./page/payment/Index.vue'], resolve)
+            }
+        },
+        {
         path: '/service-list/',
         component: function(resolve) {
             require(['./page/service-list/Index.vue'], resolve)
