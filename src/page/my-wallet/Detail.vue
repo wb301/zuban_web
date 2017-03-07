@@ -73,7 +73,7 @@ export default {
                 m: 'User',
                 a: 'getUserMoneyHistoryList',
                 page: this.page,
-                row: 5
+                row: 10
             };
             if (this.status != "") {
                 param.status = this.status;
