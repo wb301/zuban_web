@@ -75,20 +75,18 @@ export default {
             contactBuyer: contactBuyer
         }
     },
-    created: function() {
-        this.item.danwei = "小时";
-        if (this.item.price_type == 2) {
-            this.item.danwei = "天";
-        } else if (this.item.price_type == 3) {
-            this.item.danwei = "次";
+    watch: {
+        item: {
+            handler: function() {
+                this.item.danwei = "小时";
+                if (this.item.price_type == 2) {
+                    this.item.danwei = "天";
+                } else if (this.item.price_type == 3) {
+                    this.item.danwei = "次";
+                }
+            },
+            immediate: true
         }
-
-        // '0'=>'待付款',
-        //     '1'=>'待发货',
-        //     '5'=>'已发货',
-        //     '6'=>'交易完成',
-        //     '15'=>'交易关闭',
-        // status
     },
     methods: {
         //联系买家
@@ -125,10 +123,10 @@ export default {
                         function(res) {
                             console.log(res);
                             //TODO:订单回调  自己跳去
-                            if(res == "get_brand_wcpay_request:ok"){
+                            if (res == "get_brand_wcpay_request:ok") {
                                 that.item.status = 1;
                                 weui.alert("支付成功");
-                            }else{
+                            } else {
                                 weui.alert("支付失败");
                             }
                         }
