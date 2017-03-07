@@ -78,7 +78,7 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd ">
-                            <label class="weui-label class_font_size_hd">身高</label>
+                            <label class="weui-label class_font_size_hd">身高/cm</label>
                         </div>
                         <div class="weui-cell__bd ">
                             <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="height_model " />
@@ -86,7 +86,7 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd ">
-                            <label class="weui-label class_font_size_hd">体重</label>
+                            <label class="weui-label class_font_size_hd">体重/k</label>
                         </div>
                         <div class="weui-cell__bd ">
                             <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="weight_model " />
@@ -97,7 +97,7 @@
                             <label class="weui-label class_font_size_hd">学历</label>
                         </div>
                         <div class="weui-cell__bd ">
-                            <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="qualifications_model " />
+                            <input class="weui-input class_font_size_bd" type="test " placeholder="保密" v-model="qualifications_model " />
                         </div>
                     </div>
                     <div class="weui-cell">
@@ -105,7 +105,7 @@
                             <label class="weui-label class_font_size_hd">职业</label>
                         </div>
                         <div class="weui-cell__bd ">
-                            <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="professional_model " />
+                            <input class="weui-input class_font_size_bd" type="test " placeholder="保密" v-model="professional_model " />
                         </div>
                     </div>
                 </div>
