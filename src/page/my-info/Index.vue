@@ -228,7 +228,7 @@ export default {
             if (this.age_model) {
                 this.age_model = parseInt(this.age_model);
                 if (this.age_model < 18 || this.age_model > 100) {
-                    weui.alert("年龄在1~100之间 ");
+                    weui.alert("年龄在18~100之间 ");
                     return false;
                 }
                 param["age"] = this.age_model;
