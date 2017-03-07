@@ -67,12 +67,15 @@
             </div>
         </div>
         <div class="button-wapper">
-            <div v-if="members!=1 && type==0">
-                <div class="button-buy" @click="buyContact">购买联系方式</div>
+            <div v-if="type==0">
+                <div class="button-buy" @click="buyContact" v-if="members!=1">购买联系方式</div>
+                <div class="button-phone" @click="phone" v-else>
+                    <div>拨打电话</div>
+                    <div>此分类暂时免费</div>
+                </div>
                 <div class="button-immediately" @click="rentImmediately">立即租</div>
             </div>
-            <div class="button-immediately" v-if="members==1 && type<1" @click="rentImmediately">立即租</div>
-            <div class="button-buy" v-if="type>0">我的发布</div>
+            <div class="button-buy" v-else>我的发布</div>
         </div>
     </div>
 </template>
@@ -323,6 +326,22 @@ export default {
         line-height: 50px;
         text-align: center;
         color: #FFFFFF;
+    }
+    .button-phone {
+        background-color: #FFFFFF;
+        text-align: center;
+        color: #8760BA;
+        border-top: 0.5px solid #A878E5;
+        >div {
+            width: 100%;
+            clear: both;
+            height: 24.75px;
+            line-height: 24.75px;
+        }
+        >div:nth-child(2) {
+            font-size: 10px;
+
+        }
     }
 }
 </style>
