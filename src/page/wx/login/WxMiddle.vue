@@ -10,6 +10,7 @@ export default {
     data() {
         return {
             next: 'list',
+            pos: NormalHelper.getPostion(), //todo:加载有问题
             userInfo: JSON.parse(this.$route.params.user)
         }
     },
@@ -24,11 +25,10 @@ export default {
     },
     methods: {
         getUserInfo() {
-            var pos =  NormalHelper.getPostion();
             var param = {
                 token: this.userInfo.token,
-                logitude: pos.logitude,
-                latitude: pos.latitude
+                logitude: this.pos.logitude,
+                latitude: this.pos.latitude
             };
             var p_obj = {
                 action: 'c=Zb&m=User&a=getUserInfo',
