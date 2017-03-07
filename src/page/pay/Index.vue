@@ -2,7 +2,7 @@
     <div>
         <div class="container-body">
             <div>
-                <span>暂不支持浏览器付款</span>
+                <span>暂不支持浏览器付款</span><br>
                 <span>扫描下方二维码，关注租伴网公众号</span>
             </div>
             <img :src="qrcode" />
