@@ -34,15 +34,15 @@
                 <div>
                     <div>
                         <div>联系方式</div>
-                        <div v-if="members!=1">{{productInfo.look_price}}元购买联系方式后可查看</div>
+                        <div v-if="members!=1||type<1">{{productInfo.look_price}}元购买联系方式后可查看</div>
                     </div>
                     <div class="specific">
                         <div>手机号：
-                            <span v-if="members==1">{{userInfo.account}}</span>
+                            <span v-if="members==1||type>0">{{userInfo.account}}</span>
                             <span v-else>***********</span>
                         </div>
                         <div>微信号：
-                            <span v-if="members==1">{{userInfo.wx_account}}</span>
+                            <span v-if="members==1||type>0">{{userInfo.wx_account}}</span>
                             <span v-else>***********</span>
                         </div>
                     </div>
@@ -145,15 +145,15 @@ export default {
             window.location.href = 'tel://' + this.userInfo.account;
         },
         buyContact() {
-            NormalHelper.Set("confirm_type",1);
-            NormalHelper.Set("confirm_code",this.productInfo.product_sys_code);
+            NormalHelper.Set("confirm_type", 1);
+            NormalHelper.Set("confirm_code", this.productInfo.product_sys_code);
             this.$router.push({
                 path: '/confirm'
             });
         },
         rentImmediately() {
-            NormalHelper.Set("confirm_type",2);
-            NormalHelper.Set("confirm_code",this.productInfo.product_sys_code);
+            NormalHelper.Set("confirm_type", 2);
+            NormalHelper.Set("confirm_code", this.productInfo.product_sys_code);
             this.$router.push({
                 path: '/confirm'
             });
