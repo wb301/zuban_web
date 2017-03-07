@@ -60,7 +60,7 @@ const router = new Router({
             require(['./page/order/BuyIndex.vue'], resolve)
         }
     }, {
-        path: '/pay',
+        path: '/payment',
         component: function(resolve) {
             require(['./page/pay/Index.vue'], resolve)
         }
@@ -95,12 +95,6 @@ const router = new Router({
             require(['./page/confirm/Index.vue'], resolve)
         }
     },
-        {
-            path: '/payment',
-            component: function(resolve) {
-                require(['./page/payment/Index.vue'], resolve)
-            }
-        },
         {
         path: '/service-list/',
         component: function(resolve) {
