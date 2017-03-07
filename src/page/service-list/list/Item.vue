@@ -31,16 +31,26 @@
 <script>
 export default {
     props: {
-        item: {}
+        item: {
+            type: Object,
+            default: function() {
+                return {};
+            }
+        }
     },
     data() {
         return {}
     },
-    created: function() {
-        this.getItemInfo();
+    watch: {
+        item: {
+            handler: function() {
+                this.getItemInfo();
+            },
+            immediate: true
+        }
     },
-    updated: function() {
-        this.getItemInfo();
+    mounted() {
+
     },
     methods: {
         toProductInfo() {
