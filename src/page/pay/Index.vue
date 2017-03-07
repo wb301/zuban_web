@@ -2,7 +2,7 @@
     <div>
         <div class="container-body">
             <div class="pay-wapper">
-                <div class="weui-cell weui-cell_access" @click="pay('wx')">
+                <div class="weui-cell weui-cell_access" @click="pay('wx')" v-if="isWeixin">
                     <div class="weui-cell__bd">
                         <img :src="wx">
                         <p class="font_size">微信支付</p>
