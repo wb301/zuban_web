@@ -46,7 +46,7 @@
         <div class="button-wapper">
             <div class="button-buy">
                 <label>ca</label>合计：<span>{{allPrice}}元</span></div>
-            <div class="button-confirm" @click="createOrder">确认支付</div>
+            <div class="button-confirm" @click="createOrder">提交订单</div>
         </div>
     </div>
 </template>
