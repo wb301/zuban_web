@@ -2,7 +2,7 @@
     <div>
         <div class="container-body">
             <div class="pay-wapper">
-                <div class="weui-cell weui-cell_access">
+                <div class="weui-cell weui-cell_access" @click="pay('wx')">
                     <div class="weui-cell__bd">
                         <img :src="wx">
                         <p class="font_size">微信支付</p>
@@ -11,7 +11,7 @@
                     <div class="weui-cell__ft">
                     </div>
                 </div>
-                <div class="weui-cell weui-cell_access">
+                <div class="weui-cell weui-cell_access" @click="pay('zfb')" v-if="!isWeixin">
                     <div class="weui-cell__bd">
                         <img :src="zfb">
                         <p class="font_size">支付宝支付</p>
@@ -28,12 +28,6 @@
                 </div>
                 <p class="content">说明：暂不支持浏览器付款 扫描下方二维码，关注租伴网公众号</p>
             </div>
-            <!--  <div>
-                <span>暂不支持浏览器付款</span>
-                <br>
-                <span>扫描下方二维码，关注租伴网公众号</span>
-            </div>
-            <img :src="qrcode" /> -->
         </div>
     </div>
 </template>
@@ -54,6 +48,7 @@ export default {
             order_price: 0,
             orderType: 1,
             openid: NormalHelper.userInfo().wx_openid,
+            isWeixin: NormalHelper.isWeixin()
         }
     },
     mounted() {
@@ -61,10 +56,15 @@ export default {
         this.orderType = payInfo.pay_type;
         this.order_no = payInfo.order_no;
         this.order_price = payInfo.all_price;
-
-        this.prePay();
     },
     methods: {
+        pay(type) {
+            if (type == "zfb") {
+                weui.alert('支付宝暂不支持');
+                return;
+            }
+            this.prePay();
+        },
         prePay() {
             var that = this;
             if (NormalHelper.isWeixin()) {
@@ -176,14 +176,5 @@ export default {
             line-height: 30px;
         }
     }
-    // span {
-    //     font-size: 14px;
-    //     color: #333;
-    // }
-    // img {
-    //     margin-top: 20px;
-    //     width: 150px;
-    //     height: 150px;
-    // }
 }
 </style>
