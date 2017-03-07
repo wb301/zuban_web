@@ -60,6 +60,11 @@ const router = new Router({
             require(['./page/order/BuyIndex.vue'], resolve)
         }
     }, {
+        path: '/pay',
+        component: function(resolve) {
+            require(['./page/pay/Index.vue'], resolve)
+        }
+    }, {
         path: '/my_orderlist',
         component: function(resolve) {
             require(['./page/order/MyIndex.vue'], resolve)
