@@ -181,8 +181,10 @@ function quality(src, callback) {
 
         initBase64QiniuToken(base64, function() {
             if (this.readyState == 4) {
+                console.log(this.response);
                 var picName = JSON.parse(this.response)["hash"];
                 var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh;
+                console.log(url);
                 if (typeof callback == 'function') {
                     callback(url);
                 }
@@ -201,6 +203,8 @@ function initBase64QiniuToken(upImage, func) {
         action: '',
         param: param,
         success: (response) => {
+            console.log("response"+response);
+            console.log("upImage"+upImage);
             putb64(response, upImage, func);
         },
         fail: (response) => {
@@ -215,9 +219,13 @@ function initBase64QiniuToken(upImage, func) {
  */
 function putb64(p_qiniuToken, upImage, func) {
     var url = "http://up.qiniu.com/putb64/" + "-1";
+    if (window.location.protocol === 'https:') {
+        url = "https://up.qbox.me/putb64/" + "-1";
+    }
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = func;
     xhr.open("POST", url, true);
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhr.setRequestHeader("Content-Type", "application/octet-stream");
     xhr.setRequestHeader("Authorization", "UpToken " + p_qiniuToken);
     xhr.send(upImage);
