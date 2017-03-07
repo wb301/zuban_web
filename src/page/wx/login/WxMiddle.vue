@@ -10,11 +10,10 @@ export default {
     data() {
         return {
             next: 'list',
-            pos: NormalHelper.getPostion(),
             userInfo: JSON.parse(this.$route.params.user)
         }
     },
-    mounted() {
+    created() {
         this.next = this.$route.params.next
         //如果account存在 则 获取用户信息并提供经纬度  跳转 找服务列表
         if(this.userInfo.account && this.userInfo.account.length > 0 && this.userInfo.token){
@@ -25,10 +24,11 @@ export default {
     },
     methods: {
         getUserInfo() {
+            var pos =  NormalHelper.getPostion();
             var param = {
                 token: this.userInfo.token,
-                logitude: this.pos.logitude,
-                latitude: this.pos.latitude
+                logitude: pos.logitude,
+                latitude: pos.latitude
             };
             var p_obj = {
                 action: 'c=Zb&m=User&a=getUserInfo',

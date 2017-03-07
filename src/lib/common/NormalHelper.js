@@ -96,8 +96,9 @@ NormalHelper.wxLogin = function(redirect_url) {
 };
 
 //获取经纬度  默认 上海周边经纬度
-NormalHelper.cur_postion = { latitude: 121, logitude: 31 };
+NormalHelper.cur_postion = {};
 NormalHelper.getPostion = function() {
+    NormalHelper.cur_postion = { latitude: 31, logitude: 121 };
     var geol;
     try {
         if (typeof(navigator.geolocation) == 'undefined') {
