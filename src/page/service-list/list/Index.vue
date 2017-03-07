@@ -47,7 +47,7 @@ export default {
             orderBy: '',
             categoryId: '',
             regionCode: '',
-            pos: NormalHelper.getPostion(),
+            pos: NormalHelper.getPostion(), //todo:加载有问题
             name: {
                 region: '地区',
                 category: '分类',

@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             next: 'list',
-            pos: NormalHelper.getPostion(),
+            pos: NormalHelper.getPostion(), //todo:加载有问题
             userInfo: JSON.parse(this.$route.params.user)
         }
     },
