@@ -107,6 +107,7 @@ export default {
             categor: '',
             categoryList: [],
             categor_id: 0,
+            pos: NormalHelper.getPostion(),
             img_list: [{
                 img_url: addImg,
                 type: 'add'
@@ -261,6 +262,10 @@ export default {
                     image_list: []
                 }
             };
+            if(this.pos){
+                param.productInfo.latitude = this.pos.latitude;
+                param.productInfo.logitude = this.pos.logitude;
+            }
             for (var i = 0; i < this.img_list.length; i++) {
                 if (this.img_list[i].type != "add") {
                     param.productInfo.image_list.push(this.img_list[i].img_url);

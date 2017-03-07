@@ -219,9 +219,13 @@ function initBase64QiniuToken(upImage, func) {
  */
 function putb64(p_qiniuToken, upImage, func) {
     var url = "http://up.qiniu.com/putb64/" + "-1";
+    if (window.location.protocol === 'https:') {
+        url = "https://up.qbox.me/putb64/" + "-1";
+    }
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = func;
     xhr.open("POST", url, true);
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhr.setRequestHeader("Content-Type", "application/octet-stream");
     xhr.setRequestHeader("Authorization", "UpToken " + p_qiniuToken);
     xhr.send(upImage);
