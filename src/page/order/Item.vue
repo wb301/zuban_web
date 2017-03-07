@@ -44,7 +44,7 @@
                         <div class="button-shut" v-if="(type==1&&(item.status==0||item.status==1||item.status==5))" @click="shut">关闭订单</div>
                         <div class="button-confirm" v-if="(type==1&&(item.status==1))" @click="confirm">确认订单</div>
                         <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
-                        <div class="button-refund" v-if="(type==0&&(item.status==6||item.status==10||item.status==1||item.status==5))" @click="refund">申请退款</div>
+                        <div class="button-refund" v-if="(type==0&&(item.status==1||item.status==5))" @click="refund">申请退款</div>
                         <div class="button-complete" v-if="(type==0&&(item.status==5))" @click="complete">服务完成</div>
                         <div class="button-payment" v-if="type==0&&item.status==0" @click="payment">付款</div>
                     </div>
@@ -94,53 +94,15 @@ export default {
             window.location.href = 'tel://'+this.item.phone;
         },
         payment() { //付款
-            // console.log(NormalHelper.isWeixin());
-            var that = this;
-            var openid = NormalHelper.userInfo().wx_openid;
-            if (NormalHelper.isWeixin() && openid) {
-                var p_obj = {
-                    action: 'c=Zb&m=Order&a=prePay',
-                    param: {
-                        out_trade_no: this.item.order_no,
-                        total_fee: parseFloat(this.item.price) * 100,
-                        openid: openid
-                    }
-                };
-                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
-                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
-                    emulateJSON: true
-                }).then((response) => {
-                    // console.log(response);
-                    var payJson = {
-                        appId: response.body.appid,
-                        timeStamp: response.body.timeStamp + "",
-                        nonceStr: response.body.nonceStr,
-                        package: response.body.package,
-                        signType: "MD5",
-                        paySign: response.body.sign
-                    };
-                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
-                        function(res) {
-                            console.log(res);
-                            //TODO:订单回调  自己跳去
-                            if (res == "get_brand_wcpay_request:ok") {
-                                that.item.status = 1;
-                                weui.alert("支付成功");
-                            } else {
-                                weui.alert("支付失败");
-                            }
-                        }
-                    );
-                }, (response) => {
-                    //请求异常
-                    weui.alert("支付异常!")
-                })
-            } else {
-                //弹出 关注公众号二维码 并提示
-                this.$router.push({
-                    path: '/QrCode'
-                });
+            var pay={
+                order_no:this.item.order_no,
+                all_price:this.item.price,
+                pay_type:1
             }
+            NormalHelper.Set("pay", pay);
+            this.$router.push({
+                path: '/payment'
+            });
         },
         cancel() { //取消订单
             var param = {
