@@ -128,7 +128,7 @@ export default {
         border: 0;
     }
     .weui-cell {
-        border-bottom: 1px solid #d9d9d9;
+        border-bottom: 1px solid #E2E2E2;
     }
     .weui-cell__bd {
         >img {
@@ -151,7 +151,7 @@ export default {
     }
     .qrcode-wapper {
         padding-bottom: 5px;
-        border-bottom: 1px solid #d9d9d9;
+        border-bottom: 1px solid #E2E2E2;
         >.title {
             margin-left: 15px;
             padding: 10px 0px;
