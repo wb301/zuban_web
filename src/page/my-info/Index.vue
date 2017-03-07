@@ -47,7 +47,7 @@
                             <label class="weui-label class_font_size_hd">所在地</label>
                         </div>
                         <div class="weui-cell__bd ">
-                            <label class="weui-label class_font_size_bd">{{userInfo.region_name}}</label>
+                            <label class="weui-label class_font_size_bd" style="width: 200px">{{userInfo.region_name}}</label>
                         </div>
                     </div>
                     <a class="weui-cell weui-cell_access" href="javascript:; ">
@@ -78,7 +78,7 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd ">
-                            <label class="weui-label class_font_size_hd">身高/cm</label>
+                            <label class="weui-label class_font_size_hd">身高/厘米</label>
                         </div>
                         <div class="weui-cell__bd ">
                             <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="height_model " />
@@ -86,7 +86,7 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd ">
-                            <label class="weui-label class_font_size_hd">体重/k</label>
+                            <label class="weui-label class_font_size_hd">体重/斤</label>
                         </div>
                         <div class="weui-cell__bd ">
                             <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="weight_model " />
@@ -228,7 +228,7 @@ export default {
             if (this.age_model) {
                 this.age_model = parseInt(this.age_model);
                 if (this.age_model < 18 || this.age_model > 100) {
-                    weui.alert("年龄在1~100之间 ");
+                    weui.alert("年龄在18~100之间 ");
                     return false;
                 }
                 param["age"] = this.age_model;

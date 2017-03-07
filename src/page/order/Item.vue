@@ -91,7 +91,7 @@ export default {
     methods: {
         //联系买家
         phone() {
-            window.location.href = 'tel://13671954663';
+            window.location.href = 'tel://'+this.item.phone;
         },
         payment() { //付款
             // console.log(NormalHelper.isWeixin());
@@ -184,7 +184,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
-            window.location.href = 'tel://13671954663';
+            window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
         },
         confirm() { //确认订单
             var param = {
