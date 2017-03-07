@@ -172,16 +172,15 @@ export default {
                     success: (response) => {
                         this.order_no = response.order_no;
                         this.order_price = response.price;
-                var pay={
-                    order_no:response.order_no,
-                    all_price:response.price,
-                    pay_type:1
-                }
-                NormalHelper.Set("pay", pay);
-                this.$router.push({
-                    path: '/payment'
-                });
-                //this.prePay();
+                        var pay={
+                            order_no:response.order_no,
+                            all_price:response.price,
+                            pay_type:1
+                        }
+                        NormalHelper.Set("pay", pay);
+                        this.$router.push({
+                            path: '/payment'
+                        });
                     },
                     fail: (response) => {
                         weui.alert(response.msg)
@@ -193,48 +192,6 @@ export default {
                 this.$router.push({
                     path: '/QrCode'
                 });
-            }
-        },
-        prePay() {
-            var that = this;
-            if (NormalHelper.isWeixin()) {
-                var p_obj = {
-                    action: 'c=Zb&m=Order&a=prePay',
-                    param: {
-                        out_trade_no: this.order_no,
-                        total_fee: parseFloat(this.order_price) * 100,
-                        openid: this.openid
-                    }
-                };
-                var serverUrl = p_obj.serverUrl || GlobalModel.SERVER_URL;
-                Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
-                    emulateJSON: true
-                }).then((response) => {
-                    console.log(response);
-                    var payJson = {
-                        appId: response.body.appid,
-                        timeStamp: response.body.timeStamp + "",
-                        nonceStr: response.body.nonceStr,
-                        package: response.body.package,
-                        signType: "MD5",
-                        paySign: response.body.sign
-                    };
-                    WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
-                        function(res) {
-                            if(res == "get_brand_wcpay_request:ok"){
-                                weui.alert("支付成功");
-                            }else{
-                                weui.alert("支付失败");
-                            }
-                            that.$router.push({
-                                path: '/buy_orderlist'
-                            });
-                        }
-                    );
-                }, (response) => {
-                    //请求异常
-                    weui.alert("支付异常!")
-                })
             }
         }
     },

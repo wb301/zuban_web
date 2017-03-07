@@ -46,14 +46,12 @@ export default {
             qrcode: qrcode,
             order_no: '',
             order_price: 0,
-            orderType: 1,
             openid: NormalHelper.userInfo().wx_openid,
             isWeixin: NormalHelper.isWeixin()
         }
     },
     mounted() {
         var payInfo = NormalHelper.Get("pay");
-        this.orderType = payInfo.pay_type;
         this.order_no = payInfo.order_no;
         this.order_price = payInfo.all_price;
     },
@@ -80,7 +78,6 @@ export default {
                 Vue.http.post(serverUrl + p_obj.action, p_obj.param, {
                     emulateJSON: true
                 }).then((response) => {
-                    console.log(response);
                     var payJson = {
                         appId: response.body.appid,
                         timeStamp: response.body.timeStamp + "",
@@ -91,17 +88,18 @@ export default {
                     };
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
-                            if (res == "get_brand_wcpay_request:ok") {
+                            if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 weui.alert("支付成功");
                             } else {
                                 weui.alert("支付失败");
                             }
-                            if (this.pay_type == 1) {
+                            var payInfo = NormalHelper.Get("pay");
+                            if (payInfo.pay_type == 1) {
                                 that.$router.push({
                                     path: '/buy_orderlist'
                                 });
                             } else {
-                                this.$router.push({
+                                that.$router.push({
                                     path: '/vip'
                                 });
                             }

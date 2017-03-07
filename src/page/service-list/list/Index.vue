@@ -56,8 +56,8 @@ export default {
         }
     },
     mounted() {
-        this.orderBy = 'jl_0';
-        this.name.order = '距离从近到远';
+        this.orderBy = 'mr';
+        this.name.order = '最近时间';
         if (SaveDataHelper.getLocalStorage('RegionInfo') != null) {
             this.regionCode = SaveDataHelper.getLocalStorage('RegionInfo').regionCode;
             this.name.region = SaveDataHelper.getLocalStorage('RegionInfo').region;
@@ -79,10 +79,7 @@ export default {
             var arr = [{
                 label: "最近时间",
                 value: 'mr'
-            }, {
-                label: "价格低到高",
-                value: 'jg_0'
-            }, {
+            },{
                 label: "价格从低到高",
                 value: 'jg_0'
             }, {
@@ -97,7 +94,7 @@ export default {
             }];
             var _self = this;
             weui.picker(arr, {
-                defaultValue: ['jl_0'],
+                defaultValue: ['mr'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.orderBy = result[0].value;

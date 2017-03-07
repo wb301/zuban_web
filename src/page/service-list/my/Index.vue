@@ -73,13 +73,15 @@
                     <div class="weui-cell__ft">
                     </div>
                 </div>
-                <div class="weui-cell weui-cell_access" @click='toLogin'>
+                <div class="weui-cell weui-cell_access" v-if="is_weixin === false" @click='toLogin'>
                     <div class="weui-cell__bd">
                         <p class="font_size">注销登录</p>
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

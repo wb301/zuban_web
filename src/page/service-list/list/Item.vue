@@ -44,7 +44,11 @@ export default {
     watch: {
         item: {
             handler: function() {
-                this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
+                if(this.item.userInfo.user_id == NormalHelper.userInfo().user_id){
+                    this.item.juli = 0;
+                }else{
+                    this.item.juli = parseFloat(this.item.juli / 1000).toFixed(1);
+                }
                 this.item.danwei = "小时";
                 if (this.item.price_type == 2) {
                     this.item.danwei = "天";
