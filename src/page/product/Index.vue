@@ -58,8 +58,8 @@
                         <div>年龄：{{userInfo.age}}</div>
                     </div>
                     <div class="specific">
-                        <div>身高：{{userInfo.height}}cm</div>
-                        <div>体重：{{userInfo.weight}}g</div>
+                        <div>身高：{{userInfo.height}}厘米</div>
+                        <div>体重：{{userInfo.weight}}斤</div>
                     </div>
                     <div class="specific">
                         <div>学历：{{userInfo.qualifications}}</div>
