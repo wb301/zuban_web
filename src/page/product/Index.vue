@@ -71,7 +71,7 @@
         <div class="button-wapper">
             <div v-if="type==0">
                 <div class="button-buy" @click="buyContact" v-if="members!=1">购买联系方式</div>
-                <div class="button-buy" v-else>
+                <div class="button-buy buy_default" v-else>
                     此分类暂时免费
                 </div>
                 <div class="button-immediately" @click="rentImmediately">立即租</div>
@@ -327,6 +327,12 @@ export default {
         text-align: center;
         color: #8760BA;
         border-top: 0.5px solid #A878E5;
+    }
+    .button-buy.buy_default {
+        line-height: 50px;
+        border-top: 0;
+        background-color: #DDDDDD;
+        color: #FFFFFF;
     }
     .button-immediately {
         background-color: #A877E6;
