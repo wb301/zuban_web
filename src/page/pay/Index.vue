@@ -90,18 +90,18 @@ export default {
                         function(res) {
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 weui.alert("支付成功");
+                                var payInfo = NormalHelper.Get("pay");
+                                if (payInfo.pay_type == 1) {
+                                    that.$router.push({
+                                        path: '/buy_orderlist'
+                                    });
+                                } else {
+                                    that.$router.push({
+                                        path: '/vip'
+                                    });
+                                }
                             } else {
                                 weui.alert("支付失败");
-                            }
-                            var payInfo = NormalHelper.Get("pay");
-                            if (payInfo.pay_type == 1) {
-                                that.$router.push({
-                                    path: '/buy_orderlist'
-                                });
-                            } else {
-                                that.$router.push({
-                                    path: '/vip'
-                                });
                             }
                         }
                     );
