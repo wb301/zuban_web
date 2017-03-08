@@ -96,9 +96,11 @@ NormalHelper.wxLogin = function(redirect_url) {
 };
 
 //获取经纬度  默认 上海周边经纬度
-NormalHelper.cur_postion = {};
-NormalHelper.getPostion = function() {
-    NormalHelper.cur_postion = { latitude: 31, logitude: 121 };
+NormalHelper.cur_postion = { latitude: 31, logitude: 121 };
+NormalHelper.getPostion = function(callback) {
+    if(SaveDataHelper.getLocalStorage('pos')){
+        NormalHelper.cur_postion = SaveDataHelper.getLocalStorage('pos');
+    }
     var geol;
     try {
         if (typeof(navigator.geolocation) == 'undefined') {
@@ -113,27 +115,32 @@ NormalHelper.getPostion = function() {
         geol.getCurrentPosition(function(postion) {
                 NormalHelper.cur_postion.latitude = postion.coords.latitude;
                 NormalHelper.cur_postion.logitude = postion.coords.longitude;
+                SaveDataHelper.setLocalStorage('pos',NormalHelper.cur_postion);
+                if(typeof callback=='function') {callback(NormalHelper.cur_postion);}
             },
             function(error) {
-                switch (error.code) {
-                    // case error.TIMEOUT :
-                    //     alert("连接超时，请重试");
-                    //     break;
-                    // case error.PERMISSION_DENIED :
-                    //     alert("您拒绝了使用位置共享服务，查询已取消");
-                    //     break;
-                    // case error.POSITION_UNAVAILABLE :
-                    //     alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
-                    //     break;
-                    // default:
-                    //     alert("无法获取定位信息");
-                }
+                // switch (error.code) {
+                //     case error.TIMEOUT :
+                //         alert("连接超时，请重试");
+                //         break;
+                //     case error.PERMISSION_DENIED :
+                //         alert("您拒绝了使用位置共享服务，查询已取消");
+                //         break;
+                //     case error.POSITION_UNAVAILABLE :
+                //         alert("非常抱歉，我们暂时无法通过浏览器获取您的位置信息");
+                //         break;
+                //     default:
+                //         alert("无法获取定位信息");
+                // }
+                if(typeof callback=='function') {callback(NormalHelper.cur_postion);}
             }, {
                 enableHighAccuracy: true,
                 timeout: 10000, //设置十秒超时
                 maximumAge: 0
             }
         );
+    }else{
+        if(typeof callback=='function') {callback(NormalHelper.cur_postion);}
     }
     return NormalHelper.cur_postion;
 };
