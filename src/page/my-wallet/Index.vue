@@ -1,4 +1,4 @@
-<template>
+e<template>
     <div>
         <div class="container-body">
             <div class="wallet-hd">
@@ -20,6 +20,11 @@
             <div class="weui-cells">
                 <div class="weui-cell" href="javascript:;" @click='toWithdraw'>
                     <label class="weui-label class_font_size_hd">申请提现</label>
+                    <input class="weui-input disabled-input class_font_size_bd" type="text" />
+                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                </div>
+                <div class="weui-cell" href="javascript:;" @click='toWithdrawHistroy'>
+                    <label class="weui-label class_font_size_hd">提现记录</label>
                     <input class="weui-input disabled-input class_font_size_bd" type="text" />
                     <div><img :src="arrow" style="width:15px;height:15px;" /></div>
                 </div>
@@ -114,6 +119,11 @@ export default {
         toWithdraw() {
             this.$router.push({
                 path: '/money'
+            });
+        },
+        toWithdrawHistroy() {
+            this.$router.push({
+                path: '/withdrawDetail'
             });
         },
         toMoneyHistroy() {

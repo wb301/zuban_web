@@ -132,6 +132,11 @@ const router = new Router({
             require(['./page/my-wallet/Detail.vue'], resolve)
         }
     }, {
+        path: '/withdrawDetail',
+        component: function(resolve) {
+            require(['./page/my-wallet/withdrawDetail.vue'], resolve)
+        }
+    }, {
         path: '/',
         redirect: {
             path: '/login'
