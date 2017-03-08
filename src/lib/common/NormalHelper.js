@@ -173,10 +173,15 @@ function quality(src, callback) {
         img.onload = null;
         var width = this.width;
         var height = this.height;
-        // 按比例压缩4倍
-        var rate = (width < height ? width / height : height / width) / 4;
-        canvas.width = width * rate;
-        canvas.height = height * rate;
+
+        var size = 300;
+        if(width > height){
+            canvas.height = size;
+            canvas.width = canvas.height / height * width;
+        }else{
+            canvas.width = size;
+            canvas.height = canvas.width / width * height;
+        }
         drawer.drawImage(this, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
         var format = "image/png";
         this.src = canvas.toDataURL(format);
@@ -189,10 +194,10 @@ function quality(src, callback) {
 
         initBase64QiniuToken(base64, function() {
             if (this.readyState == 4) {
-                console.log(this.response);
+                // console.log(this.response);
                 var picName = JSON.parse(this.response)["hash"];
                 var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh;
-                console.log(url);
+                // console.log(url);
                 if (typeof callback == 'function') {
                     callback(url);
                 }
@@ -211,8 +216,8 @@ function initBase64QiniuToken(upImage, func) {
         action: '',
         param: param,
         success: (response) => {
-            console.log("response"+response);
-            console.log("upImage"+upImage);
+            // console.log("response"+response);
+            // console.log("upImage"+upImage);
             putb64(response, upImage, func);
         },
         fail: (response) => {
