@@ -13,8 +13,8 @@ export default {
             userInfo: JSON.parse(this.$route.params.user)
         }
     },
-    mounted() {
-        this.next = this.$route.params.next
+    created() {
+        this.next = this.userInfo.page;
         //如果account存在 则 获取用户信息并提供经纬度  跳转 找服务列表
         if(this.userInfo.account && this.userInfo.account.length > 0 && this.userInfo.token){
             var that = this;
@@ -39,9 +39,7 @@ export default {
                     response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
-                    this.$router.replace({
-                        path: '/'+this.next
-                    });
+                    window.location.href = GlobalModel.LOCAL_URL+"/console/#/"+this.next;
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -51,9 +49,7 @@ export default {
         },
         bangdingIphone() {
             NormalHelper.Set("wx_middle_open_id", this.userInfo.openid);
-            this.$router.replace({
-                    path: '/registered'
-                });
+            window.location.href = GlobalModel.LOCAL_URL+"/console/#/registered";
         }
     },
     destroyed() {}
