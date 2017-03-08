@@ -141,10 +141,12 @@ export default {
                             type: 'edit'
                         });
                     }
-                    this.img_list.push({
-                        img_url: addImg,
-                        type: 'add'
-                    })
+                    if (this.img_list.length < 6) {
+                        this.img_list.push({
+                            img_url: addImg,
+                            type: 'add'
+                        })
+                    }
                     this.product_info = response.product_info;
                     this.price = response.price;
                     this.danweiValue = response.price_type;
