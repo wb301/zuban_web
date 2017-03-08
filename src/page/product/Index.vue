@@ -128,7 +128,6 @@ export default {
                     this.productInfo = response;
                     this.imageList = response.image_list;
                     var userInfo = NormalHelper.userInfo();
-                    console.log(response.user_info);
                     if (response.user_id == userInfo.user_id) {
                         this.userInfo = userInfo;
                         this.type = 1;
