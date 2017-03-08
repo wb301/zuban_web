@@ -356,8 +356,8 @@ export default {
             }
         }
         .btn-wapper {
-            height: 45px;
-            line-height: 45px;
+            height: 47px;
+            line-height: 47px;
             padding: 0 15px;
             position: relative;
             >div:nth-child(1) {
@@ -369,7 +369,7 @@ export default {
             }
             >div:nth-child(2) {
                 position: absolute;
-                top: 0;
+                top: -1px;
                 bottom: 0;
                 right: 15px;
                 >div {
