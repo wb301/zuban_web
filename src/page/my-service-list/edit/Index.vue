@@ -135,7 +135,6 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                    console.log(response);
                     for (var i = 0; i < response.image_list.length; i++) {
                         this.img_list.push({
                             img_url: response.image_list[i],
@@ -287,7 +286,7 @@ export default {
                     product_sys_code: this.productCode
                 }
             };
-            if(this.pos){
+            if (this.pos) {
                 param.productInfo.latitude = this.pos.latitude;
                 param.productInfo.logitude = this.pos.logitude;
             }
@@ -296,8 +295,10 @@ export default {
                     param.productInfo.image_list.push(this.img_list[i].img_url);
                 }
             }
+            var bool = false;
             for (var key in param.productInfo) {
                 if (param.productInfo[key].length == 0 || param.productInfo[key] == 0) {
+                    bool = true;
                     switch (key) {
                         case 'product_image':
                             weui.alert('服务图片不能为空');
@@ -320,6 +321,7 @@ export default {
                     }
                 }
             }
+            if (bool) return;
             var _self = this;
             var p_obj = {
                 action: 'c=Zb&m=Product&a=updateProductInfo',
