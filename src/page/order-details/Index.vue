@@ -412,8 +412,8 @@ export default {
     font-size: 14px;
     border-bottom: 1px solid #E2E2E2;
     .weui-label {
-        text-align: right;
-        width: 85px;
+        text-align: left;
+        width: 100px;
     }
     .weui-cell__bd {
         text-align: left;
