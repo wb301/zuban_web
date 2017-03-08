@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div style="background: #F5F5F5;">
-            <div class="weui-cells" style="margin-top:0px;">
+        <div class="container-body">
+            <div class="weui-cells">
                 <div class="weui-cell weui-cell_access" style="height:85px;" @click='myInfo'>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
@@ -20,14 +20,14 @@
                 </div>
                 <div class="weui-cell weui-cell_access" @click='myServiceList'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">我的发布</p>
+                        我的发布
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_access" @click='changePassword'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">修改密码</p>
+                        修改密码
                     </div>
                     <div class="weui-cell__ft">
                     </div>
@@ -36,14 +36,14 @@
             <div class="weui-cells" style="margin-top:8px;">
                 <div class="weui-cell weui-cell_access" @click='myVip'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">我的会员</p>
+                        我的会员
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_access" @click='myWallet'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">我的钱包</p>
+                        我的钱包
                     </div>
                     <div class="weui-cell__ft">
                     </div>
@@ -52,14 +52,14 @@
             <div class="weui-cells" style="margin-top:8px;">
                 <div class="weui-cell weui-cell_access" @click='myOrderlist_1'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">接到订单</p>
+                        接到订单
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_access" @click='myOrderlist_0'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">预约订单</p>
+                        预约订单
                     </div>
                     <div class="weui-cell__ft">
                     </div>
@@ -68,20 +68,18 @@
             <div class="weui-cells" style="margin-top:8px;">
                 <div class="weui-cell weui-cell_access" @click='toQrcode'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">关于我们</p>
+                        关于我们
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_access" v-if="is_weixin === false" @click='toLogin'>
                     <div class="weui-cell__bd">
-                        <p class="font_size">注销登录</p>
+                        注销登录
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -156,19 +154,24 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.user-portrait {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 5px 10px 0px -15px;
-    img {
-        width: 100%;
-        height: 100%;
+.container-body {
+    background: #F5F5F5;
+    .weui-cells {
+        margin-top: 0;
     }
-}
-
-.font_size {
-    font-size: 14px;
+    .user-portrait {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 5px 10px 0px -15px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .font_size {
+        font-size: 14px;
+    }
 }
 </style>
