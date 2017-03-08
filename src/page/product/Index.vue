@@ -11,7 +11,7 @@
                     <img :src="userInfo.head_img">
                 </div>
                 <div class="user-info">
-                    <div>{{productInfo.product_info}}</div>
+                    <div>{{userInfo.nick_name}}</div>
                     <div><img :src="gender_icon"></div>
                 </div>
                 <div class="da-phone" v-if="members==1" @click="phone">
