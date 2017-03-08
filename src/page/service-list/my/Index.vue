@@ -170,8 +170,5 @@ export default {
             height: 100%;
         }
     }
-    .font_size {
-        font-size: 14px;
-    }
 }
 </style>
