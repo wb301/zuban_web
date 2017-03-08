@@ -170,5 +170,9 @@ export default {
             height: 100%;
         }
     }
+    .weui-cell__bd {
+        font-size: 14px;
+        color: #666666;
+    }
 }
 </style>
