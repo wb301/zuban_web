@@ -20,7 +20,7 @@
                             <label class="weui-label class_font_size_hd">会员特权</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <label class="weui-label class_font_size_bd" style="width: 100%">{{this.vip_info}}</label>
+                            <label class="weui-label class_font_size_bd" style="width: 100%;">{{this.vip_info}}</label>
                         </div>
                     </div>
                     <div class="weui-cell class_height">
@@ -105,6 +105,7 @@ export default {
                 success: (response) => {
                     this.vipInfo = response["info"];
                     this.vipConfig = response["config"];
+                    var days = response["days"];
 
                     this.userInfo.vip = this.vipInfo;
                     NormalHelper.setUserInfo(this.userInfo);
@@ -112,16 +113,10 @@ export default {
                     this.vipList = [];
                     for (var i = 0; i < this.vipConfig.length; i++) {
                         if (this.vipInfo && this.vipInfo["vip_type"] == this.vipConfig[i]["level"]) {
-
-                            var date1 = new Date(response["nowTime"]);  //现在时间
-                            var date2 = new Date(this.vipInfo["end_time"]);     //结束时间
-                            var date3 = date2.getTime() - date1.getTime();   //时间差的毫秒数
-                            var days = Math.floor(date3 / (24 * 3600 * 1000));
-
                             this.vip_date = "(还有" + days + "天到期)";
                             this.is_vip = true;
                             this.vip_level = this.vipConfig[i]["name"];
-                            this.vip_info = "可在" + this.vipInfo["start_time"] + "至" + this.vipInfo["end_time"] + "内免费查看出租人的联系方式";
+                            this.vip_info = "可在" + this.vipInfo["end_time"] + "前免费查看出租人的联系方式";
                         }
                         this.vipList.push(this.vipConfig[i]);
                     }
