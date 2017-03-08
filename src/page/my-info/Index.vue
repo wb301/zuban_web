@@ -2,21 +2,21 @@
     <div>
         <div style="background: #F5F5F5;">
             <div class="weui-cells" style="margin-top:0px;height: 75px">
-                <a class="weui-cell weui-cell_access" href="javascript:;" @click="setUpload">
+                <div class="weui-cell weui-cell_access" @click="setUpload">
                     <div class="weui-cell__bd">
                         <label class="weui-label class_font_size_hd">头像</label>
                     </div>
                     <div class="weui-cell__ft">
-                        <div class="image-manipulation">
+                        <div class="image-manipulation" style="margin-right: 10px;">
                             <div v-for="(item,index) in img_list">
                                 <div class="user-portrait">
                                     <img :src="item" style="height: 50px;width: 50px">
                                 </div>
-                                <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" @click="setUpload ">
+                                <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" @click="setUpload">
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
             <!-- 昵称 性别 -->
             <div class="content-manipulation ">
@@ -29,14 +29,15 @@
                             <input class="weui-input class_font_size_bd" type="test " placeholder="未设置" v-model="nick_name_model " />
                         </div>
                     </div>
-                    <div class="weui-cell">
+                    <div class="weui-cell weui-cell_access">
                         <div class="weui-cell__hd ">
                             <label class="weui-label class_font_size_hd">性别</label>
                         </div>
                         <div class="weui-cell__bd ">
                             <input class="weui-input disabled-input class_font_size_bd" type="text " v-model="sex_model " @click="selectSex " />
                         </div>
-                        <div><img :src="image "></div>
+                        <div class="weui-cell__ft ">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -117,8 +118,6 @@
     </div>
 </template>
 <script>
-import xiala from '../service-list/list/image/xiala.png'
-
 var sexArr = [{
     label: "男 ",
     value: 'M'
@@ -132,7 +131,6 @@ export default {
     },
     data() {
         return {
-            image: xiala,
             nick_name_model: '',
             sex: '',
             sex_model: '',
