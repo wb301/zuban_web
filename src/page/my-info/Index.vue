@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="background: #F5F5F5;">
-            <div class="weui-cells" style="margin-top:0px;height: 75px">
+            <div class="weui-cells" style="margin-top:0px;height: 85px">
                 <div class="weui-cell weui-cell_access" @click="setUpload">
                     <div class="weui-cell__bd">
                         <label class="weui-label class_font_size_hd">头像</label>
