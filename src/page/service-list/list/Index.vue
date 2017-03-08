@@ -62,13 +62,8 @@ export default {
             this.regionCode = SaveDataHelper.getLocalStorage('RegionInfo').regionCode;
             this.name.region = SaveDataHelper.getLocalStorage('RegionInfo').region;
         } else {
-            this.regionCode = NormalHelper.userInfo().region_code;
-            var region_name = NormalHelper.userInfo().region_name.split(" ");
-            var showName = region_name[0];
-            if(region_name.length>2){
-                showName = region_name[2];
-            }
-            this.name.region = showName;
+            this.regionCode = 1;
+            this.name.region = "全国";
         }
         this.getRegionList();
         this.getCategoryList();

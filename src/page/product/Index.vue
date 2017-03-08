@@ -11,7 +11,7 @@
                     <img :src="userInfo.head_img">
                 </div>
                 <div class="user-info">
-                    <div>{{productInfo.product_info}}</div>
+                    <div>{{userInfo.nick_name}}</div>
                     <div><img :src="gender_icon"></div>
                 </div>
                 <div class="da-phone" v-if="members==1" @click="phone">
@@ -51,8 +51,10 @@
                     <div>
                         <div>基本信息</div>
                     </div>
-                    <div class="specific">
+                    <div class="specific_2">
                         <div>所在地：{{userInfo.region_name}}</div>
+                    </div>
+                    <div class="specific_2">
                         <div>年龄：{{userInfo.age}}</div>
                     </div>
                     <div class="specific">
@@ -69,9 +71,8 @@
         <div class="button-wapper">
             <div v-if="type==0">
                 <div class="button-buy" @click="buyContact" v-if="members!=1">购买联系方式</div>
-                <div class="button-phone" @click="phone" v-else>
-                    <div>拨打电话</div>
-                    <div>此分类暂时免费</div>
+                <div class="button-buy buy_default" v-else>
+                    此分类暂时免费
                 </div>
                 <div class="button-immediately" @click="rentImmediately">立即租</div>
             </div>
@@ -126,6 +127,7 @@ export default {
                     this.productInfo = response;
                     this.imageList = response.image_list;
                     var userInfo = NormalHelper.userInfo();
+                    console.log(response.user_info);
                     if (response.user_id == userInfo.user_id) {
                         this.userInfo = userInfo;
                         this.type = 1;
@@ -241,7 +243,7 @@ export default {
         }
     }
     .service-information {
-        height: 87.5px;
+        height: 80px;
         >div:nth-child(1) {
             margin-top: 15px;
             font-size: 13px;
@@ -289,6 +291,11 @@ export default {
                 border-radius: 5px;
             }
         }
+        .specific_2 {
+            font-size: 13px;
+            color: #333;
+            margin: 3px 0;
+        }
         .specific {
             font-size: 13px;
             color: #333;
@@ -321,27 +328,17 @@ export default {
         color: #8760BA;
         border-top: 0.5px solid #A878E5;
     }
+    .button-buy.buy_default {
+        line-height: 50px;
+        border-top: 0;
+        background-color: #DDDDDD;
+        color: #FFFFFF;
+    }
     .button-immediately {
         background-color: #A877E6;
         line-height: 50px;
         text-align: center;
         color: #FFFFFF;
-    }
-    .button-phone {
-        background-color: #FFFFFF;
-        text-align: center;
-        color: #8760BA;
-        border-top: 0.5px solid #A878E5;
-        >div {
-            width: 100%;
-            clear: both;
-            height: 24.75px;
-            line-height: 24.75px;
-        }
-        >div:nth-child(2) {
-            font-size: 10px;
-
-        }
     }
 }
 </style>

@@ -122,7 +122,8 @@ export default {
                 c: 'Zb',
                 m: 'Order',
                 a: 'getOrderDetails',
-                orderNo: this.orderNo
+                orderNo: this.orderNo,
+                type:this.type
             };
             var p_obj = {
                 action: '',
