@@ -131,7 +131,7 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
-            if(this.openid != ''){
+            if (this.openid != '') {
                 param.openId = this.openid;
             }
             var _self = this;
@@ -157,6 +157,13 @@ export default {
 <style lang="less" scoped>
 .container-body {
     margin-top: 20px;
+    .weui-cell__ft {
+        a:link,
+        a:visited {
+            font-size: 16px;
+            color: #4990E2;
+        }
+    }
     .a_default {
         color: #e2e2e2;
     }
