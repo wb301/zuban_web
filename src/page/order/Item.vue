@@ -3,9 +3,13 @@
         <div class="item-entry">
             <div class="wapper">
                 <div class="head-wapper">
-                    <div class="img-head">
+                    <div v-if="type==0" class="img-head">
                         <img :src="item.seller.head_img">
                         <span>{{item.seller.nick_name}}</span>
+                    </div>
+                    <div v-if="type==1" class="img-head">
+                        <img :src="item.buyers.head_img">
+                        <span>{{item.buyers.nick_name}}</span>
                     </div>
                     <div class="status" style="color:#E35257" v-if="item.status==0">{{item.status_name}}</div>
                     <div class="status" style="color:#4990E2" v-else>{{item.status_name}}</div>
