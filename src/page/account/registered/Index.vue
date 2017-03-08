@@ -29,7 +29,7 @@
                 <a href="javascript:;" class="weui-btn weui-btn_primary" @click="registered">提交</a>
                 <div for="weuiAgree" class="weui-agree">
                     <div class="weui-agree__item">
-                        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"  v-model="is_agree" >同意
+                        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="is_agree">同意
                         <router-link :to="{path: '/agree/registered'}">《租伴网入驻协议》</router-link>
                     </div>
                     <div class="weui-agree__item">
@@ -87,8 +87,8 @@ export default {
         AjaxHelper.GetRequest(p_obj);
     },
     methods: {
-        checkAgree(){
-            if(this.is_agree <= 0){
+        checkAgree() {
+            if (this.is_agree <= 0) {
                 weui.alert("请先阅读《相关条款》");
                 return;
             }
@@ -157,10 +157,10 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
-            if(this.openid != ''){
+            if (this.openid != '') {
                 param.openId = this.openid;
             }
-           var str = /^(\w){6,20}$/;
+            var str = /^(\w){6,20}$/;
             if (!str.exec(this.password)) {
                 weui.alert("密码格式错误！");
                 return;
@@ -207,6 +207,13 @@ export default {
 <style lang="less" scoped>
 .container-body {
     margin-top: 20px;
+    .weui-cell__ft {
+        a:link,
+        a:visited {
+            font-size: 16px;
+            color: #4990E2;
+        }
+    }
     .a_default {
         color: #e2e2e2;
     }
@@ -228,10 +235,11 @@ export default {
         width: 16px;
         height: 16px;
     }
-    .weui-agree{
+    .weui-agree {
         font-size: 14px;
         color: #4990E2;
-        a:link ,a:visited{
+        a:link,
+        a:visited {
             font-size: 14px;
             color: #4990E2;
         }

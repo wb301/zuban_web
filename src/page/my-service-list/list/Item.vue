@@ -144,6 +144,7 @@ export default {
                     line-height: 15px;
                 }
                 .price {
+                    margin-top: 12px;
                     color: #A878E5;
                     span:nth-child(1) {
                         font-size: 12px;
@@ -162,7 +163,7 @@ export default {
                 .btn-remove {
                     position: absolute;
                     right: 10px;
-                    bottom: 10px;
+                    bottom: 15px;
                     border-radius: 4px;
                     font-size: 12px;
                     text-align: center;

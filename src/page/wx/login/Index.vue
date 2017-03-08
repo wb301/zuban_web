@@ -15,7 +15,7 @@ export default {
     mounted() {
         this.next = this.$route.params.next;
         NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, '');
-        NormalHelper.wxLogin("https://weixin.zuban8.com/zuban_web/console/#/wx-middle/"+this.next);
+        NormalHelper.wxLogin(GlobalModel.LOCAL_URL+"/console/#/wx-middle/"+this.next);
     },
     methods: {
     },

@@ -58,8 +58,8 @@
                         <div>年龄：{{userInfo.age}}</div>
                     </div>
                     <div class="specific">
-                        <div>身高：{{userInfo.height}}cm</div>
-                        <div>体重：{{userInfo.weight}}g</div>
+                        <div>身高：{{userInfo.height}}厘米</div>
+                        <div>体重：{{userInfo.weight}}斤</div>
                     </div>
                     <div class="specific">
                         <div>学历：{{userInfo.qualifications}}</div>
@@ -110,6 +110,7 @@ export default {
         }
     },
     mounted() {
+        $(".swipe").height($("body").width());
         this.getProductInfo();
     },
     methods: {
@@ -127,7 +128,6 @@ export default {
                     this.productInfo = response;
                     this.imageList = response.image_list;
                     var userInfo = NormalHelper.userInfo();
-                    console.log(response.user_info);
                     if (response.user_id == userInfo.user_id) {
                         this.userInfo = userInfo;
                         this.type = 1;
@@ -179,7 +179,6 @@ export default {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     .swipe {
-        height: 375px;
         width: 100%;
         .swipt-wapper {
             img {

@@ -14,7 +14,7 @@ export default {
         }
     },
     created() {
-        this.next = this.$route.params.next
+        this.next = this.userInfo.page;
         //如果account存在 则 获取用户信息并提供经纬度  跳转 找服务列表
         if(this.userInfo.account && this.userInfo.account.length > 0 && this.userInfo.token){
             var that = this;

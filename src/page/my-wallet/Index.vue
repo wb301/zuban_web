@@ -17,7 +17,7 @@ e<template>
                 <div class="weui-tab__panel">
                 </div>
             </div>
-            <div class="weui-cells">
+            <div class="weui-cells" style="margin-top: 27px;">
                 <div class="weui-cell" href="javascript:;" @click='toWithdraw'>
                     <label class="weui-label class_font_size_hd">申请提现</label>
                     <input class="weui-input disabled-input class_font_size_bd" type="text" />

@@ -40,7 +40,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         if (NormalHelper.userInfo().token) {
             next('/list');
-        }else{
+        } else {
             next();
         }
     },
@@ -53,7 +53,7 @@ export default {
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };
-            if(this.openid != ''){
+            if (this.openid != '') {
                 param.openId = this.openid;
             }
             var mobile = param.account;
@@ -88,6 +88,13 @@ export default {
 <style lang="less" scoped>
 .container-body {
     margin-top: 20px;
+    .weui-cell__ft {
+        a:link,
+        a:visited {
+            font-size: 16px;
+            color: #4990E2;
+        }
+    }
     .weui-flex {
         margin: 21.5px 15px;
         a:link,
