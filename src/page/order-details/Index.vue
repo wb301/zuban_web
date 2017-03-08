@@ -19,7 +19,7 @@
                     </div>
                     <div class="product_content">{{product.category_name}}</div>
                     <div class="product_price">
-                        <span>{{product.price}}</span>
+                        <span>{{product.price}}元</span>
                         <span>/{{danwei}}</span>
                     </div>
                     <div class="product_num">
