@@ -39,7 +39,7 @@ export default {
                     response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
-                    this.$router.push({
+                    this.$router.replace({
                         path: '/'+this.next
                     });
                 },
@@ -51,7 +51,7 @@ export default {
         },
         bangdingIphone() {
             NormalHelper.Set("wx_middle_open_id", this.userInfo.openid);
-            this.$router.push({
+            this.$router.replace({
                     path: '/registered'
                 });
         }
