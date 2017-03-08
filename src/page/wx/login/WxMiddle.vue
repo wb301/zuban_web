@@ -39,7 +39,9 @@ export default {
                     response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
                     this.userInfo = response;
-                    window.location.href = GlobalModel.LOCAL_URL+"/console/#/"+this.next;
+                    this.$router.replace({
+                        path: '/'+this.next
+                    });
                 },
                 fail: (response) => {
                     weui.alert(response.msg)
@@ -49,7 +51,9 @@ export default {
         },
         bangdingIphone() {
             NormalHelper.Set("wx_middle_open_id", this.userInfo.openid);
-            window.location.href = GlobalModel.LOCAL_URL+"/console/#/registered";
+            this.$router.replace({
+                    path: '/registered'
+                });
         }
     },
     destroyed() {}
