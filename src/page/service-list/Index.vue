@@ -8,9 +8,12 @@
 </template>
 <script>
 import Tabbar from 'components/common/Tabbar'
-import fabu from 'components/common/images/fabu.png'
 import fuwu from 'components/common/images/fuwu.png'
+import fuwu2 from 'components/common/images/fuwu2.png'
+import fabu from 'components/common/images/fabu.png'
+import fabu2 from 'components/common/images/fabu2.png'
 import wode from 'components/common/images/wode.png'
+import wode2 from 'components/common/images/wode2.png'
 
 export default {
     name: 'app',
@@ -23,16 +26,19 @@ export default {
                 title: '服务',
                 path: 'list',
                 img: fuwu,
-                check: false
+                img2: fuwu2,
+                check: true
             }, {
                 title: '发布',
                 path: 'release',
                 img: fabu,
-                check: true
+                img2: fabu2,
+                check: false
             }, {
                 title: '我的',
                 path: 'my',
                 img: wode,
+                img2: wode2,
                 check: false
             }]
         }
