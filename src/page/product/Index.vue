@@ -110,6 +110,7 @@ export default {
         }
     },
     mounted() {
+        $(".swipe").height($("body").width());
         this.getProductInfo();
     },
     methods: {
@@ -179,7 +180,6 @@ export default {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     .swipe {
-        height: 375px;
         width: 100%;
         .swipt-wapper {
             img {
