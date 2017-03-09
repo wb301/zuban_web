@@ -6,7 +6,7 @@
                     <div v-for="(item,index) in img_list">
                         <img :src="item.img_url">
                         <img class="quxiao" :src="quxiaoimg" @click="deleteImg(index)" v-if="item.type!='add'">
-                        <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" v-if="item.type=='add'" @click="setUpload">
+                        <input type="file" class="imgupload" accept="image/*" v-if="item.type=='add'" @click="setUpload">
                     </div>
                 </div>
                 <div class="segmentation"></div>
