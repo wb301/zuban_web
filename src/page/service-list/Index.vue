@@ -24,23 +24,37 @@ export default {
         return {
             tabbarList: [{
                 title: '服务',
-                path: 'list',
+                path: '/list',
                 img: fuwu,
                 img2: fuwu2,
-                check: true
+                check: false
             }, {
                 title: '发布',
-                path: 'release',
+                path: '/release',
                 img: fabu,
                 img2: fabu2,
                 check: false
             }, {
                 title: '我的',
-                path: 'my',
+                path: '/my',
                 img: wode,
                 img2: wode2,
                 check: false
             }]
+        }
+    },
+    watch: {
+        '$route': {
+            handler: function() {
+                for (var i = 0; i < this.tabbarList.length; i++) {
+                    if (this.tabbarList[i].path == this.$route.path) {
+                        this.tabbarList[i].check = true;
+                    } else {
+                        this.tabbarList[i].check = false;
+                    }
+                }
+            },
+            immediate: true
         }
     },
     created: function() {
