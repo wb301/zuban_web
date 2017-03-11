@@ -30,6 +30,7 @@
                 <div class="order-phone">
                     买家联系方式&nbsp;&nbsp;{{orderDetails.phone}}
                     <span v-if="type==1"><img :src="lxmj" @click="customer"></span>
+                    <span v-if="type==0"><img :src="lxmj2" @click="customer"></span>
                 </div>
                 <div class="message">
                     <div>留言</div>
@@ -57,6 +58,7 @@
 </template>
 <script>
 import lxmj from './image/lxmj.png'
+import lxmj2 from './image/lxmj2.png'
 export default {
     components: {
 
@@ -73,6 +75,7 @@ export default {
             img_product: '',
             status_name: '',
             lxmj: lxmj,
+            lxmj2: lxmj2,
             num: 1,
             price: 0,
             danwei: '',
