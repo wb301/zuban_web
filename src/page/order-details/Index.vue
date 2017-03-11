@@ -241,13 +241,13 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                this.orderDetails.status = 1;
-                this.orderDetails.status_name = '待确认';
-        },
-            fail: (response) => {
-                weui.alert(response.msg)
-            }
-        };
+                    this.orderDetails.status = 1;
+                    this.orderDetails.status_name = '待确认';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
             AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
@@ -271,7 +271,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer(type) { //联系买家
-            if (type) {
+            if (type > -1) {
                 if (type > 0) {
                     window.location.href = 'tel://' + this.orderDetails.phone;
                 } else {
