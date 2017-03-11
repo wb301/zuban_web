@@ -24,7 +24,7 @@
                     </div>
                     <span class="num">x{{item.productList[0].num}}</span>
                 </div>
-                <div class="info-phone" v-else>
+                <div class="info-phone" v-else @click="phone()">
                     <div>
                         <span>购买联系方式</span>
                         <span>{{item.price}}元</span>
@@ -95,13 +95,18 @@ export default {
     methods: {
         //联系买家
         phone() {
-            window.location.href = 'tel://'+this.item.phone;
+            if (this.item.order_type == 0) {
+                if (this.item.status != 10) {
+                    return;
+                }
+            }
+            window.location.href = 'tel://' + this.item.phone;
         },
         payment() { //付款
-            var pay={
-                order_no:this.item.order_no,
-                all_price:this.item.price,
-                pay_type:1
+            var pay = {
+                order_no: this.item.order_no,
+                all_price: this.item.price,
+                pay_type: 1
             }
             NormalHelper.Set("pay", pay);
             this.$router.push({
@@ -150,7 +155,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
-            window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
+            window.location.href = 'tel://' + NormalHelper.userInfo().server_phone;
         },
         confirm() { //确认订单
             var param = {

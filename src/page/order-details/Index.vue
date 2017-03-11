@@ -250,11 +250,16 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer(type) { //联系买家
-            if (type > 0) {
-                window.location.href = 'tel://' + this.orderDetails.phone;
+            if (type) {
+                if (type > 0) {
+                    window.location.href = 'tel://' + this.orderDetails.phone;
+                } else {
+                    window.location.href = 'tel://' + this.orderDetails.seller.account;
+                }
             } else {
-                window.location.href = 'tel://' + this.orderDetails.seller.account;
+                window.location.href = 'tel://4008817673';
             }
+
         }
     },
     destroyed() {}
