@@ -24,13 +24,13 @@
                     </div>
                     <span class="num">x{{item.productList[0].num}}</span>
                 </div>
-                <div class="info-phone" v-else @click="phone()">
+                <div class="info-phone" v-else @click="phone">
                     <div>
                         <span>购买联系方式</span>
                         <span>{{item.price}}元</span>
                     </div>
-                    <div v-if="item.status==10">手机号码:{{item.seller.account}}</div>
                     <div v-if="item.status==0">支付后即可查看联系方式</div>
+                    <div v-else>手机号码:{{item.seller.account}}</div>
                 </div>
                 <div class="time-wapper">
                     <span class="time">{{item.create_time}}</span>
@@ -42,6 +42,9 @@
                 <div class="btn-wapper" v-if="item.order_type==1||(item.order_type==0&&item.status==0)">
                     <div v-show="type==1" @click="phone">
                         <img :src="contactBuyer" />
+                    </div>
+                    <div v-show="type==0&&item.status>=1" @click="phone">
+                        <img :src="contactBuyer2" />
                     </div>
                     <div>
                         <div class="button-cancel" v-if="(type==0&&(item.status==0))" @click="cancel">取消订单</div>
@@ -60,6 +63,8 @@
 </template>
 <script>
 import contactBuyer from './image/contact-the-buyer.png'
+import contactBuyer2 from './image/contact-the-buyer2.png'
+
 export default {
     props: {
         item: {
@@ -77,7 +82,8 @@ export default {
     },
     data() {
         return {
-            contactBuyer: contactBuyer
+            contactBuyer: contactBuyer,
+            contactBuyer2: contactBuyer2
         }
     },
     watch: {
@@ -387,14 +393,15 @@ export default {
             line-height: 47px;
             padding: 0 15px;
             position: relative;
-            >div:nth-child(1) {
+            >div:nth-child(1),
+            >div:nth-child(2) {
                 position: absolute;
                 img {
                     height: 45px;
                     width: 68px;
                 }
             }
-            >div:nth-child(2) {
+            >div:nth-child(3) {
                 position: absolute;
                 top: -1px;
                 bottom: 0;
