@@ -29,8 +29,8 @@
                 </div>
                 <div class="order-phone">
                     买家联系方式&nbsp;&nbsp;{{orderDetails.phone}}
-                    <span v-if="type==1"><img :src="lxmj" @click="customer"></span>
-                    <span v-if="type==0"><img :src="lxmj2" @click="customer"></span>
+                    <span v-if="type==1"><img :src="lxmj" @click="customer(1)"></span>
+                    <span v-if="type==0"><img :src="lxmj2" @click="customer(0)"></span>
                 </div>
                 <div class="message">
                     <div>留言</div>
@@ -249,8 +249,12 @@ export default {
             };
             AjaxHelper.GetRequest(p_obj);
         },
-        customer() { //联系买家
-            window.location.href = 'tel://' + this.orderDetails.phone;
+        customer(type) { //联系买家
+            if (type > 0) {
+                window.location.href = 'tel://' + this.orderDetails.phone;
+            } else {
+                window.location.href = 'tel://' + this.orderDetails.seller.account;
+            }
         }
     },
     destroyed() {}
