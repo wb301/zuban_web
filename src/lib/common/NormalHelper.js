@@ -170,7 +170,7 @@ NormalHelper.imageRotate = function(url) {
     if (newRotate >= 360) {
         newRotate = 0;
     }
-    return url.replace("|imageMogr2/rotate/" + rotate, "|imageMogr2/rotate/" + newRotate);
+    return url.replace("/rotate/"+rotate,"/rotate/"+newRotate);
 }
 
 function quality(src, callback) {
@@ -205,7 +205,8 @@ function quality(src, callback) {
             if (this.readyState == 4) {
                 // console.log(this.response);
                 var picName = JSON.parse(this.response)["hash"];
-                var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh + "|imageMogr2/rotate/0";
+                var url = GlobalModel.CDN_BASE_URL + picName + "?imageMogr2/crop/"+wh+"x"+wh+"/rotate/0";
+                // console.log(url);
                 if (typeof callback == 'function') {
                     callback(url);
                 }
