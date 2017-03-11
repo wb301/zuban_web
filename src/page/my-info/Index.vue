@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="background: #F5F5F5;">
+        <div class="container-body">
             <div class="weui-cells" style="margin-top:0px;height: 85px">
                 <div class="weui-cell weui-cell_access" @click="setUpload">
                     <div class="weui-cell__bd">
@@ -8,12 +8,10 @@
                     </div>
                     <div class="weui-cell__ft">
                         <div class="image-manipulation" style="margin-right: 10px;">
-                            <div v-for="(item,index) in img_list">
-                                <div class="user-portrait">
-                                    <img :src="item" style="height: 50px;width: 50px">
-                                </div>
-                                <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" @click="setUpload">
+                            <div class="user-portrait">
+                                <img :src="img_list" style="height: 50px;width: 50px">
                             </div>
+                            <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" @click="setUpload">
                         </div>
                     </div>
                 </div>
@@ -111,10 +109,8 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 8px">
-                <div class="button-release" @click="updUserInfo">修改</div>
-            </div>
         </div>
+        <div class="button-release" @click="updUserInfo">修改</div>
     </div>
 </template>
 <script>
@@ -269,6 +265,18 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.container-body {
+    background: #F5F5F5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
 .class_font_size_hd {
     font-size: 14px;
     color: #666666;
@@ -285,21 +293,19 @@ export default {
 
 .image-manipulation {
     margin-top: 3px;
-    >div {
-        display: inline-block;
-        margin-left: 7.5px;
-        position: relative;
-        .imgupload {
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            z-index: 501;
-        }
+    display: inline-block;
+    margin-left: 7.5px;
+    position: relative;
+    .imgupload {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 501;
     }
 }
 
