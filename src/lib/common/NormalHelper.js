@@ -55,7 +55,7 @@ NormalHelper.delCookie = function(name) {
 
 //用户数据
 NormalHelper.userInfo = function() {
-    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: '', token: null, server_phone:"4008817673"}
+    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: '', token: null, server_phone: "4008817673" }
 }
 NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
@@ -98,7 +98,7 @@ NormalHelper.wxLogin = function(redirect_url) {
 //获取经纬度  默认 上海周边经纬度
 NormalHelper.cur_postion = { latitude: 31, logitude: 121 };
 NormalHelper.getPostion = function(callback) {
-    if(SaveDataHelper.getLocalStorage('pos')){
+    if (SaveDataHelper.getLocalStorage('pos')) {
         NormalHelper.cur_postion = SaveDataHelper.getLocalStorage('pos');
     }
     var geol;
@@ -115,8 +115,8 @@ NormalHelper.getPostion = function(callback) {
         geol.getCurrentPosition(function(postion) {
                 NormalHelper.cur_postion.latitude = postion.coords.latitude;
                 NormalHelper.cur_postion.logitude = postion.coords.longitude;
-                SaveDataHelper.setLocalStorage('pos',NormalHelper.cur_postion);
-                if(typeof callback=='function') {callback(NormalHelper.cur_postion);}
+                SaveDataHelper.setLocalStorage('pos', NormalHelper.cur_postion);
+                if (typeof callback == 'function') { callback(NormalHelper.cur_postion); }
             },
             function(error) {
                 // switch (error.code) {
@@ -132,15 +132,15 @@ NormalHelper.getPostion = function(callback) {
                 //     default:
                 //         alert("无法获取定位信息");
                 // }
-                if(typeof callback=='function') {callback(NormalHelper.cur_postion);}
+                if (typeof callback == 'function') { callback(NormalHelper.cur_postion); }
             }, {
                 enableHighAccuracy: true,
                 timeout: 10000, //设置十秒超时
                 maximumAge: 0
             }
         );
-    }else{
-        if(typeof callback=='function') {callback(NormalHelper.cur_postion);}
+    } else {
+        if (typeof callback == 'function') { callback(NormalHelper.cur_postion); }
     }
     return NormalHelper.cur_postion;
 };
@@ -169,23 +169,22 @@ function quality(src, callback) {
         drawer = canvas.getContext("2d");
     img.src = src;
 
-    img.onload = function(){
+    img.onload = function() {
         img.onload = null;
         var width = this.width;
         var height = this.height;
 
         var size = 300;
-        if(width > height){
+        if (width > height) {
             canvas.height = size;
             canvas.width = canvas.height / height * width;
-        }else{
+        } else {
             canvas.width = size;
             canvas.height = canvas.width / width * height;
         }
         drawer.drawImage(this, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
-        var format = "image/png";
-        this.src = canvas.toDataURL(format);
-        var base64 = this.src.replace("data:image/png;base64,", "");
+        var format = "image/jpeg";
+        var base64 = canvas.toDataURL(format, 0.7).split("base64,")[1];
 
         var wh = canvas.width;
         if (canvas.width > canvas.height) {
