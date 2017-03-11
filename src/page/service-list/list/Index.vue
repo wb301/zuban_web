@@ -74,7 +74,7 @@ export default {
             var arr = [{
                 label: "最近时间",
                 value: 'mr'
-            },{
+            }, {
                 label: "价格从低到高",
                 value: 'jg_0'
             }, {
@@ -278,7 +278,7 @@ export default {
         top: 50px;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 5px;
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
