@@ -89,7 +89,6 @@ export default {
                     WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
                         function(res) {
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
-                                weui.alert("支付成功");
                                 var payInfo = NormalHelper.Get("pay");
                                 if (payInfo.pay_type == 1) {
                                     that.$router.push({
