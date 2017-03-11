@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         customer() { //联系客服
-            alert(NormalHelper.userInfo().server_phone);
             window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
         }
     },
