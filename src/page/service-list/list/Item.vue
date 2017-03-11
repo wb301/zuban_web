@@ -64,8 +64,9 @@ export default {
     },
     methods: {
         toProductInfo() {
+            NormalHelper.Set("buy_productCode", this.item.product_sys_code);
             this.$router.push({
-                path: '/product/' + this.item.product_sys_code
+                path: '/product'
             });
         }
     },
