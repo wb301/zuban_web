@@ -15,26 +15,10 @@
                     <div class="weui-cells" style="margin-top: 0px;">
                         <div class="weui-cell class_height">
                             <div class="weui-cell__hd">
-                                <label class="weui-label class_font_size_hd">服务内容</label>
+                                <label class="weui-label class_font_size_hd">服务类型</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input class_font_size_bd" type="test" v-model="product_info" placeholder="比如陪吃饭、陪看电影" />
-                            </div>
-                        </div>
-                        <div class="weui-cell class_height">
-                            <div class="weui-cell__hd">
-                                <label class="weui-label class_font_size_hd">价格</label>
-                            </div>
-                            <div class="weui-cell__bd">
-                                <input class="weui-input class_font_size_bd" type="test" v-model.number="price" placeholder="请输入服务价格/元" />
-                            </div>
-                        </div>
-                        <div class="weui-cell class_height">
-                            <div class="weui-cell__hd">
-                                <label class="weui-label class_font_size_hd">价格单位</label>
-                            </div>
-                            <div class="weui-cell__bd">
-                                <input class="weui-input disabled-input class_font_size_bd" type="text" v-model="danweiName" @click="selectUnitPrice" />
+                                <input class="weui-input disabled-input class_font_size_bd" v-model="categor" type="text" @click="selectCategory" />
                             </div>
                             <div><img :src="image"></div>
                         </div>
@@ -49,12 +33,28 @@
                         </div>
                         <div class="weui-cell class_height">
                             <div class="weui-cell__hd">
-                                <label class="weui-label class_font_size_hd">服务类型</label>
+                                <label class="weui-label class_font_size_hd">价格单位</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input disabled-input class_font_size_bd" v-model="categor" type="text" @click="selectCategory" />
+                                <input class="weui-input disabled-input class_font_size_bd" type="text" v-model="danweiName" @click="selectUnitPrice" />
                             </div>
                             <div><img :src="image"></div>
+                        </div>
+                        <div class="weui-cell class_height">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label class_font_size_hd">价格</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input class_font_size_bd" type="test" v-model.number="price" placeholder="请输入服务价格/元" />
+                            </div>
+                        </div>
+                        <div class="weui-cell class_height">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label class_font_size_hd">补充意见</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input class_font_size_bd" type="test" v-model="product_info" placeholder="比如陪吃饭、陪看电影" />
+                            </div>
                         </div>
                     </div>
                     <div class="agreement">
