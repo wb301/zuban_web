@@ -195,7 +195,7 @@ function quality(src, callback) {
             if (this.readyState == 4) {
                 // console.log(this.response);
                 var picName = JSON.parse(this.response)["hash"];
-                var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh;
+                var url = GlobalModel.CDN_BASE_URL + picName + "?imageView2/1/w/" + wh + "/h/" + wh+"/imageMogr2/rotate/0";
                 // console.log(url);
                 if (typeof callback == 'function') {
                     callback(url);
