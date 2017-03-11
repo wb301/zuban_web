@@ -48,7 +48,8 @@
                         <div class="button-shut" v-if="(type==1&&(item.status==0||item.status==1||item.status==5))" @click="shut">关闭订单</div>
                         <div class="button-confirm" v-if="(type==1&&(item.status==1))" @click="confirm">确认订单</div>
                         <div class="button-customer" v-if="(type==1&&(item.status==6||item.status==10))" @click="customer">联系客服</div>
-                        <div class="button-refund" v-if="(type==0&&(item.status==1||item.status==5))" @click="refund">申请退款</div>
+                        <div class="button-refund" v-if="(type==0&&item.status==1)" @click="refund">申请退款</div>
+                        <div class="button-cancelRe" v-if="(type==0&&item.status==11)" @click="cancelReturn">取消退款</div>
                         <div class="button-complete" v-if="(type==0&&(item.status==5))" @click="complete">服务完成</div>
                         <div class="button-payment" v-if="type==0&&item.status==0" @click="payment">付款</div>
                     </div>
@@ -196,6 +197,26 @@ export default {
                     weui.alert(response.msg)
                 }
             };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        cancelReturn() { //取消退款
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'cancelReturn',
+                orderNo: this.item.order_no
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                this.item.status = 1;
+            this.item.status_name = '待确认';
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
             AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
@@ -386,6 +407,7 @@ export default {
                 .button-confirm,
                 .button-customer,
                 .button-refund,
+                .button-cancelRe,
                 .button-complete {
                     border-radius: 4px;
                     font-size: 12px;
@@ -397,6 +419,7 @@ export default {
                 .button-cancel,
                 .button-shut,
                 .button-customer,
+                .button-cancelRe,
                 .button-refund {
                     width: 63px;
                     height: 26px;
@@ -413,6 +436,8 @@ export default {
                 .button-cancel,
                 .button-shut,
                 .button-customer,
+                                        .button-cancelRe,
+
                 .button-refund {
                     color: #8760BA;
                     border: 1px solid #A878E5;

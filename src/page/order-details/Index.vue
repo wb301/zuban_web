@@ -49,7 +49,8 @@
                 <div class="button-shut" v-if="(type==1&&(orderDetails.status==0||orderDetails.status==1||orderDetails.status==5))" @click="shut">关闭订单</div>
                 <div class="button-confirm" v-if="(type==1&&(orderDetails.status==1))" @click="confirm">确认订单</div>
                 <div class="button-customer" v-if="(type==1&&(orderDetails.status==6||orderDetails.status==10))" @click="customer">联系客服</div>
-                <div class="button-refund" v-if="(type==0&&(orderDetails.status==6||orderDetails.status==10||orderDetails.status==1||orderDetails.status==5))" @click="refund">申请退款</div>
+                <div class="button-refund" v-if="(type==0&&orderDetails.status==1)" @click="refund">申请退款</div>
+                <div class="button-cancelRe" v-if="(type==0&&orderDetails.status==11)" @click="cancelReturn">取消退款</div>
                 <div class="button-complete" v-if="(type==0&&(orderDetails.status==5))" @click="complete">服务完成</div>
                 <div class="button-payment" v-if="(type==0&&(orderDetails.status==0))" @click="payment">付款</div>
             </div>
@@ -227,6 +228,26 @@ export default {
                     weui.alert(response.msg)
                 }
             };
+            AjaxHelper.GetRequest(p_obj);
+        },
+        cancelReturn() { //取消退款
+            var param = {
+                c: 'Zb',
+                m: 'Order',
+                a: 'cancelReturn',
+                orderNo: this.orderNo
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                this.orderDetails.status = 1;
+                this.orderDetails.status_name = '待确认';
+        },
+            fail: (response) => {
+                weui.alert(response.msg)
+            }
+        };
             AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
@@ -424,6 +445,7 @@ export default {
         .button-shut,
         .button-confirm,
         .button-customer,
+        .button-cancelRe,
         .button-refund,
         .button-complete,
         .button-payment {
