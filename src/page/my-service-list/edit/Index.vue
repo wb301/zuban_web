@@ -6,6 +6,7 @@
                     <div v-for="(item,index) in img_list">
                         <img :src="item.img_url">
                         <img class="quxiao" :src="quxiaoimg" @click="deleteImg(index)" v-if="item.type!='add'">
+                        <img class="xz-img" :src="xuanzhuan" @click="xzImg(index)" v-if="item.type!='add'">
                         <input type="file" class="imgupload" accept="image/*" v-if="item.type=='add'" @click="setUpload">
                     </div>
                 </div>
@@ -81,6 +82,7 @@
 import xiala from 'src/page/service-list/list/image/xiala.png'
 import addImg from './image/Artboard14.png'
 import quxiao from './image/quxiao.png'
+import xuanzhuan from './image/xuanzhuan.png'
 
 var unitPriceArr = [{
     label: "小时",
@@ -99,6 +101,7 @@ export default {
         return {
             image: xiala,
             quxiaoimg: quxiao,
+            xuanzhuan: xuanzhuan,
             danweiValue: '',
             danweiName: '',
             region: '',
@@ -259,6 +262,9 @@ export default {
                 });
             }
         },
+        xzImg(p_index) {
+            this.img_list[p_index].img_url = NormalHelper.imageRotate(this.img_list[p_index].img_url);
+        },
         setUpload() {
             var _self = this;
             $(".imgupload").off('change');
@@ -392,6 +398,13 @@ export default {
                     right: 5.55px;
                     height: 16.95px;
                     width: 16.95px;
+                }
+                img.xz-img {
+                    position: absolute;
+                    height: 16.95px;
+                    width: 16.95px;
+                    right: 5.55px;
+                    bottom: 5.55px;
                 }
             }
             >div:nth-child(1),
