@@ -63,7 +63,7 @@
                             <router-link :to="{path: '/agree/release'}">《租伴网服务者入住协议》
                             </router-link>
                         </div>
-                        <div class="instructions">说明：交易成功，平台收取交易额10%的手续费</div>
+                        <div class="instructions">{{as}}</div>
                     </div>
                 </div>
             </div>
@@ -99,6 +99,7 @@ export default {
     components: {},
     data() {
         return {
+            as: NormalHelper.getAsShow(),
             image: xiala,
             quxiaoimg: quxiao,
             xuanzhuan: xuanzhuan,
