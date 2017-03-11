@@ -184,7 +184,7 @@ function quality(src, callback) {
         }
         drawer.drawImage(this, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
         var format = "image/jpeg";
-        var base64 = canvas.toDataURL(format, 0.7).split("base64,")[1];
+        var base64 = canvas.toDataURL(format).split("base64,")[1];
 
         var wh = canvas.width;
         if (canvas.width > canvas.height) {
