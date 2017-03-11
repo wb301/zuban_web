@@ -19,15 +19,7 @@ export default {
     },
     data() {
         return {}
-    },
-    methods: {
-        // if(item.type !=2){
-        //     this
-        // }else{
-
-        // }
-    },
-    // destroyed() {}
+    }
 }
 </script>
 <style lang="less" scoped>
