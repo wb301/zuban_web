@@ -4,7 +4,7 @@
             <div><span>扫描下方二维码，关注租伴网公众号</span></div>
             <img :src="qrcode" />
             <div><span>歌美（上海）企业管理有限公司</span></div>
-            <div @click="customer"><span style="color: blue" >客服电话:4008817673</span></div>
+            <div @click="customer"><span style="color: blue" >客服电话:{{kefu}}</span></div>
         </div>
     </div>
 </template>
@@ -16,7 +16,8 @@ export default {
     },
     data() {
         return {
-            qrcode: qrcode
+            qrcode: qrcode,
+            kefu:NormalHelper.userInfo().server_phone
         }
     },
     mounted() {

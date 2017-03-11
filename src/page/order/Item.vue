@@ -24,7 +24,7 @@
                     </div>
                     <span class="num">x{{item.productList[0].num}}</span>
                 </div>
-                <div class="info-phone" v-else @click="phone">
+                <div class="info-phone" v-else @click="phone(2)">
                     <div>
                         <span>购买联系方式</span>
                         <span>{{item.price}}元</span>
@@ -40,10 +40,10 @@
                     </div>
                 </div>
                 <div class="btn-wapper" v-if="item.order_type==1||(item.order_type==0&&item.status==0)">
-                    <div v-show="type==1" @click="phone">
+                    <div v-show="type==1" @click="phone(1)">
                         <img :src="contactBuyer" />
                     </div>
-                    <div v-show="type==0&&item.status>=1" @click="phone">
+                    <div v-show="type==0&&item.status>=1" @click="phone(2)">
                         <img :src="contactBuyer2" />
                     </div>
                     <div>
@@ -101,14 +101,17 @@ export default {
     },
     methods: {
         //联系买家
-        phone() {
-            if (this.item.order_type == 0) {
-                if (this.item.status == 10) {
-                    window.location.href = 'tel://' + this.item.seller.account;
-                    return;
+        phone(type) {
+            if (type > 1) {
+                if (this.item.order_type == 0) {
+                    if (this.item.status != 10) {
+                        return;
+                    }
                 }
+                window.location.href = 'tel://' + this.item.seller.account;
+            } else {
+                window.location.href = 'tel://' + this.item.phone;
             }
-            window.location.href = 'tel://' + this.item.phone;
         },
         payment() { //付款
             var pay = {
@@ -163,7 +166,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
-            window.location.href = 'tel://' + NormalHelper.userInfo().server_phone;
+            window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
         },
         confirm() { //确认订单
             var param = {
