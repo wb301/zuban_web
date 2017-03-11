@@ -97,7 +97,8 @@ export default {
         //联系买家
         phone() {
             if (this.item.order_type == 0) {
-                if (this.item.status != 10) {
+                if (this.item.status == 10) {
+                    window.location.href = 'tel://' + this.item.seller.account;
                     return;
                 }
             }
@@ -210,13 +211,13 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                this.item.status = 1;
-            this.item.status_name = '待确认';
-        },
-            fail: (response) => {
-                weui.alert(response.msg)
-            }
-        };
+                    this.item.status = 1;
+                    this.item.status_name = '待确认';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
             AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
@@ -436,8 +437,7 @@ export default {
                 .button-cancel,
                 .button-shut,
                 .button-customer,
-                                        .button-cancelRe,
-
+                .button-cancelRe,
                 .button-refund {
                     color: #8760BA;
                     border: 1px solid #A878E5;
