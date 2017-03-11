@@ -28,8 +28,8 @@
                     <span>合计：<span>{{orderDetails.price}}元</span></span>
                 </div>
                 <div class="order-phone">
-                    {{type>0?'买':'卖'}}家联系方式&nbsp;&nbsp;{{orderDetails.status>=1?orderDetails.phone:'***********'}}
-                    <span v-if="type==1&&orderDetails.status>=1"><img :src="lxmj" @click="customer(1)"></span>
+                    {{type>0?'买':'卖'}}家联系方式&nbsp;&nbsp; {{type==0?orderDetails.status>=1?seller.account:'***********':orderDetails.phone}}
+                    <span v-if="type==1"><img :src="lxmj" @click="customer(1)"></span>
                     <span v-if="type==0&&orderDetails.status>=1"><img :src="lxmj2" @click="customer(0)"></span>
                 </div>
                 <div class="message">
@@ -80,7 +80,8 @@ export default {
             num: 1,
             price: 0,
             danwei: '',
-            category_name: ''
+            category_name: '',
+            seller: ''
 
         }
     },
@@ -109,6 +110,7 @@ export default {
                     }
                     this.orderDetails = response;
                     this.product = response.productList;
+                    this.seller = response.seller;
                     this.category_name = response.productList.product.category_name;
                     //0是买家看卖家，1是卖家看买家
                     if (this.type == 0) {
