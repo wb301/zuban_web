@@ -24,7 +24,8 @@ export default {
     },
     methods: {
         customer() { //联系客服
-            window.location.href = 'tel://4008817673';
+            alert(NormalHelper.userInfo().server_phone);
+            window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
         }
     },
     destroyed() {}
