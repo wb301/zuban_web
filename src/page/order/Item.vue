@@ -166,7 +166,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer() { //联系客服
-            window.location.href = 'tel://4008817673';
+            window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
         },
         confirm() { //确认订单
             var param = {
