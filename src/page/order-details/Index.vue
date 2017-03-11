@@ -28,9 +28,9 @@
                     <span>合计：<span>{{orderDetails.price}}元</span></span>
                 </div>
                 <div class="order-phone">
-                    买家联系方式&nbsp;&nbsp;{{orderDetails.phone}}
-                    <span v-if="type==1"><img :src="lxmj" @click="customer(1)"></span>
-                    <span v-if="type==0"><img :src="lxmj2" @click="customer(0)"></span>
+                    {{type>0?'买':'卖'}}家联系方式&nbsp;&nbsp;{{orderDetails.status>=1?orderDetails.phone:'***********'}}
+                    <span v-if="type==1&&orderDetails.status>=1"><img :src="lxmj" @click="customer(1)"></span>
+                    <span v-if="type==0&&orderDetails.status>=1"><img :src="lxmj2" @click="customer(0)"></span>
                 </div>
                 <div class="message">
                     <div>留言</div>
@@ -241,13 +241,13 @@ export default {
                 action: '',
                 param: param,
                 success: (response) => {
-                this.orderDetails.status = 1;
-                this.orderDetails.status_name = '待确认';
-        },
-            fail: (response) => {
-                weui.alert(response.msg)
-            }
-        };
+                    this.orderDetails.status = 1;
+                    this.orderDetails.status_name = '待确认';
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
             AjaxHelper.GetRequest(p_obj);
         },
         complete() { //服务完成
@@ -271,7 +271,7 @@ export default {
             AjaxHelper.GetRequest(p_obj);
         },
         customer(type) { //联系买家
-            if (type) {
+            if (type > -1) {
                 if (type > 0) {
                     window.location.href = 'tel://' + this.orderDetails.phone;
                 } else {
