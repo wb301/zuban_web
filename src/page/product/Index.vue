@@ -101,7 +101,7 @@ export default {
             icon: boda,
             members: 2,
             type: 0,
-            productCode: this.$route.params.productCode,
+            productCode: NormalHelper.Get("buy_productCode"),
             productInfo: {
                 category: {}
             },

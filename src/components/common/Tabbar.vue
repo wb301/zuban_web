@@ -4,11 +4,11 @@
             <div class="weui-tab__panel">
             </div>
             <div class="weui-tabbar">
-                <div class="weui-tabbar__item" :class="item.check?'weui-bar__item_on':''" v-for="(item,index) in sideList" @click="toPath(item)">
+                <router-link active-class='weui-bar__item_on' class="weui-tabbar__item" tag="div" :to="{path: item.path}" v-for="(item,index) in sideList">
                     <img :src="item.img2" alt="" class="weui-tabbar__icon" v-if="item.check">
                     <img :src="item.img" alt="" class="weui-tabbar__icon" v-else>
                     <p class="weui-tabbar__label">{{item.title}}</p>
-                </div>
+                </router-link>
             </div>
         </div>
     </div>
@@ -28,18 +28,7 @@ export default {
     },
     created: function() {},
     mounted() {},
-    methods: {
-        toPath(item) {
-            for (var i = 0; i < this.sideList.length; i++) {
-                this.sideList[i].check = false;
-            }
-            item.check = true;
-            this.$router.push({
-                path: '/' + item.path
-            });
-
-        }
-    },
+    methods: {},
     destroyed() {}
 }
 </script>

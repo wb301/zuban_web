@@ -18,20 +18,34 @@ e<template>
                 </div>
             </div>
             <div class="weui-cells" style="margin-top: 27px;">
-                <div class="weui-cell" href="javascript:;" @click='toWithdraw'>
-                    <label class="weui-label class_font_size_hd">申请提现</label>
-                    <input class="weui-input disabled-input class_font_size_bd" type="text" />
-                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                <div class="weui-cell" @click='toWithdraw'>
+                    <div class="weui-cell__hd ">
+                        <label class="weui-label class_font_size_hd">申请提现</label>
+                    </div>
+                    <div class="weui-cell__bd "></div>
+                    <div class="weui-cell__ft ">
+                        <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                    </div>
                 </div>
-                <div class="weui-cell" href="javascript:;" @click='toWithdrawHistroy'>
-                    <label class="weui-label class_font_size_hd">提现记录</label>
-                    <input class="weui-input disabled-input class_font_size_bd" type="text" />
-                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+
+                <div class="weui-cell" @click='toWithdrawHistroy'>
+                    <div class="weui-cell__hd ">
+                        <label class="weui-label class_font_size_hd">提现记录</label>
+                    </div>
+                    <div class="weui-cell__bd "></div>
+                    <div class="weui-cell__ft ">
+                        <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                    </div>
                 </div>
-                <div class="weui-cell" href="javascript:;" @click='toMoneyHistroy'>
-                    <label class="weui-label class_font_size_hd">收支明细</label>
-                    <input class="weui-input disabled-input class_font_size_bd" type="text" />
-                    <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+
+                <div class="weui-cell" @click='toMoneyHistroy'>
+                    <div class="weui-cell__hd ">
+                        <label class="weui-label class_font_size_hd">收支明细</label>
+                    </div>
+                    <div class="weui-cell__bd "></div>
+                    <div class="weui-cell__ft ">
+                        <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                    </div>
                 </div>
             </div>
             <div></div>

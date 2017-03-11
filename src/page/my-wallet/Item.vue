@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="item-entry">
-            <div class="wapper">
-                <div class="info-wapper">
-                    <div><span class="title">{{item.remark}}</span></div>
-                    <span class="time">{{item.create_time}}</span>
+            <div class="info-wapper">
+                <div class="title">{{item.remark}}</div>
+                <div>
+                    {{item.create_time}}
                     <span v-if="item.price_type == 1 || item.price_type == 3 || item.price_type == 4" class="price">{{item.price}}元</span>
                     <span v-if="item.price_type == 2 || item.price_type == 5 || item.price_type == 6" class="price2">{{item.price}}元</span>
                 </div>
@@ -19,57 +19,37 @@ export default {
     },
     data() {
         return {}
-    },
-    methods: {
-        // if(item.type !=2){
-        //     this
-        // }else{
-
-        // }
-    },
-    // destroyed() {}
+    }
 }
 </script>
 <style lang="less" scoped>
 .item-entry {
-    height: 60px;
-    position: relative;
-    .wapper {
-        border-bottom: 1px solid #e2e2e2;
-        position: absolute;
-        right: 0;
-        left: 0px;
-        top: 0;
-        bottom: 0;
-        padding-top: 0px;
-        .info-wapper {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 7.5px 15px;
+    .info-wapper {
+        position: relative;
+        .title {
+            word-break: break-all;
+            font-size: 14px;
+            color: #333;
+        }
+        >div:nth-child(2) {
+            font-size: 10px;
+            color: #999;
+            height: 20px;
+            line-height: 20px;
+        }
+        .price {
+            font-size: 14px;
+            color: #E35257;
             position: absolute;
-            left: 15px;
-            right: 15px;
-            top: 12.5px;
-            bottom: 15px;
-            line-height: 15px;
-            .title {
-                font-size: 14px;
-                color: #333;
-            }
-            .time {
-                font-size: 10px;
-                color: #999;
-                margin-top: 5px;
-            }
-            .price {
-                font-size: 14px;
-                color: #E35257;
-                position: absolute;
-                right: 10px;
-            }
-            .price2 {
-                font-size: 14px;
-                color: #1CAC1B;
-                position: absolute;
-                right: 10px;
-            }
+            right: 0px;
+        }
+        .price2 {
+            font-size: 14px;
+            color: #1CAC1B;
+            position: absolute;
+            right: 0px;
         }
     }
 }

@@ -50,7 +50,7 @@ const router = new Router({
             require(['./page/my-service-list/edit/Index.vue'], resolve)
         }
     }, {
-        path: '/product/:productCode',
+        path: '/product',
         component: function(resolve) {
             require(['./page/product/Index.vue'], resolve)
         }
