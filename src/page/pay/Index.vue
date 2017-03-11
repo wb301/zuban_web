@@ -26,7 +26,7 @@
                 <div>
                     <img :src="qrcode">
                 </div>
-                <p class="content">说明：暂不支持浏览器付款 扫描下方二维码，关注租伴网公众号</p>
+                <p v-if="isWeixin" class="content">说明：暂不支持浏览器付款 扫描下方二维码，关注租伴网公众号</p>
             </div>
         </div>
     </div>
