@@ -280,7 +280,7 @@ export default {
                     window.location.href = 'tel://' + this.orderDetails.seller.account;
                 }
             } else {
-                window.location.href = 'tel://4008817673';
+                window.location.href = 'tel://'+NormalHelper.userInfo().server_phone;
             }
 
         }
