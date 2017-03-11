@@ -11,7 +11,7 @@
                             <div class="user-portrait">
                                 <img :src="img_list" style="height: 50px;width: 50px">
                             </div>
-                            <input type="file" class="imgupload" accept="image/gif, image/jpeg, image/png" @click="setUpload">
+                            <input type="file" class="imgupload" accept="image/*" @click="setUpload">
                         </div>
                     </div>
                 </div>
