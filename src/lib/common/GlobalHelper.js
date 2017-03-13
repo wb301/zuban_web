@@ -1,7 +1,7 @@
 //内容类型
 var GlobalModel = {};
 GlobalModel.SERVER_DOMAIN = '';
-GlobalModel.SERVER_PATH = '/zuban';
+GlobalModel.SERVER_PATH = '/zuban?';
 if (process.env.NODE_ENV === 'production') {
     GlobalModel.SERVER_DOMAIN = '';
     GlobalModel.SERVER_PATH = '/youfan/api/index.php?';
