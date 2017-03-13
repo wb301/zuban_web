@@ -54,8 +54,9 @@
                     <div class="specific_2">
                         <div>所在地：{{userInfo.region_name}}</div>
                     </div>
-                    <div class="specific_2">
+                    <div class="specific">
                         <div>年龄：{{userInfo.age}}</div>
+                        <div>性别：{{this.gender}}</div>
                     </div>
                     <div class="specific">
                         <div>身高：{{userInfo.height}}厘米</div>
@@ -98,6 +99,7 @@ export default {
     data() {
         return {
             gender_icon: nan,
+            gender: '男',
             icon: boda,
             members: 2,
             type: 0,
@@ -136,6 +138,8 @@ export default {
                     }
                     if (this.userInfo) {
                         this.gender_icon = this.userInfo.sex == 'M' ? nan : nv;
+                        this.gender = this.userInfo.sex == 'M' ? '男' : '女';
+
                     }
                     if (response.vip_level > 0 || parseFloat(response.look_price) <= 0)
                         this.members = 1;
