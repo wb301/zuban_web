@@ -20,7 +20,17 @@ e<template>
             <div class="weui-cells" style="margin-top: 27px;">
                 <div class="weui-cell" @click='toWithdraw'>
                     <div class="weui-cell__hd ">
-                        <label class="weui-label class_font_size_hd">申请提现</label>
+                        <label class="weui-label class_font_size_hd">支付宝提现</label>
+                    </div>
+                    <div class="weui-cell__bd "></div>
+                    <div class="weui-cell__ft ">
+                        <div><img :src="arrow" style="width:15px;height:15px;" /></div>
+                    </div>
+                </div>
+
+                <div class="weui-cell" @click='toWithdrawByBank'>
+                    <div class="weui-cell__hd ">
+                        <label class="weui-label class_font_size_hd">银行卡提现</label>
                     </div>
                     <div class="weui-cell__bd "></div>
                     <div class="weui-cell__ft ">
@@ -133,6 +143,11 @@ export default {
         toWithdraw() {
             this.$router.push({
                 path: '/money'
+            });
+        },
+        toWithdrawByBank() {
+            this.$router.push({
+                path: '/moneyByBank'
             });
         },
         toWithdrawHistroy() {
