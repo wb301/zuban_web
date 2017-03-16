@@ -64,8 +64,8 @@ export default {
     mounted() {
         if(this.$route.query.region){
             var region = JSON.parse(this.$route.query.region);
-            this.region_code = region[0];
-            this.region = region[1]
+            this.region_code = region.code;
+            this.region = region.name;
         }
         if(this.region_code == 0){
             $("#region").focus(function() {
