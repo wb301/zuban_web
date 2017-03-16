@@ -95,7 +95,7 @@ var unitPriceArr = [{
     value: '3'
 }];
 var imguploadNum = 0;
-var createBool = true;
+var createBool = false;
 export default {
     components: {},
     data() {
@@ -261,8 +261,7 @@ export default {
             });
         },
         createProductInfo() {
-            if (createBool) {
-                createBool = false;
+            if (!createBool) {
                 var param = {
                     productInfo: {
                         product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
@@ -292,9 +291,6 @@ export default {
                             case 'product_image':
                                 weui.alert('服务图片不能为空');
                                 break;
-                            case 'product_info':
-                                weui.alert('服务内容不能为空');
-                                break;
                             case 'price':
                                 weui.alert('服务价格不能为空');
                                 break;
@@ -316,6 +312,7 @@ export default {
                     action: 'c=Zb&m=Product&a=createProductInfo',
                     param: param,
                     success: (response) => {
+                        createBool = true;
                         var $toast = $('#toast');
                         if ($toast.css('display') != 'none') return;
                         $toast.fadeIn(100);
@@ -327,7 +324,6 @@ export default {
                         }, 2000);
                     },
                     fail: (response) => {
-                        createBool = true;
                         weui.alert(response.msg);
                     }
                 };
