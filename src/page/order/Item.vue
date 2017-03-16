@@ -20,7 +20,7 @@
                     </span>
                     <span class="info">{{item.productList[0].product.product_info}}</span>
                     <div class="price">
-                        <span>{{item.price}}元/{{item.danwei}}</span>
+                        <span>{{item.productList[0].price}}元/{{item.danwei}}</span>
                     </div>
                     <span class="num">x{{item.productList[0].num}}</span>
                 </div>
@@ -36,7 +36,7 @@
                     <span class="time">{{item.create_time}}</span>
                     <div class="t-price">
                         <span>合计:</span>
-                        <span>{{item.productList[0].total_price}}元</span>
+                        <span>{{item.price}}元</span>
                     </div>
                 </div>
                 <div class="btn-wapper" v-if="item.order_type==1||(item.order_type==0&&item.status==0)">
