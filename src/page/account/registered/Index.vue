@@ -12,7 +12,7 @@
                         <input class="weui-input" v-model="password" type="password" placeholder="设置6-20位由字母、数字、下划线组成的密码" />
                     </div>
                 </div>
-                <div class="weui-cell">
+                <div class="weui-cell" v-if="region_code==0">
                     <div class="weui-cell__bd">
                         <input class="weui-input" id="region" v-model="region" type="text" @click="selectRegion" placeholder="请设置地区" />
                     </div>
@@ -62,29 +62,37 @@ export default {
         }
     },
     mounted() {
-        $("#region").focus(function() {
-            document.activeElement.blur();
-        });
-        var param = {
-            c: 'Zb',
-            m: 'Region',
-            a: 'getRegionList',
-            mapping: {
-                name: 'label',
-                code: 'value'
-            }
-        };
-        var p_obj = {
-            action: '',
-            param: param,
-            success: (response) => {
-                this.regionList = response;
-            },
-            fail: (response) => {
-                weui.alert(response.msg)
-            }
-        };
-        AjaxHelper.GetRequest(p_obj);
+        if(this.$route.query.region){
+            var region = JSON.parse(this.$route.query.region);
+            this.region_code = region[0];
+            this.region = region[1]
+        }
+        if(this.region_code == 0){
+            $("#region").focus(function() {
+                document.activeElement.blur();
+            });
+
+            var param = {
+                c: 'Zb',
+                m: 'Region',
+                a: 'getRegionList',
+                mapping: {
+                    name: 'label',
+                    code: 'value'
+                }
+            };
+            var p_obj = {
+                action: '',
+                param: param,
+                success: (response) => {
+                    this.regionList = response;
+                },
+                fail: (response) => {
+                    weui.alert(response.msg)
+                }
+            };
+            AjaxHelper.GetRequest(p_obj);
+        }
     },
     methods: {
         checkAgree() {
