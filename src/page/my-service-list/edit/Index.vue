@@ -313,25 +313,26 @@ export default {
                 var bool = false;
                 for (var key in param.productInfo) {
                     if (param.productInfo[key].length == 0 || param.productInfo[key] == 0) {
-                        bool = true;
                         switch (key) {
                             case 'product_image':
+                                bool = true;
                                 weui.alert('服务图片不能为空');
                                 break;
                             case 'price':
+                                bool = true;
                                 weui.alert('服务价格不能为空');
                                 break;
                             case 'price_type':
+                                bool = true;
                                 weui.alert('价格单位不能为空');
                                 break;
                             case 'region_code':
+                                bool = true;
                                 weui.alert('服务地区不能为空');
                                 break;
                             case 'category_id':
+                                bool = true;
                                 weui.alert('服务类型不能为空');
-                                break;
-                            case 'product_info':
-                                param.productInfo[key] = NormalHelper.replaceNum(param.productInfo[key]);
                                 break;
                         }
                     }
