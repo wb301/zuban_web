@@ -55,10 +55,14 @@ NormalHelper.delCookie = function(name) {
 
 //用户数据
 NormalHelper.userInfo = function() {
-    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: '', token: null, server_phone: "4008817673" }
+    return NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO) ? JSON.parse(NormalHelper.getCookie(GlobalModel.COOKIE_USER_INFO)) : { nick_name: '未登录', account: '', token: null, server_phone: "4008817673", as:"10"}
 }
 NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
+}
+
+NormalHelper.getAsShow = function(){
+    return "说明：交易成功，平台收取交易额"+NormalHelper.userInfo().as+"%的手续费";
 }
 
 NormalHelper.Set = function(key, value) {

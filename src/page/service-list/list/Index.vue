@@ -65,6 +65,14 @@ export default {
             this.regionCode = 1;
             this.name.region = "全国";
         }
+        if (SaveDataHelper.getLocalStorage('SortInfo') != null) {
+            this.orderBy = SaveDataHelper.getLocalStorage('SortInfo').orderBy;
+            this.name.order = SaveDataHelper.getLocalStorage('SortInfo').order;
+        }
+        if (SaveDataHelper.getLocalStorage('CategoryInfo') != null) {
+            this.categoryId = SaveDataHelper.getLocalStorage('CategoryInfo').categoryId;
+            this.name.category = SaveDataHelper.getLocalStorage('CategoryInfo').category;
+        }
         this.getRegionList();
         this.getCategoryList();
         this.createDropload();
@@ -92,6 +100,10 @@ export default {
                 defaultValue: ['mr'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
+                    SaveDataHelper.setLocalStorage('SortInfo', {
+                        orderBy: result[0].value,
+                        order: result[0].label
+                    });
                     _self.orderBy = result[0].value;
                     _self.name.order = result[0].label;
                     _self.page = 1;
@@ -170,6 +182,10 @@ export default {
                 defaultValue: [1],
                 className: 'custom-classname',
                 onConfirm: function(result) {
+                    SaveDataHelper.setLocalStorage('CategoryInfo', {
+                        categoryId: result[1].value,
+                        category: result[1].label
+                    });
                     _self.categoryId = result[1].value;
                     _self.name.category = result[1].label;
                     _self.page = 1;

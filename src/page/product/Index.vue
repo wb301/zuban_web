@@ -54,8 +54,9 @@
                     <div class="specific_2">
                         <div>所在地：{{userInfo.region_name}}</div>
                     </div>
-                    <div class="specific_2">
+                    <div class="specific">
                         <div>年龄：{{userInfo.age}}</div>
+                        <div>性别：{{this.gender}}</div>
                     </div>
                     <div class="specific">
                         <div>身高：{{userInfo.height}}厘米</div>
@@ -72,7 +73,7 @@
             <div v-if="type==0">
                 <div class="button-buy" @click="buyContact" v-if="members!=1">购买联系方式</div>
                 <div class="button-buy buy_default" v-else>
-                    此分类暂时免费
+                    {{vip_level>0?'会员查看免费':'此分类暂时免费'}}
                 </div>
                 <div class="button-immediately" @click="rentImmediately">立即租</div>
             </div>
@@ -98,6 +99,7 @@ export default {
     data() {
         return {
             gender_icon: nan,
+            gender: '男',
             icon: boda,
             members: 2,
             type: 0,
@@ -106,7 +108,8 @@ export default {
                 category: {}
             },
             userInfo: {},
-            imageList: []
+            imageList: [],
+            vip_level: 0
         }
     },
     mounted() {
@@ -136,9 +139,13 @@ export default {
                     }
                     if (this.userInfo) {
                         this.gender_icon = this.userInfo.sex == 'M' ? nan : nv;
+                        this.gender = this.userInfo.sex == 'M' ? '男' : '女';
+
                     }
-                    if (response.vip_level > 0 || parseFloat(response.look_price) <= 0)
+                    if (response.vip_level > 0 || parseFloat(response.look_price) <= 0) {
+                        this.vip_level = response.vip_level;
                         this.members = 1;
+                    }
                 },
                 fail: (response) => {
                     weui.alert(response.msg)

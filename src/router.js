@@ -127,6 +127,11 @@ const router = new Router({
             require(['./page/my-wallet/Money.vue'], resolve)
         }
     }, {
+        path: '/moneyByBank',
+        component: function(resolve) {
+            require(['./page/my-wallet/MoneyBank.vue'], resolve)
+        }
+    }, {
         path: '/detail',
         component: function(resolve) {
             require(['./page/my-wallet/Detail.vue'], resolve)

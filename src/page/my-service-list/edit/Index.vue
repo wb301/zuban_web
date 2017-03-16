@@ -63,7 +63,7 @@
                             <router-link :to="{path: '/agree/release'}">《租伴网服务者入住协议》
                             </router-link>
                         </div>
-                        <div class="instructions">说明：交易成功，平台收取交易额10%的手续费</div>
+                        <div class="instructions">{{as}}</div>
                     </div>
                 </div>
             </div>
@@ -95,10 +95,12 @@ var unitPriceArr = [{
     value: '3'
 }];
 var imguploadNum = 0;
+var createBool = true;
 export default {
     components: {},
     data() {
         return {
+            as: NormalHelper.getAsShow(),
             image: xiala,
             quxiaoimg: quxiao,
             xuanzhuan: xuanzhuan,
@@ -125,7 +127,11 @@ export default {
         this.getRegionList();
         this.getProductInfo();
     },
-    watch: {},
+    watch: {
+        product_info: function() {
+            this.product_info = this.product_info.replace(/\d/g, "*");
+        }
+    },
     methods: {
         getProductInfo() {
             var param = {
@@ -280,76 +286,81 @@ export default {
             });
         },
         createProductInfo() {
-
-            var param = {
-                productInfo: {
-                    product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
-                    product_info: this.product_info,
-                    price: this.price,
-                    price_type: this.danweiValue,
-                    region_code: this.region_code,
-                    region_name: this.region.split(" ").join("-"),
-                    category_id: this.categor_id,
-                    image_list: [],
-                    product_sys_code: this.productCode
+            if (createBool) {
+                createBool = false;
+                var param = {
+                    productInfo: {
+                        product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
+                        product_info: this.product_info,
+                        price: this.price,
+                        price_type: this.danweiValue,
+                        region_code: this.region_code,
+                        region_name: this.region.split(" ").join("-"),
+                        category_id: this.categor_id,
+                        image_list: [],
+                        product_sys_code: this.productCode
+                    }
+                };
+                if (this.pos) {
+                    param.productInfo.latitude = this.pos.latitude;
+                    param.productInfo.logitude = this.pos.logitude;
                 }
-            };
-            if (this.pos) {
-                param.productInfo.latitude = this.pos.latitude;
-                param.productInfo.logitude = this.pos.logitude;
-            }
-            for (var i = 0; i < this.img_list.length; i++) {
-                if (this.img_list[i].type != "add") {
-                    param.productInfo.image_list.push(this.img_list[i].img_url);
-                }
-            }
-            var bool = false;
-            for (var key in param.productInfo) {
-                if (param.productInfo[key].length == 0 || param.productInfo[key] == 0) {
-                    bool = true;
-                    switch (key) {
-                        case 'product_image':
-                            weui.alert('服务图片不能为空');
-                            break;
-                        case 'product_info':
-                            weui.alert('服务内容不能为空');
-                            break;
-                        case 'price':
-                            weui.alert('服务价格不能为空');
-                            break;
-                        case 'price_type':
-                            weui.alert('价格单位不能为空');
-                            break;
-                        case 'region_code':
-                            weui.alert('服务地区不能为空');
-                            break;
-                        case 'category_id':
-                            weui.alert('服务类型不能为空');
-                            break;
+                for (var i = 0; i < this.img_list.length; i++) {
+                    if (this.img_list[i].type != "add") {
+                        param.productInfo.image_list.push(this.img_list[i].img_url);
                     }
                 }
-            }
-            if (bool) return;
-            var _self = this;
-            var p_obj = {
-                action: 'c=Zb&m=Product&a=updateProductInfo',
-                param: param,
-                success: (response) => {
-                    var $toast = $('#toast');
-                    if ($toast.css('display') != 'none') return;
-                    $toast.fadeIn(100);
-                    setTimeout(function() {
-                        $toast.fadeOut(100);
-                        _self.$router.push({
-                            path: '/my-service-list'
-                        });
-                    }, 2000);
-                },
-                fail: (response) => {
-                    weui.alert(response.msg)
+                var bool = false;
+                for (var key in param.productInfo) {
+                    if (param.productInfo[key].length == 0 || param.productInfo[key] == 0) {
+                        bool = true;
+                        switch (key) {
+                            case 'product_image':
+                                weui.alert('服务图片不能为空');
+                                break;
+                            case 'product_info':
+                                weui.alert('服务内容不能为空');
+                                break;
+                            case 'price':
+                                weui.alert('服务价格不能为空');
+                                break;
+                            case 'price_type':
+                                weui.alert('价格单位不能为空');
+                                break;
+                            case 'region_code':
+                                weui.alert('服务地区不能为空');
+                                break;
+                            case 'category_id':
+                                weui.alert('服务类型不能为空');
+                                break;
+                        }
+                    }
                 }
-            };
-            AjaxHelper.PostRequest(p_obj);
+                if (bool) return;
+                var _self = this;
+                var p_obj = {
+                    action: 'c=Zb&m=Product&a=updateProductInfo',
+                    param: param,
+                    success: (response) => {
+                        var $toast = $('#toast');
+                        if ($toast.css('display') != 'none') return;
+                        $toast.fadeIn(100);
+                        setTimeout(function() {
+                            $toast.fadeOut(100);
+                            _self.$router.push({
+                                path: '/my-service-list'
+                            });
+                        }, 2000);
+                    },
+                    fail: (response) => {
+                        createBool = true;
+                        weui.alert(response.msg);
+                    }
+                };
+                AjaxHelper.PostRequest(p_obj);
+            } else {
+                weui.alert("请勿重复发布");
+            }
         }
     },
     destroyed() {}
