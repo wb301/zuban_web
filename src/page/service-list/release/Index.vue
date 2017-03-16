@@ -262,6 +262,7 @@ export default {
         },
         createProductInfo() {
             if (!createBool) {
+                createBool = true;
                 var param = {
                     productInfo: {
                         product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
@@ -306,15 +307,20 @@ export default {
                         }
                     }
                 }
-                if (bool) return;
+                if (bool){
+                    createBool = false;
+                    return;
+                }
                 var _self = this;
                 var p_obj = {
                     action: 'c=Zb&m=Product&a=createProductInfo',
                     param: param,
                     success: (response) => {
-                        createBool = true;
                         var $toast = $('#toast');
-                        if ($toast.css('display') != 'none') return;
+                        if ($toast.css('display') != 'none'){
+                            createBool = false;
+                            return;
+                        }
                         $toast.fadeIn(100);
                         setTimeout(function() {
                             $toast.fadeOut(100);
@@ -324,6 +330,7 @@ export default {
                         }, 2000);
                     },
                     fail: (response) => {
+                        createBool = false;
                         weui.alert(response.msg);
                     }
                 };
