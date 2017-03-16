@@ -95,7 +95,7 @@ var unitPriceArr = [{
     value: '3'
 }];
 var imguploadNum = 0;
-var createBool = false;
+var createBool = 0;
 export default {
     components: {},
     data() {
@@ -261,8 +261,8 @@ export default {
             });
         },
         createProductInfo() {
-            if (!createBool) {
-                createBool = true;
+            if (createBool <= 0) {
+                createBool = 1;
                 var param = {
                     productInfo: {
                         product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
@@ -304,11 +304,14 @@ export default {
                             case 'category_id':
                                 weui.alert('服务类型不能为空');
                                 break;
+                            case 'product_info':
+                                param.productInfo[key] = NormalHelper.replaceNum(param.productInfo[key]);
+                                break;
                         }
                     }
                 }
                 if (bool){
-                    createBool = false;
+                    createBool = 0;
                     return;
                 }
                 var _self = this;
@@ -318,7 +321,7 @@ export default {
                     success: (response) => {
                         var $toast = $('#toast');
                         if ($toast.css('display') != 'none'){
-                            createBool = false;
+                            createBool = 0;
                             return;
                         }
                         $toast.fadeIn(100);
@@ -330,7 +333,7 @@ export default {
                         }, 2000);
                     },
                     fail: (response) => {
-                        createBool = false;
+                        createBool = 0;
                         weui.alert(response.msg);
                     }
                 };
