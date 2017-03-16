@@ -330,6 +330,9 @@ export default {
                             case 'category_id':
                                 weui.alert('服务类型不能为空');
                                 break;
+                            case 'product_info':
+                                param.productInfo[key] = NormalHelper.replaceNum(param.productInfo[key]);
+                                break;
                         }
                     }
                 }

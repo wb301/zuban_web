@@ -149,6 +149,10 @@ NormalHelper.getPostion = function(callback) {
     return NormalHelper.cur_postion;
 };
 
+NormalHelper.replaceNum = function(text){
+    return text.replace(/[0-9]/ig,"*");
+}
+
 NormalHelper.isWeixin = function() {
     var ua = navigator.userAgent.toLowerCase();
     return ua.match(/MicroMessenger/i) == "micromessenger";
