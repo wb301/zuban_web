@@ -95,7 +95,7 @@ var unitPriceArr = [{
     value: '3'
 }];
 var imguploadNum = 0;
-var createBool = true;
+var createBool = false;
 export default {
     components: {},
     data() {
@@ -286,8 +286,8 @@ export default {
             });
         },
         createProductInfo() {
-            if (createBool) {
-                createBool = false;
+            if (!createBool) {
+                createBool = true;
                 var param = {
                     productInfo: {
                         product_image: this.img_list[0].type == "add" ? '' : this.img_list[0].img_url,
@@ -318,9 +318,6 @@ export default {
                             case 'product_image':
                                 weui.alert('服务图片不能为空');
                                 break;
-                            case 'product_info':
-                                weui.alert('服务内容不能为空');
-                                break;
                             case 'price':
                                 weui.alert('服务价格不能为空');
                                 break;
@@ -336,14 +333,20 @@ export default {
                         }
                     }
                 }
-                if (bool) return;
+                if (bool){
+                    createBool = false;
+                    return;
+                };
                 var _self = this;
                 var p_obj = {
                     action: 'c=Zb&m=Product&a=updateProductInfo',
                     param: param,
                     success: (response) => {
                         var $toast = $('#toast');
-                        if ($toast.css('display') != 'none') return;
+                        if ($toast.css('display') != 'none'){
+                            createBool = false;
+                            return;
+                        };
                         $toast.fadeIn(100);
                         setTimeout(function() {
                             $toast.fadeOut(100);
@@ -353,7 +356,7 @@ export default {
                         }, 2000);
                     },
                     fail: (response) => {
-                        createBool = true;
+                        createBool = false;
                         weui.alert(response.msg);
                     }
                 };
