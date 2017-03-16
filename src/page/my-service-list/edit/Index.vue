@@ -330,6 +330,9 @@ export default {
                             case 'category_id':
                                 weui.alert('服务类型不能为空');
                                 break;
+                            default:
+                                bool = false;
+                                break;
                         }
                     }
                 }
