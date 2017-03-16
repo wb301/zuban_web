@@ -127,7 +127,11 @@ export default {
         this.getRegionList();
         this.getProductInfo();
     },
-    watch: {},
+    watch: {
+        product_info: function() {
+            this.product_info = this.product_info.replace(/\d/g, "*");
+        }
+    },
     methods: {
         getProductInfo() {
             var param = {
