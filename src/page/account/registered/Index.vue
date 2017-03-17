@@ -12,7 +12,7 @@
                         <input class="weui-input" v-model="password" type="password" placeholder="设置6-20位由字母、数字、下划线组成的密码" />
                     </div>
                 </div>
-                <div class="weui-cell" v-if="region_code==0">
+                <div class="weui-cell" v-if="!this.route_region">
                     <div class="weui-cell__bd">
                         <input class="weui-input" id="region" v-model="region" type="text" @click="selectRegion" placeholder="请设置地区" />
                     </div>
@@ -52,6 +52,7 @@ export default {
             regionList: [],
             region_code: 0,
             is_agree: 1,
+            route_region: this.$route.query.region,
             codeBtn: {
                 prompt: '获取验证码',
                 disabled: ''
@@ -62,12 +63,12 @@ export default {
         }
     },
     mounted() {
-        if(this.$route.query.region){
-            var region = JSON.parse(this.$route.query.region);
+        if(this.route_region){
+            var region = JSON.parse(route_region);
             this.region_code = region.code;
             this.region = region.name;
         }
-        if(this.region_code == 0){
+        if(!this.route_region){
             $("#region").focus(function() {
                 document.activeElement.blur();
             });
