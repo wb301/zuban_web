@@ -14,7 +14,7 @@ export default {
     },
     mounted() {
         this.next = this.$route.params.next;
-        if(SaveDataHelper.getLocalStorage(GlobalModel.COOKIE_USER_INFO)){
+        if(SaveDataHelper.getLocalStorage("userInfo")){
             var userInfo = JSON.parse(SaveDataHelper.getLocalStorage(GlobalModel.COOKIE_USER_INFO));
             var that = this;
             NormalHelper.getPostion(function(pos) {
