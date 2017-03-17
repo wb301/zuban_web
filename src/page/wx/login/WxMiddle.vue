@@ -38,6 +38,7 @@ export default {
                 success: (response) => {
                     response["token"] = this.userInfo.token;
                     NormalHelper.setUserInfo(response);
+                    // SaveDataHelper.setLocalStorage("userInfo", JSON.stringify(response));
                     this.userInfo = response;
                     this.$router.replace({
                         path: '/'+this.next

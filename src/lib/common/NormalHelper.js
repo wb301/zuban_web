@@ -59,7 +59,6 @@ NormalHelper.userInfo = function() {
 }
 NormalHelper.setUserInfo = function(response) {
     NormalHelper.setCookie(GlobalModel.COOKIE_USER_INFO, JSON.stringify(response));
-    SaveDataHelper.setLocalStorage("userInfo", JSON.stringify(response));
 }
 
 NormalHelper.getAsShow = function(){
