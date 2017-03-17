@@ -12,9 +12,9 @@
                         <input class="weui-input" v-model="password" type="password" placeholder="设置6-20位由字母、数字、下划线组成的密码" />
                     </div>
                 </div>
-                <div class="weui-cell" v-if="!this.route_region">
+                <div class="weui-cell" v-if="!route_region">
                     <div class="weui-cell__bd">
-                        <input class="weui-input" id="region" v-model="region" type="text" @click="selectRegion" placeholder="请设置地区" />
+                        <input class="weui-input" id="region_name" v-model="region_name" type="text" @click="selectRegion" placeholder="请设置地区" />
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_vcode">
@@ -48,7 +48,7 @@ export default {
             mobile: '',
             password: '',
             code: '',
-            region: '',
+            region_name: '',
             regionList: [],
             region_code: 0,
             is_agree: 1,
@@ -64,11 +64,10 @@ export default {
     },
     mounted() {
         if(this.route_region){
-            var region = JSON.parse(route_region);
+            var region = JSON.parse(this.route_region);
             this.region_code = region.code;
-            this.region = region.name;
-        }
-        if(!this.route_region){
+            this.region_name = region.name;
+        }else{
             $("#region").focus(function() {
                 document.activeElement.blur();
             });
@@ -109,7 +108,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.region_code = result[2].value;
-                    _self.region = result[0].label + " " + result[1].label + " " + result[2].label;
+                    _self.region_name = result[0].label + "-" + result[1].label + "-" + result[2].label;
                 },
                 id: 'doubleLinePicker'
             });
@@ -162,7 +161,7 @@ export default {
                 password: this.password,
                 code: this.code,
                 region_code: this.region_code,
-                region_name: this.region,
+                region_name: this.region_name,
                 latitude: this.pos.latitude,
                 logitude: this.pos.logitude
             };

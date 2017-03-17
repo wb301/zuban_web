@@ -216,7 +216,7 @@ export default {
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     _self.region_code = result[2].value;
-                    _self.region = result[0].label + " " + result[1].label + " " + result[2].label;
+                    _self.region = result[0].label + "-" + result[1].label + "-" + result[2].label;
                 },
                 id: 'regionPicker'
             });
@@ -295,7 +295,7 @@ export default {
                         price: this.price,
                         price_type: this.danweiValue,
                         region_code: this.region_code,
-                        region_name: this.region.split(" ").join("-"),
+                        region_name: this.region,
                         category_id: this.categor_id,
                         image_list: [],
                         product_sys_code: this.productCode
