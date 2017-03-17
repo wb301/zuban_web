@@ -151,7 +151,7 @@ export default {
                     allPrice: this.allPrice,
                     order_type: this.type == 1 ? 0 : 1,
                     //地区code
-                    source: NormalHelper.userInfo().region_code,
+                    source: this.productInfo.region_code,
                     receiver: NormalHelper.userInfo().nick_name,
                     //时间戳
                     check_code: Date.parse(new Date()),
