@@ -56,14 +56,14 @@ export default {
         }
     },
     mounted() {
-        this.orderBy = 'mr';
-        this.name.order = '最近时间';
+        this.orderBy = 'jl_0';
+        this.name.order = '离我最近';
         if (SaveDataHelper.getLocalStorage('RegionInfo') != null) {
             this.regionCode = SaveDataHelper.getLocalStorage('RegionInfo').regionCode;
             this.name.region = SaveDataHelper.getLocalStorage('RegionInfo').region;
         } else {
             this.regionCode = 1;
-            this.name.region = "全国";
+            this.name.region = "地区";
         }
         if (SaveDataHelper.getLocalStorage('SortInfo') != null) {
             this.orderBy = SaveDataHelper.getLocalStorage('SortInfo').orderBy;
@@ -83,21 +83,21 @@ export default {
                 label: "最近时间",
                 value: 'mr'
             }, {
-                label: "价格从低到高",
+                label: "价格最低",
                 value: 'jg_0'
             }, {
-                label: "价格从高到低",
+                label: "价格最高",
                 value: 'jg_1'
             }, {
-                label: "距离从近到远",
+                label: "离我最近",
                 value: 'jl_0'
             }, {
-                label: "距离从远到近",
+                label: "离我最远",
                 value: 'jl_1'
             }];
             var _self = this;
             weui.picker(arr, {
-                defaultValue: ['mr'],
+                defaultValue: ['jl_0'],
                 className: 'custom-classname',
                 onConfirm: function(result) {
                     SaveDataHelper.setLocalStorage('SortInfo', {
